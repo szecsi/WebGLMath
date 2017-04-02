@@ -1,0 +1,106 @@
+/**
+ * @file WebGLMath Vec4Array class
+ * @copyright Laszlo Szecsi 2017
+ */
+
+/**
+ * @class Vec4Array
+ * @extends VecArray
+ * @classdesc Array of four-element vectors of 32-bit floats. May reflect an ESSL array-of-vec4s uniform variable.
+ * <BR> Individual [Vec4]{@link Vec4} elements are available through the index operator [].
+ * Methods are available for optimized bulk processing.
+ * @param {Number} size - The number of Vec4 elements in the array.
+ * @constructor
+ */
+var Vec4Array = function(size){
+  this.length = size;
+  this.storage = new Float32Array(size * 4);
+  for(var i=0; i<size; i++){
+    var proxy = Object.create(Vec4.prototype);
+    proxy.storage = this.storage.subarray(i*4, (i+1)*4);
+    Object.defineProperty(this, i, {value: proxy} );
+  }
+};
+
+Vec4Array.prototype = Object.create(VecArray.prototype);
+Vec4Array.prototype.constructor = Vec4Array;
+
+/**
+ * @method subarray
+ * @memberof Vec4Array.prototype  
+ * @description Returns a new Vec4Array object that captures a subrange of the array. The new array is a view on the original data, not a copy.
+ * @param {Number} [begin=0] - Element to begin at. The offset is inclusive. The whole array will be cloned if this value is not specified.
+ * @param {Number} [end=length] - Element to end at. The offset is exclusive. If not specified, all elements from the one specified by begin to the end of the array are included in the new view.
+ * @return {Vec4Array} new view on some of the array's elements
+ */
+Vec4Array.prototype.subarray = function(begin, end){
+  var result = Object.create(Vec4Array.prototype);
+  result.storage = this.storage.subarray(begin*4, end*4);
+  return result;
+};
+
+/**
+ * @method normalize
+ * @memberof Vec4Array.prototype  
+ * @description Fills this vector with the unit length versions of vectors in the argument vector.
+ * @param {Vec4Array} b - Array of vectors to normalize. Its length must be identical to this array's length. 
+ * @return {Vec4Array} this
+ */
+Vec4Array.prototype.normalize = function(b) {
+  for(var i=0; i<this.storage.length; i+=4) {
+  	var l2 =
+  	  b.storage[i  ] * b.storage[i  ] +
+  	  b.storage[i+1] * b.storage[i+1] +
+  	  b.storage[i+2] * b.storage[i+2] +
+  	  b.storage[i+3] * b.storage[i+3] ;
+  	  var linv = 1 / Math.sqrt(l2);
+    this.storage[i  ] = b.storage[i  ] * linv;
+    this.storage[i+1] = b.storage[i+1] * linv;
+    this.storage[i+2] = b.storage[i+2] * linv;
+    this.storage[i+3] = b.storage[i+3] * linv;
+  }
+};
+
+/**
+ * @method transform
+ * @memberof Vec4Array.prototype
+ * @description Fills this vector with vectors from the argument vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @param {Vec4Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
+ * @return {Vec4Array} this
+ */
+Vec4Array.prototype.transform = function(v, m) {
+  for(var i=0; i<this.storage.length; i+=4) {
+    this.storage[i+0] =
+       v.storage[i+0] * m.storage[ 0] +
+       v.storage[i+1] * m.storage[ 1] +
+       v.storage[i+2] * m.storage[ 2] +
+       v.storage[i+3] * m.storage[ 3] ;
+    this.storage[i+1] =
+       v.storage[i+0] * m.storage[ 4] +
+       v.storage[i+1] * m.storage[ 5] +
+       v.storage[i+2] * m.storage[ 6] +
+       v.storage[i+3] * m.storage[ 7] ;
+    this.storage[i+2] =
+       v.storage[i+0] * m.storage[ 8] +
+       v.storage[i+1] * m.storage[ 9] +
+       v.storage[i+2] * m.storage[10] +
+       v.storage[i+3] * m.storage[11] ;
+    this.storage[i+3] =
+       v.storage[i+0] * m.storage[12] +
+       v.storage[i+1] * m.storage[13] +
+       v.storage[i+2] * m.storage[14] +
+       v.storage[i+3] * m.storage[15] ;
+  }
+  return this;  
+};
+
+/**
+ * @method commit
+ * @memberof Vec4Array.prototype  
+ * @description Sets the value of the vector array to a WebGL vec4 array uniform variable.
+ * @param {WebGLRenderingContext} gl - rendering context
+ * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
+ */
+Vec4Array.prototype.commit = function(gl, uniformLocation){
+  gl.uniform4fv(uniformLocation, this.storage);
+};
