@@ -1,6 +1,8 @@
 # WebGLMath
 ### A Vector math library for WebGL programming. Primarily intended for graphics education, with a focused set of features. Coded by Laszlo Szecsi for courses at the Aquincum Institute of Technology and the Budapest University of Technology and Economics.
 
+The library borrows some code for matrix operations from [vector_math.js](https://github.com/Tezirg/vector_math.js), which is in turn based on [vector_math.dart](https://github.com/google/vector_math.dart).
+
 ## Features
 
 * Scalar, 2D, 3D, and 4D vector, and matrix types, with corresponding array types.
