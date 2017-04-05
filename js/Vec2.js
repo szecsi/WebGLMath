@@ -482,6 +482,7 @@ Vec2.prototype.direction = function() {
  * @method setNormalized
  * @memberof Vec2.prototype  
  * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
+ * @param {Vec2} b - The vector to normalize.
  * @return {Vec2} this
  */
 Vec2.prototype.setNormalized = function(b) {
@@ -533,6 +534,7 @@ Vec2.prototype.xy01mul = function(m) {
  * @method setxy01Transformed
  * @memberof Vec2.prototype
  * @description Multiplies the argument vector (considering it a row vector, augmented by 0, 1 to a homogeneous position vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See [xy01times]{@link Vec2#xy01times} for a version creating a new vector instance.
+ * @param v {Vec2} The vector to be transformed. 
  * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
  * @return {Vec2} this
  */
@@ -577,6 +579,7 @@ Vec2.prototype.xy00mul = function(m) {
  * @method setxy00Transformed
  * @memberof Vec2.prototype
  * @description Multiplies the argument vector (considering it a row vector, augmented by 0 to a homogeneous direction vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See [xy00times]{@link Vec2#xy00times} for a version creating a new vector instance.
+ * @param v {Vec2} The vector to be transformed.  
  * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
  * @return {Vec2} this
  */

@@ -589,6 +589,7 @@ Vec4.prototype.direction = function() {
  * @method setNormalized
  * @memberof Vec4.prototype  
  * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
+ * @param {Vec4} [b] - The vector to normalize. 
  * @return {Vec4} this
  */
 Vec4.prototype.setNormalized = function(b) {
