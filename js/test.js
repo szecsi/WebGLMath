@@ -314,9 +314,9 @@ console.log(Array.prototype.slice.call(aa1.storage));
 console.log(Array.prototype.slice.call(ba2.storage));
 console.log(Array.prototype.slice.call(ca2.storage));
 
-aa1[0].x = 333;
-aa2[3].set(3, 4);
-console.assert( approx(aa2[3].length(), 5) );
+aa1.at(0).x = 333;
+aa2.at(3).set(3, 4);
+console.assert( approx(aa2.at(3).length(), 5) );
 
 aa2.mulAll(ca2, new Vec2(-1, 2));
 console.log(Array.prototype.slice.call(ca2.storage));

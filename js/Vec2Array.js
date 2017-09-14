@@ -7,7 +7,7 @@
  * @class Vec2Array
  * @extends VecArray 
  * @classdesc Array of two-element vectors of 32-bit floats. May reflect an ESSL array-of-vec2s uniform variable.
- * <BR> Individual [Vec2]{@link Vec2} elements are available through the index operator [].
+ * <BR> Individual [Vec2]{@link Vec2} elements are available through the [at]{@link Vec2Array#at} method.
  * Methods are available for optimized bulk processing.
  * @param {Number} size - The number of Vec2 elements in the array.
  * @constructor
@@ -15,15 +15,23 @@
 var Vec2Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 2);
-  for(var i=0; i<size; i++){
-    var proxy = Object.create(Vec2.prototype);
-    proxy.storage = this.storage.subarray(i*2, (i+1)*2);
-    Object.defineProperty(this, i, {value: proxy} );
-  }
 };
 
 Vec2Array.prototype = Object.create(VecArray.prototype);
 Vec2Array.prototype.constructor = Vec2Array;
+
+/**
+ * @method at
+ * @memberof Vec2Array.prototype  
+ * @description Returns a new Vec2 object that captures an element of the array. The new vector is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {Vec2} new view on one of the array's elements
+ */
+Vec2Array.prototype.at = function(index){
+  var result = Object.create(Vec2.prototype);
+  result.storage = this.storage.subarray(index*2, index*2+2);
+  return result;  
+}
 
 /**
  * @method subarray
@@ -60,7 +68,7 @@ Vec2Array.prototype.normalize = function(b) {
 /**
  * @method xy01mul
  * @memberof Vec2Array.prototype
- * @description Fills this vector with vectors from the argument vector, augmented by a 1 to get a homogeneous position vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @description Fills this array with vectors from the argument array, augmented by a 1 to get a homogeneous position vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
  * @param {Vec2Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
  * @return {Vec2Array} this
  */
@@ -81,7 +89,7 @@ Vec2Array.prototype.xy01mul = function(v, m) {
 /**
  * @method xy00mul
  * @memberof Vec2Array.prototype
- * @description Fills this vector with vectors from the argument vector, augmented by a 0 to get a homogeneous direction vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @description Fills this array with vectors from the argument array, augmented by a 0 to get a homogeneous direction vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
  * @param {Vec2Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
  * @return {Vec2Array} this
  */
@@ -98,6 +106,21 @@ Vec2Array.prototype.xy00mul = function(v, m) {
 };
 
 /**
+ * @method cossin
+ * @memberof Vec2Array.prototype
+ * @description Fills this array with (cos alpha, sin alpha) vectors, where alpha comes from the argument array.
+ * @param {Vec1Array} alphas - Array of angles.
+ * @return {Vec2Array} this
+ */
+Vec2Array.prototype.cossin = function(alphas) {
+  for(var i=0; i<this.storage.length; i++) {
+    this.storage[2*i+0] = Math.cos(alphas.storage[i]);
+    this.storage[2*i+1] = Math.sin(alphas.storage[i]);
+  }
+  return this;  
+};
+
+/**
  * @method commit
  * @memberof Vec2Array.prototype  
  * @description Sets the value of the vector array to a WebGL vec2 array uniform variable.
@@ -107,3 +130,8 @@ Vec2Array.prototype.xy00mul = function(v, m) {
 Vec2Array.prototype.commit = function(gl, uniformLocation){
   gl.uniform2fv(uniformLocation, this.storage);
 };
+
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec2Array;
+}

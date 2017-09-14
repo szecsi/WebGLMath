@@ -27,6 +27,22 @@ VecArray.prototype.add = function(b, c) {
 };
 
 /**
+ * @method addScaled
+ * @memberof VecArray.prototype  
+ * @description Adds vectors from the two argument arrays, scaling the second arguments, storing the result in this array.
+ * @param {VecArray} b - Array of first terms. Its length must be identical to this array's length.
+ * @param {VecArray} c - Array of second terms. Its length must be identical to this array's length.
+ * @param {Number} dt - Single scalar scaling factor.
+ * @return {VecArray} this
+ */
+VecArray.prototype.addScaled = function(b, c, dt) {
+  for(var i=0; i<this.storage.length; i++) {
+  this.storage[i] = b.storage[i] + c.storage[i] * dt;
+  }
+  return this;  
+};
+
+/**
  * @method sub
  * @memberof VecArray.prototype  
  * @description Substracts vectors from the two argument arrays, storing the result in this array.
@@ -181,7 +197,7 @@ VecArray.prototype.divAll = function(b, c) {
 /**
  * @method scale
  * @memberof VecArray.prototype  
- * @description Multipies vectors from an array with a scalar, storing the result in this array. For scaling with factors stored in an array, see [mulStretch]{@link VecArray#mulStretch}.
+ * @description Multipies vectors from an array with a scalar, storing the result in this array. For scaling with factors stored in an array, see [mulAll]{@link VecArray#mulAll}.
  * @param {VecArray} b - Array of vectors to scale. Its length must be identical to this array's length.
  * @param {VecArray} c - Scale factor.
  * @return {VecArray} this
@@ -189,6 +205,21 @@ VecArray.prototype.divAll = function(b, c) {
 VecArray.prototype.scale = function(b, s) {
   for(var i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[i] * s;
+  }
+  return this;  
+};
+
+/**
+ * @method exp
+ * @memberof VecArray.prototype  
+ * @description Exponentiates vectors from an array with a scalar, storing the result in this array. For scaling with factors stored in an array, see [mulAll]{@link VecArray#mulAll}.
+ * @param {VecArray} b - Array of vectors to scale. Its length must be identical to this array's length.
+ * @param {VecArray} c - Exponent.
+ * @return {VecArray} this
+ */
+VecArray.prototype.exp = function(b, s) {
+  for(var i=0; i<this.storage.length; i++) {
+    this.storage[i] = Math.pow(b.storage[i], s);
   }
   return this;  
 };
@@ -223,3 +254,8 @@ VecArray.prototype.clamp = function() {
   }
   return this;  
 };
+
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = VecArray;
+}

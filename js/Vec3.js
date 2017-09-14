@@ -547,7 +547,7 @@ Vec3.prototype.direction = function() {
  * @method setNormalized
  * @memberof Vec3.prototype  
  * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
- * @param {Vec3} [b] - The vector to normalize.
+ * @param b {Vec3} - The vector to normalize.
  * @return {Vec3} this
  */
 Vec3.prototype.setNormalized = function(b) {
@@ -647,6 +647,7 @@ Vec3.prototype.xyz1mul = function(m) {
  * @method setxyz1Transformed
  * @memberof Vec3.prototype
  * @description Multiplies the argument vector (considering it a row vector, augmented by 1 to a homogeneous position vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec3#xyz1times} for a version creating a new vector instance.
+ * @param v {Vec3} The vector to be transformed.
  * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
  * @return {Vec3} this
  */
@@ -707,6 +708,7 @@ Vec3.prototype.xyz0mul = function(m) {
  * @method setxyz0Transformed
  * @memberof Vec3.prototype
  * @description Multiplies the argument vector (considering it a row vector, augmented by 0 to a homogeneous direction vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec3#xyz0times} for a version creating a new vector instance.
+ * @param v {Vec3} The vector to be transformed.
  * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
  * @return {Vec3} this
  */
@@ -740,3 +742,7 @@ Vec3.prototype.commit = function(gl, uniformLocation){
   gl.uniform3fv(uniformLocation, this.storage);
 };
 
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec3;
+}

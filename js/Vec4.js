@@ -589,7 +589,7 @@ Vec4.prototype.direction = function() {
  * @method setNormalized
  * @memberof Vec4.prototype  
  * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
- * @param {Vec4} [b] - The vector to normalize. 
+ * @param b {Vec4} - The vector to normalize.
  * @return {Vec4} this
  */
 Vec4.prototype.setNormalized = function(b) {
@@ -694,3 +694,8 @@ Vec4.prototype.setTransformed = function(v, m) {
 Vec4.prototype.commit = function(gl, uniformLocation){
   gl.uniform4fv(uniformLocation, this.storage);
 };
+
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec4;
+}

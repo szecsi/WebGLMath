@@ -7,7 +7,7 @@
  * @class Vec4Array
  * @extends VecArray
  * @classdesc Array of four-element vectors of 32-bit floats. May reflect an ESSL array-of-vec4s uniform variable.
- * <BR> Individual [Vec4]{@link Vec4} elements are available through the index operator [].
+ * <BR> Individual [Vec4]{@link Vec4} elements are available through the [at]{@link Vec1Array#at} method.
  * Methods are available for optimized bulk processing.
  * @param {Number} size - The number of Vec4 elements in the array.
  * @constructor
@@ -15,15 +15,24 @@
 var Vec4Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 4);
-  for(var i=0; i<size; i++){
-    var proxy = Object.create(Vec4.prototype);
-    proxy.storage = this.storage.subarray(i*4, (i+1)*4);
-    Object.defineProperty(this, i, {value: proxy} );
-  }
 };
 
 Vec4Array.prototype = Object.create(VecArray.prototype);
 Vec4Array.prototype.constructor = Vec4Array;
+
+/**
+ * @method at
+ * @memberof Vec4Array.prototype  
+ * @description Returns a new Vec4 object that captures an element of the array. The new vector is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {Vec4} new view on one of the array's elements
+ */
+Vec4Array.prototype.at = function(index){
+  var result = Object.create(Vec4.prototype);
+  result.storage = this.storage.subarray(index*4, index*4+4);
+  return result;
+}
+
 
 /**
  * @method subarray
@@ -64,7 +73,7 @@ Vec4Array.prototype.normalize = function(b) {
 /**
  * @method transform
  * @memberof Vec4Array.prototype
- * @description Fills this vector with vectors from the argument vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @description Fills this array with vectors from the argument array, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
  * @param {Vec4Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
  * @return {Vec4Array} this
  */
@@ -104,3 +113,8 @@ Vec4Array.prototype.transform = function(v, m) {
 Vec4Array.prototype.commit = function(gl, uniformLocation){
   gl.uniform4fv(uniformLocation, this.storage);
 };
+
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec4Array;
+}

@@ -13,12 +13,20 @@
 var Mat4Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 16);
-  for(var i=0; i<size; i++){
-    var proxy = Object.create(Mat4.prototype);
-    proxy.storage = this.storage.subarray(i*16, (i+1)*16);
-    Object.defineProperty(this, i, {value: proxy} );
-  }
 };
+
+/**
+ * @method at
+ * @memberof Mat4Array.prototype  
+ * @description Returns a new Mat4 object that captures an element of the array. The new vector is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {Mat4} new view on one of the array's elements
+ */
+Mat4Array.prototype.at = function(index){
+  var result = Object.create(Mat4.prototype);
+  result.storage = this.storage.subarray(index*16, index*16+16);
+  return result;  
+}
 
 /**
  * @method subarray
@@ -45,3 +53,7 @@ Mat4Array.prototype.commit = function(gl, uniformLocation){
   gl.uniformMatrix4fv(uniformLocation, false, this.storage);
 };
 
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Mat4Array;
+}

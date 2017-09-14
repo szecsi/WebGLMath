@@ -7,7 +7,7 @@
  * @class Vec3Array
  * @extends VecArray 
  * @classdesc Array of three-element vectors of 32-bit floats. May reflect an ESSL array-of-vec3s uniform variable.
- * <BR> Individual [Vec3]{@link Vec3} elements are available through the index operator [].
+ * <BR> Individual [Vec3]{@link Vec3} elements are available through the [at]{@link Vec3Array#at} method.
  * Methods are available for optimized bulk processing.
  * @param {Number} size - The number of Vec3 elements in the array.
  * @constructor
@@ -15,15 +15,23 @@
 var Vec3Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 3);
-  for(var i=0; i<size; i++){
-    var proxy = Object.create(Vec3.prototype);
-    proxy.storage = this.storage.subarray(i*3, (i+1)*3);
-    Object.defineProperty(this, i, {value: proxy} );
-  }
 };
 
 Vec3Array.prototype = Object.create(VecArray.prototype);
 Vec3Array.prototype.constructor = Vec3Array;
+
+/**
+ * @method at
+ * @memberof Vec3Array.prototype  
+ * @description Returns a new Vec3 object that captures an element of the array. The new vector is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {Vec3} new view on one of the array's elements
+ */
+Vec3Array.prototype.at = function(index){
+  var result = Object.create(Vec3.prototype);
+  result.storage = this.storage.subarray(index*3, index*3+3);
+  return result;  
+}
 
 /**
  * @method subarray
@@ -105,7 +113,7 @@ Vec3Array.prototype.cross = function(b, c) {
 /**
  * @method xyz1mul
  * @memberof Vec3Array.prototype
- * @description Fills this vector with vectors from the argument vector, augmented by a 1 to get a homogeneous position vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @description Fills this array with vectors from the argument array, augmented by a 1 to get a homogeneous position vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
  * @param {Vec3Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
  * @return {Vec3Array} this
  */
@@ -133,7 +141,7 @@ Vec3Array.prototype.xyz1mul = function(v, m) {
 /**
  * @method xyz0mul
  * @memberof Vec3Array.prototype
- * @description Fills this vector with vectors from the argument vector, augmented by a 0 to get a homogeneous direction vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @description Fills this array with vectors from the argument array, augmented by a 0 to get a homogeneous direction vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
  * @param {Vec3Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
  * @return {Vec3Array} this
  */
@@ -165,3 +173,8 @@ Vec3Array.prototype.xyz0mul = function(v, m) {
 Vec3Array.prototype.commit = function(gl, uniformLocation){
   gl.uniform3fv(uniformLocation, this.storage);
 };
+
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec3Array;
+}

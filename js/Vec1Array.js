@@ -7,7 +7,7 @@
  * @class Vec1Array
  * @extends VecArray
  * @classdesc Array of 32-bit floats. May reflect an ESSL array-of-floats uniform variable.
- * <BR> Individual [Vec1]{@link Vec1} elements are available through the index operator [].
+ * <BR> Individual [Vec1]{@link Vec1} elements are available through the [at]{@link Vec1Array#at} method.
  * Methods are available for optimized bulk processing.
  * @param {Number} size - The number of Vec1 elements in the array.
  * @constructor
@@ -15,15 +15,23 @@
 var Vec1Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size);
-  for(var i=0; i<size; i++){
-    var proxy = Object.create(Vec1.prototype);
-    proxy.storage = this.storage.subarray(i, (i+1));
-    Object.defineProperty(this, i, {value: proxy} );
-  }
 };
 
 Vec1Array.prototype = Object.create(VecArray.prototype);
 Vec1Array.prototype.constructor = Vec1Array;
+
+/**
+ * @method at
+ * @memberof Vec1Array.prototype  
+ * @description Returns a new Vec1 object that captures an element of the array. The new vector is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {Vec1} new view on one of the array's elements
+ */
+Vec1Array.prototype.at = function(index){
+  var result = Object.create(Vec1.prototype);
+  result.storage = this.storage.subarray(index, index+1);
+  return result;  
+}
 
 /**
  * @method subarray
@@ -211,3 +219,8 @@ Vec1Array.prototype.lengthOfVec4 = function(b) {
 Vec1Array.prototype.commit = function(gl, uniformLocation){
   gl.uniform1fv(uniformLocation, this.storage);
 };
+
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec1Array;
+}

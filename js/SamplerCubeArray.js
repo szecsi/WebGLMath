@@ -16,12 +16,23 @@ var SamplerCubeArray = function(size, baseTextureUnit){
   this.storage = new Int32Array(size);
   for(var i=0; i<size; i++){
   	this.storage[i] = i + baseTextureUnit;
-    var proxy = Object.create(SamplerCube.prototype);
-    proxy.glTexture = null;
-    proxy.storage = this.storage.subarray(i, (i+1));
-    Object.defineProperty(this, i, {value: proxy} );
+    var element = Object.create(SamplerCube.prototype);
+    element.glTexture = null;
+    element.storage = this.storage.subarray(i, (i+1));
+    Object.defineProperty(this, i, {value: element} );
   }
 };
+
+/**
+ * @method at
+ * @memberof SamplerCubeArray.prototype  
+ * @description Returns a SamplerCube object that captures an element of the array. The sampler is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {SamplerCube} view on one of the array's elements
+ */
+SamplerCubeArray.prototype.at = function(index){
+  return this[index];
+}
 
 /**
  * @method commit

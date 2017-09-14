@@ -16,12 +16,23 @@ var Sampler2DArray = function(size, baseTextureUnit){
   this.storage = new Int32Array(size);
   for(var i=0; i<size; i++){
   	this.storage[i] = i + baseTextureUnit;
-    var proxy = Object.create(Sampler2D.prototype);
-    proxy.glTexture = null;
-    proxy.storage = this.storage.subarray(i, (i+1));
-    Object.defineProperty(this, i, {value: proxy} );
+    var element = Object.create(Sampler2D.prototype);
+    element.glTexture = null;
+    element.storage = this.storage.subarray(i, (i+1));
+    Object.defineProperty(this, i, {value: element} );
   }
 };
+
+/**
+ * @method at
+ * @memberof Sampler2DArray.prototype  
+ * @description Returns a Sampler2D object that captures an element of the array. The sampler is a view on the original data, not a copy.
+ * @param index {Number} - Index of the element.
+ * @return {SamplerCube} view on one of the array's elements
+ */
+Sampler2DArray.prototype.at = function(index){
+  return this[index];
+}
 
 /**
  * @method commit

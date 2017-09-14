@@ -606,3 +606,7 @@ Vec2.prototype.commit = function(gl, uniformLocation){
   gl.uniform2fv(uniformLocation, this.storage);
 };
 
+// CommonJS style export to allow file to be required in server side node.js
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+  module.exports = Vec2;
+}
