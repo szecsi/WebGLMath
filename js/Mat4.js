@@ -9,7 +9,7 @@
  * <BR> Uses column-major internal representation for WebGL compatibility but offers a row-major external interface through constructor parametrization and element indexes.
  * Transformation methods [translate]{@link Mat4#translate} and [rotate]{@link Mat4#rotate} assume row vectors and multiplication with the matrix from the right.
  * @description  Without parameters, initializes the vector to (0, 0, 0, 1).
- * @param {Mat4 | Array} [m=identity] - Matrix to copy elements from, or array of elements in row-major format.
+ * @param {Mat4 | Array | ...16} [m=identity] - Matrix to copy elements from, or array of elements in row-major format, or 16 numbers in row-major order.
  * @constructor
  */
 var Mat4 = function(m){
@@ -19,7 +19,7 @@ var Mat4 = function(m){
    * @type Float32Array
    */
   this.storage = new Float32Array(16);
-  this.set(m);
+  this.set.apply(this, arguments);
 };
 
 /**
@@ -38,7 +38,7 @@ Mat4.prototype.clone = function() {
  * @method set
  * @memberof Mat4.prototype  
  * @description Sets the matrix elements from another matrix or array, given in row-major format. Without parameters, sets the indentity matrix.
- * @param {Mat4 | Array} m - Matrix to copy elements from, or array of elements in row-major format. @default identity
+ * @param {Mat4 | Array | ...16} [m=identity] - Matrix to copy elements from, or array of elements in row-major format, or 16 numbers in row-major order.
  * @return {Mat4} this
  */
 Mat4.prototype.set = function(m) {
