@@ -1,4 +1,6 @@
 {
+  "esversion" : 6,
+  "globalstrict" : true,
   "undef": true,
   "bitwise": true,
   "curly": true,
@@ -15,7 +17,7 @@
   "browser": true,
   "devel": true,
   "singleGroups": false,
-  "varstmt": false,
+  "varstmt": true,
   "globals" : {
     "Mat4" : true,  
     "Vec1" : true,
@@ -32,6 +34,7 @@
     "Mat4Array" : true,
     "Sampler2DArray" : true,
     "SamplerCubeArray" : true,
-    "UniformReflectionFactories" : true
+    "UniformReflectionFactories" : true,
+    "module" : true
   }
 }

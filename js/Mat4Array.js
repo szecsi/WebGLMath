@@ -2,7 +2,7 @@
  * @file WebGLMath Mat4Array class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Mat4Array
  * @classdesc Array of four by four matrices of 32-bit floats. May reflect an ESSL array-of-mat4s uniform variable.
@@ -10,7 +10,7 @@
  * @param {Number} size - The number of Mat4 elements in the array.
  * @constructor
  */
-var Mat4Array = function(size){
+const Mat4Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 16);
 };
@@ -23,10 +23,10 @@ var Mat4Array = function(size){
  * @return {Mat4} new view on one of the array's elements
  */
 Mat4Array.prototype.at = function(index){
-  var result = Object.create(Mat4.prototype);
+  const result = Object.create(Mat4.prototype);
   result.storage = this.storage.subarray(index*16, index*16+16);
   return result;  
-}
+};
 
 /**
  * @method subarray
@@ -37,15 +37,25 @@ Mat4Array.prototype.at = function(index){
  * @return {Mat4Array} new view on some of the array's elements
  */
 Mat4Array.prototype.subarray = function(begin, end){
-  var result = Object.create(Mat4Array.prototype);
+  const result = Object.create(Mat4Array.prototype);
   result.storage = this.storage.subarray(begin*16, end*16);
   return result;
 };
 
 /**
+ * @method set
+ * @memberof Mat4Array.prototype  
+ * @description Sets the value of the matrix array from another WebGLMath vector, vector array, matrix, or matrix array object, or an array of numbers.
+ * @param {number[] | Object } data - Input data.
+ */
+Mat4Array.prototype.set = function(data){
+  this.storage.set(data.storage || data);
+};
+
+/**
  * @method commit
  * @memberof Mat4Array.prototype  
- * @description Sets the value of the matrix array to a WebGL mat4 array uniform variable.
+ * @description Copies the value of the matrix array to a WebGL mat4 array uniform variable.
  * @param {WebGLRenderingContext} gl - rendering context
  * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
  */
