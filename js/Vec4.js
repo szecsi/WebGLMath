@@ -2,7 +2,7 @@
  * @file WebGLMath {@link Vec4} class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec4
  * @classdesc Four-element vector of 32-bit floats. May reflect an ESSL vec4 uniform variable.
@@ -29,7 +29,7 @@
  * @param {Number} [t=1] - Ignored if u.w is defined. Otherwise, the value for coordinate w.
  * @constructor
  */
-var Vec4 = function(u, v, s, t){
+const Vec4 = function(u, v, s, t){
   /**
    * @name Vec4.prototype#storage
    * @description 4-element typed array for coordinate storage.
@@ -50,7 +50,7 @@ var Vec4 = function(u, v, s, t){
  * @return {Vec4} A new instance with identical contents.
  */
 Vec4.prototype.clone = function() {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(this.storage);
   return result;
 };
@@ -123,10 +123,10 @@ Vec4.prototype.set = function(u, v, s, t) {
  * @return {Vec4} this
  */
 Vec4.random = function(minVal, maxVal) {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
   result.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
   maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
@@ -149,8 +149,8 @@ Vec4.random = function(minVal, maxVal) {
  * @return {Vec4} this
  */
 Vec4.prototype.setRandom = function(minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
   this.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
   maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
@@ -173,7 +173,7 @@ Vec4.prototype.setRandom = function(minVal, maxVal) {
  * @return {Vec4} this
  */
 Vec4.prototype.clamp = function(minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
   if(this.storage[0] < mina){
     this.storage[0] = mina;
   }
@@ -189,7 +189,7 @@ Vec4.prototype.clamp = function(minVal, maxVal) {
   if(this.storage[3] < mina){
     this.storage[3] = mina;
   }  
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
   if(this.storage[0] > maxa){
     this.storage[0] = maxa;
   }
@@ -218,8 +218,8 @@ Vec4.prototype.clamp = function(minVal, maxVal) {
  * @return {Vec4} this
  */
 Vec4.prototype.setClamped = function(b, minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
   if(b.storage[0] < mina){
     this.storage[0] = mina;
   } else if(b.storage[0] > maxa){
@@ -305,7 +305,7 @@ Vec4.prototype.addScaled = function(dt, u, v, s, t) {
  * @return {Vec4} the sum of the two vectors
  */
 Vec4.prototype.plus = function(u, v, s, t) {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
   result.storage[0] = this.storage[0] + (u && u.x || Number(u).valueOf() || 0);
   result.storage[1] = this.storage[1] + (u && u.y || Number(v).valueOf() || 0);
@@ -360,7 +360,7 @@ Vec4.prototype.sub = function(u, v, s, t) {
  * @return {Vec4} the difference of the two vectors
  */
 Vec4.prototype.minus = function(u, v, s, t) {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
   result.storage[0] = this.storage[0] - (u && u.x || Number(u).valueOf() || 0);
   result.storage[1] = this.storage[1] - (u && u.y || Number(v).valueOf() || 0);
@@ -372,7 +372,7 @@ Vec4.prototype.minus = function(u, v, s, t) {
 /**
  * @method setDifference
  * @memberof Vec4.prototype  
- * @description Fast. Substracts the second argument vector from the first one, storing the result in this vector.
+ * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
  * @param {Vec4} b - Minuend.
  * @param {Vec4} c - Subtrahend. 
  * @return {Vec4} this
@@ -418,7 +418,7 @@ Vec4.prototype.mul = function(u, v, s, t) {
  * @return {Vec4} the vector transformed by the matrix, or the elementwise product of the two vectors, or the scaled vector
  */
 Vec4.prototype.times = function(u, v, s, t) {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
   if(u instanceof Mat4) {
     result.setTransformed(this, u);
@@ -476,7 +476,7 @@ Vec4.prototype.div = function(u, v, s, t) {
  * @return {Vec4} the elementwise product of the two vectors
  */
 Vec4.prototype.over = function(u, v, s, t) {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
   result.storage[0] = this.storage[0] / (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
   result.storage[1] = this.storage[1] / (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
@@ -560,7 +560,7 @@ Vec4.prototype.length = function() {
  * @return {Vec4} this
  */
 Vec4.prototype.normalize = function() {
-  var l = this.length();
+  const l = this.length();
   this.storage[0] /= l;
   this.storage[1] /= l;
   this.storage[2] /= l;  
@@ -575,9 +575,9 @@ Vec4.prototype.normalize = function() {
  * @return {Vec4} A unit length vector with the same direction as this.
  */
 Vec4.prototype.direction = function() {
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
-  var l = this.length();
+  const l = this.length();
   result.storage[0] = this.storage[0] / l;
   result.storage[1] = this.storage[1] / l;
   result.storage[2] = this.storage[2] / l;
@@ -593,7 +593,7 @@ Vec4.prototype.direction = function() {
  * @return {Vec4} this
  */
 Vec4.prototype.setNormalized = function(b) {
-  var l = b.length();
+  const l = b.length();
   this.storage[0] = b.storage[0] / l;
   this.storage[1] = b.storage[1] / l;
   this.storage[2] = b.storage[2] / l;  
@@ -626,10 +626,10 @@ Vec4.prototype.dot = function(u, v, s, t) {
  * @return {Vec4} this
  */
 Vec4.prototype.transform = function(m) {
-  var x = this.storage[0];
-  var y = this.storage[1];
-  var z = this.storage[2];
-  var w = this.storage[3];
+  const x = this.storage[0];
+  const y = this.storage[1];
+  const z = this.storage[2];
+  const w = this.storage[3];
   this.storage[0] =
     x * m.storage[ 0] +
     y * m.storage[ 1] +

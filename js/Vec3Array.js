@@ -2,7 +2,7 @@
  * @file WebGLMath Vec3Array class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec3Array
  * @extends VecArray 
@@ -12,7 +12,7 @@
  * @param {Number} size - The number of Vec3 elements in the array.
  * @constructor
  */
-var Vec3Array = function(size){
+const Vec3Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 3);
 };
@@ -28,10 +28,10 @@ Vec3Array.prototype.constructor = Vec3Array;
  * @return {Vec3} new view on one of the array's elements
  */
 Vec3Array.prototype.at = function(index){
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = this.storage.subarray(index*3, index*3+3);
   return result;  
-}
+};
 
 /**
  * @method subarray
@@ -42,7 +42,7 @@ Vec3Array.prototype.at = function(index){
  * @return {Vec3Array} new view on some of the array's elements
  */
 Vec3Array.prototype.subarray = function(begin, end){
-  var result = Object.create(Vec3Array.prototype);
+  const result = Object.create(Vec3Array.prototype);
   result.storage = this.storage.subarray(begin*3, end*3);
   return result;
 };
@@ -56,18 +56,18 @@ Vec3Array.prototype.subarray = function(begin, end){
  * @return {Vec3Array} this
  */
 Vec3Array.prototype.mulWithVec1s = function(b, c) {
-  var stretchFactor = this.storage.length / c.storage.length; 
-  var i=0;
-  for(var j=0; j<c.storage.length; j++) {	
-    for(var k=0; k<stretchFactor; k++, i++ ) {
- 	  this.storage[i] = b.storage[i] * c.storage[j];
+  const stretchFactor = this.storage.length / c.storage.length; 
+  let i=0;
+  for(let j=0; j<c.storage.length; j++) {	
+    for(let k=0; k<stretchFactor; k++, i++ ) {
+  	  this.storage[i] = b.storage[i] * c.storage[j];
     }
   }
   return this;  
 };
 
 Vec3Array.prototype.subarray = function(begin, end){
-  var result = Object.create(Vec3Array.prototype);
+  const result = Object.create(Vec3Array.prototype);
   result.storage = this.storage.subarray(begin*3, end*3);
   return result;
 };
@@ -80,12 +80,12 @@ Vec3Array.prototype.subarray = function(begin, end){
  * @return {Vec3Array} this
  */
 Vec3Array.prototype.normalize = function(b) {
-  for(var i=0; i<this.storage.length; i+=3) {
-  	var l2 =
+  for(let i=0; i<this.storage.length; i+=3) {
+  	const l2 =
   	  b.storage[i  ] * b.storage[i  ] +
   	  b.storage[i+1] * b.storage[i+1] +
   	  b.storage[i+2] * b.storage[i+2] ;
-    var linv = 1 / Math.sqrt(l2);
+    const linv = 1 / Math.sqrt(l2);
     this.storage[i  ] = b.storage[i  ] * linv;
     this.storage[i+1] = b.storage[i+1] * linv;
     this.storage[i+2] = b.storage[i+2] * linv;
@@ -95,19 +95,25 @@ Vec3Array.prototype.normalize = function(b) {
 /**
  * @method cross
  * @memberof Vec3Array.prototype
- * @description Computes the cross product of the argument vectors, overwriting the contents with the result.
- * @param {Vec3} b - Vector of left operand.
- * @param {Vec3} c - Vector of right operand.
- * @return {Vec3} the cross product
+ * @description Computes the cross products of the vectors from the argument array, storing the results in this array.
+ * @param {Vec3Array} b - Array of left operands. Its length must be identical to this array's length.
+ * @param {Vec3Array} c - Array of right operands. Its length must be identical to this array's length.
+ * @return {Vec3Array} the cross products
  */
 Vec3Array.prototype.cross = function(b, c) {
-  var result = Object.create(Vec3.prototype);
-  result.storage = new Float32Array(3);
-  this.storage[0] = b.storage[1] * c.storage[2] - b.storage[2] * c.storage[1];
-  this.storage[1] = b.storage[2] * c.storage[0] - b.storage[0] * c.storage[2];
-  this.storage[2] = b.storage[0] * c.storage[1] - b.storage[1] * c.storage[0];
-//TODO
-  return result;
+  let j=0;
+  for(let i=0; i<this.storage.length;) {
+    const b0 = b.storage[j];
+    const c0 = c.storage[j++];    
+    const b1 = b.storage[j];
+    const c1 = c.storage[j++];    
+    const b2 = b.storage[j];
+    const c2 = c.storage[j++];
+    this.storage[i++] = b1 * c2 - b2 * c1;
+    this.storage[i++] = b2 * c0 - b0 * c2;
+    this.storage[i++] = b0 * c1 - b1 * c0;
+  }
+  return this;
 };
 
 /**
@@ -118,7 +124,7 @@ Vec3Array.prototype.cross = function(b, c) {
  * @return {Vec3Array} this
  */
 Vec3Array.prototype.xyz1mul = function(v, m) {
-  for(var i=0; i<this.storage.length; i+=3) {
+  for(let i=0; i<this.storage.length; i+=3) {
     this.storage[i+0] =
        v.storage[i+0] * m.storage[ 0] +
        v.storage[i+1] * m.storage[ 1] +
@@ -146,7 +152,7 @@ Vec3Array.prototype.xyz1mul = function(v, m) {
  * @return {Vec3Array} this
  */
 Vec3Array.prototype.xyz0mul = function(v, m) {
-  for(var i=0; i<this.storage.length; i+=3) {
+  for(let i=0; i<this.storage.length; i+=3) {
     this.storage[i+0] =
        v.storage[i+0] * m.storage[ 0] +
        v.storage[i+1] * m.storage[ 1] +

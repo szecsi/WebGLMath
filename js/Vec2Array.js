@@ -2,7 +2,7 @@
  * @file WebGLMath Vec2Array class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec2Array
  * @extends VecArray 
@@ -12,7 +12,7 @@
  * @param {Number} size - The number of Vec2 elements in the array.
  * @constructor
  */
-var Vec2Array = function(size){
+const Vec2Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 2);
 };
@@ -28,10 +28,10 @@ Vec2Array.prototype.constructor = Vec2Array;
  * @return {Vec2} new view on one of the array's elements
  */
 Vec2Array.prototype.at = function(index){
-  var result = Object.create(Vec2.prototype);
+  const result = Object.create(Vec2.prototype);
   result.storage = this.storage.subarray(index*2, index*2+2);
   return result;  
-}
+};
 
 /**
  * @method subarray
@@ -42,7 +42,7 @@ Vec2Array.prototype.at = function(index){
  * @return {Vec2Array} new view on some of the array's elements
  */
 Vec2Array.prototype.subarray = function(begin, end){
-  var result = Object.create(Vec2Array.prototype);
+  const result = Object.create(Vec2Array.prototype);
   result.storage = this.storage.subarray(begin*2, end*2);
   return result;
 };
@@ -55,11 +55,11 @@ Vec2Array.prototype.subarray = function(begin, end){
  * @return {Vec2Array} this
  */
 Vec2Array.prototype.normalize = function(b) {
-  for(var i=0; i<this.storage.length; i+=2) {
-  	var l2 =
+  for(let i=0; i<this.storage.length; i+=2) {
+  	const l2 =
   	  b.storage[i  ] * b.storage[i  ] +
   	  b.storage[i+1] * b.storage[i+1] ;
-    var linv = 1 / Math.sqrt(l2);
+    const linv = 1 / Math.sqrt(l2);
     this.storage[i  ] = b.storage[i  ] * linv;
     this.storage[i+1] = b.storage[i+1] * linv;
   }
@@ -73,7 +73,7 @@ Vec2Array.prototype.normalize = function(b) {
  * @return {Vec2Array} this
  */
 Vec2Array.prototype.xy01mul = function(v, m) {
-  for(var i=0; i<this.storage.length; i+=2) {
+  for(let i=0; i<this.storage.length; i+=2) {
     this.storage[i+0] =
        v.storage[i+0] * m.storage[ 0] +
        v.storage[i+1] * m.storage[ 1] +
@@ -94,7 +94,7 @@ Vec2Array.prototype.xy01mul = function(v, m) {
  * @return {Vec2Array} this
  */
 Vec2Array.prototype.xy00mul = function(v, m) {
-  for(var i=0; i<this.storage.length; i+=2) {
+  for(let i=0; i<this.storage.length; i+=2) {
     this.storage[i+0] =
        v.storage[i+0] * m.storage[ 0] +
        v.storage[i+1] * m.storage[ 1] ;
@@ -113,7 +113,7 @@ Vec2Array.prototype.xy00mul = function(v, m) {
  * @return {Vec2Array} this
  */
 Vec2Array.prototype.cossin = function(alphas) {
-  for(var i=0; i<this.storage.length; i++) {
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[2*i+0] = Math.cos(alphas.storage[i]);
     this.storage[2*i+1] = Math.sin(alphas.storage[i]);
   }

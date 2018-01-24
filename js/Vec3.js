@@ -2,7 +2,7 @@
  * @file WebGLMath {@link Vec3} class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec3
  * @classdesc Three-element vector of 32-bit floats. May reflect an ESSL vec3 uniform variable.
@@ -29,7 +29,7 @@
  * @param {Number} [s=0] - Ignored if u.z is defined. Otherwise, the value for coordinate z.
  * @constructor
  */
-var Vec3 = function(u, v, s){
+const Vec3 = function(u, v, s){
   /**
    * @name Vec3.prototype#storage
    * @description 3-element typed array for coordinate storage.
@@ -49,7 +49,7 @@ var Vec3 = function(u, v, s){
  * @return {Vec3} A new instance with identical contents.
  */
 Vec3.prototype.clone = function() {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(this.storage);
   return result;
 };
@@ -110,10 +110,10 @@ Vec3.prototype.set = function(u, v, s) {
  * @return {Vec3} this
  */
 Vec3.random = function(minVal, maxVal) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
   result.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
   maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
@@ -133,8 +133,8 @@ Vec3.random = function(minVal, maxVal) {
  * @return {Vec3} this
  */
 Vec3.prototype.setRandom = function(minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
   this.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
   maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
@@ -154,7 +154,7 @@ Vec3.prototype.setRandom = function(minVal, maxVal) {
  * @return {Vec3} this
  */
 Vec3.prototype.clamp = function(minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
   if(this.storage[0] < mina){
     this.storage[0] = mina;
   }
@@ -166,7 +166,7 @@ Vec3.prototype.clamp = function(minVal, maxVal) {
   if(this.storage[2] < mina){
     this.storage[2] = mina;
   }  
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
   if(this.storage[0] > maxa){
     this.storage[0] = maxa;
   }
@@ -191,8 +191,8 @@ Vec3.prototype.clamp = function(minVal, maxVal) {
  * @return {Vec3} this
  */
 Vec3.prototype.setClamped = function(b, minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
   if(b.storage[0] < mina){
     this.storage[0] = mina;
   } else if(b.storage[0] > maxa){
@@ -265,7 +265,7 @@ Vec3.prototype.addScaled = function(dt, u, v, s) {
  * @return {Vec3} the sum of the two vectors
  */
 Vec3.prototype.plus = function(u, v, s) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   result.storage[0] = this.storage[0] + (u && u.x || Number(u).valueOf() || 0);
   result.storage[1] = this.storage[1] + (u && u.y || Number(v).valueOf() || 0);
@@ -314,7 +314,7 @@ Vec3.prototype.sub = function(u, v, s) {
  * @return {Vec3} the difference of the two vectors
  */
 Vec3.prototype.minus = function(u, v, s) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   result.storage[0] = this.storage[0] - (u && u.x || Number(u).valueOf() || 0);
   result.storage[1] = this.storage[1] - (u && u.y || Number(v).valueOf() || 0);
@@ -325,7 +325,7 @@ Vec3.prototype.minus = function(u, v, s) {
 /**
  * @method setDifference
  * @memberof Vec3.prototype  
- * @description Fast. Substracts the second argument vector from the first one, storing the result in this vector.
+ * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
  * @param {Vec3} b - Minuend.
  * @param {Vec3} c - Subtrahend. 
  * @return {Vec3} this
@@ -363,7 +363,7 @@ Vec3.prototype.mul = function(u, v, s) {
  * @return {Vec3} the elementwise product of the two vectors
  */
 Vec3.prototype.times = function(u, v, s) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   result.storage[0] = this.storage[0] * (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
   result.storage[1] = this.storage[1] * (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
@@ -379,7 +379,7 @@ Vec3.prototype.times = function(u, v, s) {
  * @return {Vec3} the transformed vector
  */
 Vec3.prototype.xyz1times = function(m) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   result.setxyz1Transformed(this, m);
   return result;
@@ -393,7 +393,7 @@ Vec3.prototype.xyz1times = function(m) {
  * @return {Vec3} the transformed vector
  */
 Vec3.prototype.xyz0times = function(m) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   result.setxyz0Transformed(this, m);
   return result;
@@ -440,7 +440,7 @@ Vec3.prototype.div = function(u, v, s) {
  * @return {Vec3} the elementwise product of the two vectors
  */
 Vec3.prototype.over = function(u, v, s) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   result.storage[0] = this.storage[0] / (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
   result.storage[1] = this.storage[1] / (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
@@ -520,7 +520,7 @@ Vec3.prototype.length = function() {
  * @return {Vec3} this
  */
 Vec3.prototype.normalize = function() {
-  var l = this.length();
+  const l = this.length();
   this.storage[0] /= l;
   this.storage[1] /= l;
   this.storage[2] /= l;  
@@ -534,9 +534,9 @@ Vec3.prototype.normalize = function() {
  * @return {Vec3} A unit length vector with the same direction as this.
  */
 Vec3.prototype.direction = function() {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
-  var l = this.length();
+  const l = this.length();
   result.storage[0] = this.storage[0] / l;
   result.storage[1] = this.storage[1] / l;
   result.storage[2] = this.storage[2] / l;
@@ -551,7 +551,7 @@ Vec3.prototype.direction = function() {
  * @return {Vec3} this
  */
 Vec3.prototype.setNormalized = function(b) {
-  var l = b.length();
+  const l = b.length();
   this.storage[0] = b.storage[0] / l;
   this.storage[1] = b.storage[1] / l;
   this.storage[2] = b.storage[2] / l;
@@ -583,11 +583,11 @@ Vec3.prototype.dot = function(u, v, s) {
  * @return {Vec3} the cross product
  */
 Vec3.prototype.cross = function(u, v, s) {
-  var result = Object.create(Vec3.prototype);
+  const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
-  var op2x = u && u.x || Number(u).valueOf() || 0;
-  var op2y = u && u.y || Number(v).valueOf() || 0;
-  var op2z = u && u.z || Number(s).valueOf() || 0;
+  const op2x = u && u.x || Number(u).valueOf() || 0;
+  const op2y = u && u.y || Number(v).valueOf() || 0;
+  const op2z = u && u.z || Number(s).valueOf() || 0;
   result.storage[0] = this.storage[1] * op2z - this.storage[2] * op2y;
   result.storage[1] = this.storage[2] * op2x - this.storage[0] * op2z;
   result.storage[2] = this.storage[0] * op2y - this.storage[1] * op2x;
@@ -617,10 +617,10 @@ Vec3.prototype.setVectorProduct = function(b, c) {
  * @return {Vec3} this
  */
 Vec3.prototype.xyz1mul = function(m) {
-  var x = this.storage[0];
-  var y = this.storage[1];
-  var z = this.storage[2];
-  var w = 
+  const x = this.storage[0];
+  const y = this.storage[1];
+  const z = this.storage[2];
+  const w = 
     x * m.storage[12] +
     y * m.storage[13] +
     z * m.storage[14] +    
@@ -652,10 +652,10 @@ Vec3.prototype.xyz1mul = function(m) {
  * @return {Vec3} this
  */
 Vec3.prototype.setxyz1Transformed = function(v, m) {
-  var x = v.storage[0];
-  var y = v.storage[1];
-  var z = v.storage[2];
-  var w = 
+  const x = v.storage[0];
+  const y = v.storage[1];
+  const z = v.storage[2];
+  const w = 
     x * m.storage[12] +
     y * m.storage[13] +
     z * m.storage[14] +    
@@ -686,9 +686,9 @@ Vec3.prototype.setxyz1Transformed = function(v, m) {
  * @return {Vec3} this
  */
 Vec3.prototype.xyz0mul = function(m) {
-  var x = this.storage[0];
-  var y = this.storage[1];
-  var z = this.storage[2];
+  const x = this.storage[0];
+  const y = this.storage[1];
+  const z = this.storage[2];
   this.storage[0] =
     x * m.storage[ 0] +
     y * m.storage[ 1] +
@@ -713,9 +713,9 @@ Vec3.prototype.xyz0mul = function(m) {
  * @return {Vec3} this
  */
  Vec3.prototype.setxyz0Transformed = function(v, m) {
-  var x = v.storage[0];
-  var y = v.storage[1];
-  var z = v.storage[2];
+  const x = v.storage[0];
+  const y = v.storage[1];
+  const z = v.storage[2];
   this.storage[0] =
     x * m.storage[ 0] +
     y * m.storage[ 1] +

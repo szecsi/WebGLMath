@@ -2,7 +2,7 @@
  * @file WebGLMath {@link SamplerCube} class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class SamplerCube
  * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL samplerCube uniform variable.
@@ -10,7 +10,7 @@
  * @param {Number} textureUnit - The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.
  * @constructor
  */
-var SamplerCube = function(textureUnit){
+const SamplerCube = function(textureUnit){
   this.glTexture = null;
   this.textureUnit = textureUnit;
 };

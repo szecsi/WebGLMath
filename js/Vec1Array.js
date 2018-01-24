@@ -2,7 +2,7 @@
  * @file WebGLMath Vec1Array class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec1Array
  * @extends VecArray
@@ -12,7 +12,7 @@
  * @param {Number} size - The number of Vec1 elements in the array.
  * @constructor
  */
-var Vec1Array = function(size){
+const Vec1Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size);
 };
@@ -28,7 +28,7 @@ Vec1Array.prototype.constructor = Vec1Array;
  * @return {Vec1} new view on one of the array's elements
  */
 Vec1Array.prototype.at = function(index){
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = this.storage.subarray(index, index+1);
   return result;  
 }
@@ -42,7 +42,7 @@ Vec1Array.prototype.at = function(index){
  * @return {Vec1Array} new view on some of the array's elements
  */
 Vec1Array.prototype.subarray = function(begin, end){
-  var result = Object.create(Vec1Array.prototype);
+  const result = Object.create(Vec1Array.prototype);
   result.storage = this.storage.subarray(begin, end);
   return result;
 };
@@ -56,8 +56,8 @@ Vec1Array.prototype.subarray = function(begin, end){
  * @return this
  */
 Vec1Array.prototype.dotVec2s = function(b, c) {
-  var j=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[j] * c.storage[j++] + b.storage[j] * c.storage[j++];
   }
   return this;
@@ -72,8 +72,8 @@ Vec1Array.prototype.dotVec2s = function(b, c) {
  * @return this
  */
 Vec1Array.prototype.dotVec3s = function(b, c) {
-  var j=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[j] * c.storage[j++] + b.storage[j] * c.storage[j++] + b.storage[j] * c.storage[j++];
   }
   return this;
@@ -88,8 +88,8 @@ Vec1Array.prototype.dotVec3s = function(b, c) {
  * @return this
  */
 Vec1Array.prototype.dotVec3s = function(b, c) {
-  var j=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[j] * c.storage[j++] + b.storage[j] * c.storage[j++] + b.storage[j] * c.storage[j++] + b.storage[j] * c.storage[j++];
   }
   return this;
@@ -107,11 +107,11 @@ Vec1Array.prototype.dotVec3s = function(b, c) {
  * @return {Vec1Array} this
  */
 Vec1Array.prototype.dotAllVec2s = function(b, c) {
-  var j=0;
-  var k=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  let k=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[j++] * c.storage[k] + b.storage[j++] * c.storage[k+1];
-    if(b === c.storage.length) {
+    if(j === c.storage.length) {
     	j = 0; k+=2;
     }
   }
@@ -130,11 +130,11 @@ Vec1Array.prototype.dotAllVec2s = function(b, c) {
  * @return {Vec1Array} this
  */
 Vec1Array.prototype.dotAllVec3s = function(b, c) {
-  var j=0;
-  var k=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  let k=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[j++] * c.storage[k] + b.storage[j++] * c.storage[k+1] + b.storage[j++] * c.storage[k+2];
-    if(b === c.storage.length) {
+    if(j === c.storage.length) {
       j = 0; k+=3;
     }
   }
@@ -153,11 +153,11 @@ Vec1Array.prototype.dotAllVec3s = function(b, c) {
  * @return {Vec1Array} this
  */
 Vec1Array.prototype.dotAllVec4s = function(b, c) {
-  var j=0;
-  var k=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  let k=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[j++] * c.storage[k] + b.storage[j++] * c.storage[k+1] + b.storage[j++] * c.storage[k+2] + b.storage[j++] * c.storage[k+3];
-    if(b === c.storage.length) {
+    if(j === c.storage.length) {
       j = 0; k+=4;
     }
   }
@@ -172,8 +172,8 @@ Vec1Array.prototype.dotAllVec4s = function(b, c) {
  * @return this
  */
 Vec1Array.prototype.lengthOfVec2 = function(b) {
-  var j=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = Math.sqrt(b.storage[j] * b.storage[j++] + b.storage[j] * b.storage[j++]);
   }
   return this;
@@ -187,8 +187,8 @@ Vec1Array.prototype.lengthOfVec2 = function(b) {
  * @return this
  */
 Vec1Array.prototype.lengthOfVec3 = function(b) {
-  var j=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = Math.sqrt(b.storage[j] * b.storage[j++] + b.storage[j] * b.storage[j++] + b.storage[j] * b.storage[j++]);
   }
   return this;
@@ -202,8 +202,8 @@ Vec1Array.prototype.lengthOfVec3 = function(b) {
  * @return this
  */
 Vec1Array.prototype.lengthOfVec4 = function(b) {
-  var j=0;
-  for(var i=0; i<this.storage.length; i++) {
+  let j=0;
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = Math.sqrt(b.storage[j] * b.storage[j++] + b.storage[j] * b.storage[j++] + b.storage[j] * b.storage[j++] + b.storage[j] * b.storage[j++]);
   }
   return this;

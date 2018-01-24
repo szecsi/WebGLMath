@@ -2,14 +2,14 @@
  * @file WebGLMath Vec1 class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec1
  * @classdesc A 32-bit float wrapped as a single-element vector. May reflect an ESSL float uniform variable.
  * @description Without parameters, initializes the vector to 0.
  * @constructor
  */
-var Vec1 = function(u){
+const Vec1 = function(u){
   /**
    * @name Vec1.prototype#storage
    * @description 1-element typed array for coordinate storage.
@@ -27,7 +27,7 @@ var Vec1 = function(u){
  * @return {Vec1} A new instance with identical contents.
  */
 Vec1.prototype.clone = function() {
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = new Float32Array(this.storage);
   return result;
 };
@@ -64,10 +64,10 @@ Vec1.prototype.set = function(u) {
  * @return {Vec1} this
  */
 Vec1.random = function(minVal, maxVal) {
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = new Float32Array(1);
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) ||( Number(maxVal).valueOf()-1) || 0) + 1;
+  const mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  const maxa = maxVal && ((maxVal.x-1) ||( Number(maxVal).valueOf()-1) || 0) + 1;
   result.storage[0] = Math.random() * (maxa - mina) + mina;
   return result;
 };
@@ -81,8 +81,8 @@ Vec1.random = function(minVal, maxVal) {
  * @return {Vec1} this
  */
 Vec1.prototype.setRandom = function(minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  var maxa = maxVal && ((maxVal.x-1) ||( Number(maxVal).valueOf()-1) || 0) + 1;
+  const mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
+  const maxa = maxVal && ((maxVal.x-1) ||( Number(maxVal).valueOf()-1) || 0) + 1;
   this.storage[0] = Math.random() * (maxa - mina) + mina;
   return this;  
 };
@@ -96,11 +96,11 @@ Vec1.prototype.setRandom = function(minVal, maxVal) {
  * @return {Vec1} this
  */
 Vec1.prototype.clamp = function(minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf(0) || 0;
+  const mina = minVal && minVal.x || Number(minVal).valueOf(0) || 0;
   if(this.storage[0] < mina){
     this.storage[0] = mina;
   }
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf(0)-1) || 0) + 1;
+  const maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf(0)-1) || 0) + 1;
   if(this.storage[0] > maxa){
     this.storage[0] = maxa;
   }
@@ -117,8 +117,8 @@ Vec1.prototype.clamp = function(minVal, maxVal) {
  * @return {Vec1} this
  */
 Vec1.prototype.setClamped = function(b, minVal, maxVal) {
-  var mina = minVal && minVal.x || Number(minVal).valueOf(0) || 0;
-  var maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf(0)-1) || 0) + 1;
+  const mina = minVal && minVal.x || Number(minVal).valueOf(0) || 0;
+  const maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf(0)-1) || 0) + 1;
   if(b.storage[0] < mina){
     this.storage[0] = mina;
   } else if(b.storage[0] > maxa){
@@ -162,7 +162,7 @@ Vec1.prototype.addScaled = function(dt, u) {
  * @return {Vec1} the sum of the two vectors
  */
 Vec1.prototype.plus = function(u) {
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = new Float32Array(1);
   result.storage[0] = this.storage[0] + (u && u.x || Number(u).valueOf() || 0);
   return result;
@@ -201,7 +201,7 @@ Vec1.prototype.sub = function(u) {
  * @return {Vec1} the difference of the two vectors
  */
 Vec1.prototype.minus = function(u) {
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = new Float32Array(1);
   result.storage[0] = this.storage[0] - (u && u.x || Number(u).valueOf() || 0);
   return result;
@@ -210,7 +210,7 @@ Vec1.prototype.minus = function(u) {
 /**
  * @method setDifference
  * @memberof Vec1.prototype  
- * @description Fast. Substracts the second argument vector from the first one, storing the result in this vector.
+ * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
  * @param {Vec1} b - Minuend.
  * @param {Vec1} c - Subtrahend. 
  * @return {Vec1} this
@@ -240,7 +240,7 @@ Vec1.prototype.mul = function(u) {
  * @return {Vec1} the elementwise product of the two vectors
  */
 Vec1.prototype.times = function(u) {
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = new Float32Array(1);
   result.storage[0] = this.storage[0] * (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
   return result;
@@ -279,7 +279,7 @@ Vec1.prototype.div = function(u) {
  * @return {Vec1} the elementwise product of the two vectors
  */
 Vec1.prototype.over = function(u) {
-  var result = Object.create(Vec1.prototype);
+  const result = Object.create(Vec1.prototype);
   result.storage = new Float32Array(1);
   result.storage[0] = this.storage[0] / (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
   return result;

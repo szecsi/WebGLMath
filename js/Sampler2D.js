@@ -2,7 +2,7 @@
  * @file WebGLMath {@link Sampler2D} class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Sampler2D
  * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL sampler2d uniform variable.
@@ -10,7 +10,7 @@
  * @param {Number} textureUnit - The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.
  * @constructor
  */
- var Sampler2D = function(textureUnit){
+ const Sampler2D = function(textureUnit){
   this.glTexture = null;
   this.storage = new Int32Array([textureUnit]);
 };

@@ -2,13 +2,23 @@
  * @file WebGLMath VecArray class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class VecArray
  * @classdesc A base class for all vector arrays, gathering methods that share the same implementation in all array subclasses.
  * @constructor
  */
-var VecArray = function(){
+const VecArray = function(){
+};
+
+/**
+ * @method set
+ * @memberof VecArray.prototype  
+ * @description Sets the value of the vector array from another WebGLMath vector, vector array, matrix, or matrix array object, or an array of numbers.
+ * @param {number[] | Object } data - Input data.
+ */
+VecArray.prototype.set = function(data){
+  this.storage.set(data.storage || data);
 };
 
 /**
@@ -20,8 +30,8 @@ var VecArray = function(){
  * @return {VecArray} this
  */
 VecArray.prototype.add = function(b, c) {
-  for(var i=0; i<this.storage.length; i++) {
- 	this.storage[i] = b.storage[i] + c.storage[i];
+  for(let i=0; i<this.storage.length; i++) {
+  	this.storage[i] = b.storage[i] + c.storage[i];
   }
   return this;  
 };
@@ -36,8 +46,8 @@ VecArray.prototype.add = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.addScaled = function(b, c, dt) {
-  for(var i=0; i<this.storage.length; i++) {
-  this.storage[i] = b.storage[i] + c.storage[i] * dt;
+  for(let i=0; i<this.storage.length; i++) {
+    this.storage[i] = b.storage[i] + c.storage[i] * dt;
   }
   return this;  
 };
@@ -45,14 +55,14 @@ VecArray.prototype.addScaled = function(b, c, dt) {
 /**
  * @method sub
  * @memberof VecArray.prototype  
- * @description Substracts vectors from the two argument arrays, storing the result in this array.
+ * @description Subtracts vectors from the two argument arrays, storing the result in this array.
  * @param {VecArray} b - Array of minuends. Its length must be identical to this array's length.
  * @param {VecArray} c - Array of subtrahends. Its length must be identical to this array's length.
  * @return {VecArray} this
  */
 VecArray.prototype.sub = function(b, c) {
-  for(var i=0; i<this.storage.length; i++) {
- 	this.storage[i] = b.storage[i] - c.storage[i];
+  for(let i=0; i<this.storage.length; i++) {
+  	this.storage[i] = b.storage[i] - c.storage[i];
   }
   return this;  
 };
@@ -66,8 +76,8 @@ VecArray.prototype.sub = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.mul = function(b, c) {
-  for(var i=0; i<this.storage.length; i++) {
- 	this.storage[i] = b.storage[i] * c.storage[i];
+  for(let i=0; i<this.storage.length; i++) {
+ 	  this.storage[i] = b.storage[i] * c.storage[i];
   }
   return this;  
 };
@@ -82,11 +92,11 @@ VecArray.prototype.mul = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.mulWithVec1s = function(b, c) {
-  var stretchFactor = this.storage.length / c.storage.length; 
-  var i=0;
-  for(var j=0; j<c.storage.length; j++) { 
-    for(var k=0; k<stretchFactor; k++, i++ ) {
-    this.storage[i] = b.storage[i] * c.storage[j];
+  const stretchFactor = this.storage.length / c.storage.length; 
+  let i=0;
+  for(let j=0; j<c.storage.length; j++) { 
+    for(let k=0; k<stretchFactor; k++, i++ ) {
+      this.storage[i] = b.storage[i] * c.storage[j];
     }
   }
   return this;  
@@ -101,8 +111,8 @@ VecArray.prototype.mulWithVec1s = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.div = function(b, c) {
-  for(var i=0; i<this.storage.length; i++) {
- 	this.storage[i] = b.storage[i] / c.storage[i];
+  for(let i=0; i<this.storage.length; i++) {
+  	this.storage[i] = b.storage[i] / c.storage[i];
   }
   return this;  
 };
@@ -116,11 +126,11 @@ VecArray.prototype.div = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.divWithVec1s = function(b, c) {
-  var stretchFactor = this.storage.length / c.storage.length; 
-  var i=0;
-  for(var j=0; j<c.storage.length; j++) { 
-    for(var k=0; k<stretchFactor; k++, i++ ) {
-    this.storage[i] = b.storage[i] / c.storage[j];
+  const stretchFactor = this.storage.length / c.storage.length; 
+  let i=0;
+  for(let j=0; j<c.storage.length; j++) { 
+    for(let k=0; k<stretchFactor; k++, i++ ) {
+      this.storage[i] = b.storage[i] / c.storage[j];
     }
   }
   return this;  
@@ -135,9 +145,9 @@ VecArray.prototype.divWithVec1s = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.addAll = function(b, c) {
-  for(var i=0; i<this.storage.length;) {
-    for(var k=0; k<c.storage.length; i++, k++) {
-    this.storage[i] = b.storage[i] + c.storage[k];
+  for(let i=0; i<this.storage.length;) {
+    for(let k=0; k<c.storage.length; i++, k++) {
+      this.storage[i] = b.storage[i] + c.storage[k];
     }
   }
   return this;  
@@ -152,9 +162,9 @@ VecArray.prototype.addAll = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.subAll = function(b, c) {
-  for(var i=0; i<this.storage.length;) {
-    for(var k=0; k<c.storage.length; i++, k++) {
-    this.storage[i] = b.storage[i] - c.storage[k];
+  for(let i=0; i<this.storage.length;) {
+    for(let k=0; k<c.storage.length; i++, k++) {
+      this.storage[i] = b.storage[i] - c.storage[k];
     }
   }
   return this;  
@@ -169,9 +179,9 @@ VecArray.prototype.subAll = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.mulAll = function(b, c) {
-  for(var i=0; i<this.storage.length;) {
-    for(var k=0; k<c.storage.length; i++, k++) {
-    this.storage[i] = b.storage[i] * c.storage[k];
+  for(let i=0; i<this.storage.length;) {
+    for(let k=0; k<c.storage.length; i++, k++) {
+      this.storage[i] = b.storage[i] * c.storage[k];
     }
   }
   return this;  
@@ -186,9 +196,9 @@ VecArray.prototype.mulAll = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.divAll = function(b, c) {
-  for(var i=0; i<this.storage.length;) {
-    for(var k=0; k<c.storage.length; i++, k++) {
-    this.storage[i] = b.storage[i] / c.storage[k];
+  for(let i=0; i<this.storage.length;) {
+    for(let k=0; k<c.storage.length; i++, k++) {
+      this.storage[i] = b.storage[i] / c.storage[k];
     }
   }
   return this;  
@@ -203,7 +213,7 @@ VecArray.prototype.divAll = function(b, c) {
  * @return {VecArray} this
  */
 VecArray.prototype.scale = function(b, s) {
-  for(var i=0; i<this.storage.length; i++) {
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = b.storage[i] * s;
   }
   return this;  
@@ -218,7 +228,7 @@ VecArray.prototype.scale = function(b, s) {
  * @return {VecArray} this
  */
 VecArray.prototype.exp = function(b, s) {
-  for(var i=0; i<this.storage.length; i++) {
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = Math.pow(b.storage[i], s);
   }
   return this;  
@@ -231,7 +241,7 @@ VecArray.prototype.exp = function(b, s) {
  * @return {VecArray} this
  */
 VecArray.prototype.random = function() {
-  for(var i=0; i<this.storage.length; i++) {
+  for(let i=0; i<this.storage.length; i++) {
     this.storage[i] = Math.random();
   }
   return this;  
@@ -244,7 +254,7 @@ VecArray.prototype.random = function() {
  * @return {VecArray} this
  */
 VecArray.prototype.clamp = function() {
-  for(var i=0; i<this.storage.length; i++) {
+  for(let i=0; i<this.storage.length; i++) {
     if(this.storage[i] < 0) {
       this.storage[i] = 0;
     }

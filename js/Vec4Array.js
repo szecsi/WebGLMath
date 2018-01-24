@@ -2,7 +2,7 @@
  * @file WebGLMath Vec4Array class
  * @copyright Laszlo Szecsi 2017
  */
-
+"use strict";
 /**
  * @class Vec4Array
  * @extends VecArray
@@ -12,7 +12,7 @@
  * @param {Number} size - The number of Vec4 elements in the array.
  * @constructor
  */
-var Vec4Array = function(size){
+const Vec4Array = function(size){
   this.length = size;
   this.storage = new Float32Array(size * 4);
 };
@@ -28,10 +28,10 @@ Vec4Array.prototype.constructor = Vec4Array;
  * @return {Vec4} new view on one of the array's elements
  */
 Vec4Array.prototype.at = function(index){
-  var result = Object.create(Vec4.prototype);
+  const result = Object.create(Vec4.prototype);
   result.storage = this.storage.subarray(index*4, index*4+4);
   return result;
-}
+};
 
 
 /**
@@ -43,7 +43,7 @@ Vec4Array.prototype.at = function(index){
  * @return {Vec4Array} new view on some of the array's elements
  */
 Vec4Array.prototype.subarray = function(begin, end){
-  var result = Object.create(Vec4Array.prototype);
+  const result = Object.create(Vec4Array.prototype);
   result.storage = this.storage.subarray(begin*4, end*4);
   return result;
 };
@@ -56,13 +56,13 @@ Vec4Array.prototype.subarray = function(begin, end){
  * @return {Vec4Array} this
  */
 Vec4Array.prototype.normalize = function(b) {
-  for(var i=0; i<this.storage.length; i+=4) {
-  	var l2 =
+  for(let i=0; i<this.storage.length; i+=4) {
+  	const l2 =
   	  b.storage[i  ] * b.storage[i  ] +
   	  b.storage[i+1] * b.storage[i+1] +
   	  b.storage[i+2] * b.storage[i+2] +
   	  b.storage[i+3] * b.storage[i+3] ;
-  	  var linv = 1 / Math.sqrt(l2);
+  	  const linv = 1 / Math.sqrt(l2);
     this.storage[i  ] = b.storage[i  ] * linv;
     this.storage[i+1] = b.storage[i+1] * linv;
     this.storage[i+2] = b.storage[i+2] * linv;
@@ -78,7 +78,7 @@ Vec4Array.prototype.normalize = function(b) {
  * @return {Vec4Array} this
  */
 Vec4Array.prototype.transform = function(v, m) {
-  for(var i=0; i<this.storage.length; i+=4) {
+  for(let i=0; i<this.storage.length; i+=4) {
     this.storage[i+0] =
        v.storage[i+0] * m.storage[ 0] +
        v.storage[i+1] * m.storage[ 1] +
