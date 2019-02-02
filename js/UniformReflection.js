@@ -46,7 +46,14 @@ const UniformReflection = {
         target.uniformDescs[reflectionName] = uniformDesc;
         const reflectionVariable = 
             UniformReflection.makeVar(gl, uniformDesc.type, uniformDesc.size, uniformDesc.textureUnit);
-        Object.defineProperty(target, reflectionName, {value: reflectionVariable} );
+        if(target.reflectionName){
+          if(target.reflectionName.constructor !== reflectionVariable.constructor ||
+            target.reflectionName.storage.length !== reflectionVariable.storage.length
+            )
+            throw new Error("Uniform with the same name but different type: " + target.reflectionName);
+        } else {
+          Object.defineProperty(target, reflectionName, {value: reflectionVariable} );
+        }
       }
     }
     Object.defineProperty(target, "commitUniforms", { value: function(gl){
