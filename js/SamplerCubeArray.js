@@ -8,14 +8,12 @@
  * @classdesc Array of 2d cube samplers. May reflect an ESSL array-of-samplerCubes uniform variable.
  * <BR> Individual [SamplerCube]{@link SamplerCube} elements are available through the index operator [].
  * @param {Number} size - The number of SamplerCube elements in the array.
- * @param {Number} baseTextureUnit - The texture unit index of the first element. Other elements are assigned to texture units contiguously. 
  * @constructor
  */
 const SamplerCubeArray = function(size, baseTextureUnit){
   this.length = size;
   this.storage = new Int32Array(size);
   for(let i=0; i<size; i++){
-  	this.storage[i] = i + baseTextureUnit;
     const element = Object.create(SamplerCube.prototype);
     element.glTexture = null;
     element.storage = this.storage.subarray(i, (i+1));
@@ -52,12 +50,14 @@ Sampler2DArray.prototype.set = function(textureArray){
  * @description Specifies, to WebGL, the texture unit indices of all samplers in the array, and binds textures of the array elements.
  * @param {WebGLRenderingContext} gl - rendering context
  * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
+ * @param {Number} baseTextureUnit - The texture unit index of the first element. Other elements are assigned to texture units contiguously. 
  */
-SamplerCubeArray.prototype.commit = function(gl, uniformLocation){
-  gl.uniform1iv(uniformLocation, this.storage);
+SamplerCubeArray.prototype.commit = function(gl, uniformLocation, baseTextureUnit){
   for(let i=0; i<this.length; i++) {
-    gl.activeTexture(gl.TEXTURE0 + this.storage[i]);
+    this.storage[i] = baseTextureUnit + i;
+    gl.activeTexture(gl.TEXTURE0 + baseTextureUnit + i);
     gl.bindTexture(gl.TEXTURE_CUBE_MAP, this[i].glTexture);
   }
+  gl.uniform1iv(uniformLocation, this.storage);
 };
 

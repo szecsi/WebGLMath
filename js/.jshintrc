@@ -34,7 +34,8 @@
     "Mat4Array" : true,
     "Sampler2DArray" : true,
     "SamplerCubeArray" : true,
-    "UniformReflectionFactories" : true,
+    "UniformReflection" : true,
+    "GLUniforms" : true,    
     "module" : true
   }
 }

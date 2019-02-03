@@ -15,47 +15,115 @@ const UniformReflection = {
    * @method addProperties
    * @memberof UniformReflection
    * @static 
-   * @description Populates a target object with reflection properties matching the uniforms in a given struct of a given WebGL program, and adds a method that commits all reflection properties to their respective uniforms.
-   * @param {Object} target - The object to gain the properties and the method.
+   * @description Populates a target object (or objects) with reflection properties matching the uniforms in a WebGL program.
    * @param {WebGLRenderingContext} gl - The rendering context.
    * @param {WebGLProgram} glProgram - The WebGL program whose active uniforms are to be reflected.
-   * @param {String} prefix - Only uniforms whose names start with this prefix are reflected. The prefix---and additional characters before and including the first '.' ---are trimmed off. 
+   * @param {Object} target - The object to gain the properties matching uniforms that are not defined in structs.
+   * @param {Object} [structTargets = window.Uniforms] - For uniforms defined in structs, the reflection property is added to structTargets[<struct name>], which must be an Object, or undefined, in which case a new object is created.
+   * @return {Proxy} - The target object wrapped in a proxy that only prints a warning on accessing non-existent properties.
    */  
-  addProperties : function(target, gl, glProgram, prefix){
-    prefix = prefix || "";
-    target.uniformDescs = {}; 
+  addProperties : function(gl, glProgram, target, structTargets){
+    if(!("Uniforms" in window)){ window.Uniforms = UniformReflection.makeProxy({},"uniform struct");}
+    structTargets = structTargets || window.Uniforms;
+    // for all uniforms used in glProgram
+    const nUniforms = gl.getProgramParameter(glProgram, gl.ACTIVE_UNIFORMS);
+    for(let i=0; i<nUniforms; i++){ 
+      const glUniform = gl.getActiveUniform(glProgram, i); 
+      // create an object of approriate type
+      const reflectionVariable = 
+          UniformReflection.makeVar(gl, glUniform.type, glUniform.size || 1);
+      // separate struct name (if exists) and unqualified uniform name
+      const nameParts = glUniform.name.split('[')[0].split('.');
+      const uniformName = nameParts[nameParts.length - 1];
+      const structName = nameParts[nameParts.length - 2];      
+
+      let t = target; // uniform should be reflected in target, by default
+      if(structName) { // except if it is defined in a struct
+        if(!(structName in structTargets)) { // add a reflection object for the struct
+          Object.defineProperty(structTargets, structName, {value: UniformReflection.makeProxy({})} );
+        }
+        t = structTargets[structName]; // uniform defined in struct should be reflected here
+      }
+      if(uniformName in t){ // if reflection property already exists, check compatibility
+        if(t[uniformName].constructor !== reflectionVariable.constructor ||
+          t[uniformName].storage.length !== reflectionVariable.storage.length){
+          throw new Error("Trying to reflect incompatible uniforms both called " + uniformName + "to the same target object.");
+        }
+      } else {
+        Object.defineProperty(t, uniformName, {value: reflectionVariable} );
+      }
+    }
+
+    return UniformReflection.makeProxy(target);
+  },
+  /**
+   * @method commitProperties
+   * @memberof UniformReflection
+   * @static 
+   * @description Commits the reflection properties of a source object (or objects) matching the uniforms in a given WebGL program.
+   * @param {WebGLRenderingContext} gl - The rendering context.
+   * @param {WebGLProgram} glProgram - The WebGL program whose active uniforms are to be set.
+   * @param {Object} source - The object whose properties should be committed to the uniforms not defined in structs.
+   * @param {Object} [structSources = window.Uniforms] - For uniforms defined in structs, the properties of structSources[<struct name>] are committed.
+   */  
+  commitProperties : function(gl, glProgram, source, structSources){
+    structSources = structSources || window.Uniforms;
     let textureUnitCount = 0;
+    // for all uniforms used in glProgram
     const nUniforms = gl.getProgramParameter(glProgram, gl.ACTIVE_UNIFORMS); 
     for(let i=0; i<nUniforms; i++){ 
       const glUniform = gl.getActiveUniform(glProgram, i); 
-      const uniformDesc = { 
-        type      : glUniform.type, 
-        size      : glUniform.size || 1, 
-        location  : gl.getUniformLocation(glProgram, glUniform.name) 
-      };
+      // keep track of texture units used
       if(glUniform.type === gl.SAMPLER_2D || glUniform.type === gl.SAMPLER_CUBE){ 
-        uniformDesc.textureUnit = textureUnitCount; 
-        textureUnitCount += uniform.size; 
-      }  
-
-      let reflectionName = glUniform.name.split('[')[0];
-      if(reflectionName.startsWith(prefix)) {
-        reflectionName = reflectionName.slice(prefix.length);
-        reflectionName = reflectionName.replace(/^\w*\./, "");
-
-        target.uniformDescs[reflectionName] = uniformDesc;
-        const reflectionVariable = 
-            UniformReflection.makeVar(gl, uniformDesc.type, uniformDesc.size, uniformDesc.textureUnit);
-        Object.defineProperty(target, reflectionName, {value: reflectionVariable} );
+        textureUnitCount += glUniform.size || 1; 
       }
+      // separate struct name (if exists) and unqualified uniform name
+      const nameParts = glUniform.name.split('[')[0].split('.');
+      const uniformName = nameParts[nameParts.length - 1];
+      const structName = nameParts[nameParts.length - 2];      
+      // get uniform location and commit reflection property there
+      const location = gl.getUniformLocation(glProgram, glUniform.name);
+      // use struct source instead of source for uniforms defined in structs
+      (structName?structSources[structName]:source)[uniformName].commit(gl, location, textureUnitCount);
     }
-    Object.defineProperty(target, "commitUniforms", { value: function(gl){
-      Object.keys(this.uniformDescs).forEach( (reflectionName) => { 
-        const uniformDesc = this.uniformDescs[reflectionName];
-        this[reflectionName].commit(gl, uniformDesc.location);
-      });
-    }});
-  },
+  },  
+  /**
+   * @method makeProxy
+   * @memberof UniformReflection
+   * @static 
+   * @description Returns an object that forwards property accesses to a target, and prints a warning message if the target does not have the proerty, instead of causing an error.
+   * @param {Object} target - The object whose propery accesses are to be guarded.
+   * @param {String} [type="uniform"] - Printed as part of the warning message.
+   */  
+  makeProxy : function(target, type){
+    type = type || "uniform";
+    return new Proxy(target, { 
+      get : function(target, name){ 
+        if(!(name in target)){ 
+          console.error("WARNING: Ignoring attempt to access property '" + 
+            name + "'. Is '" + name + "' an unused " + type + "?" ); 
+          return UniformReflection.dummy; 
+        } 
+        return target[name]; 
+      }, 
+    });  
+  },  
+  /**
+   * @property dummy
+   * @memberof UniformReflection
+   * @static 
+   * @description Absorbs all function calls and property accesses without effect. 
+   * @type Proxy
+   */  
+  // absorbs all function calls and property accesses without effect
+  dummy : new Proxy(() => false, { 
+    get: function(){ 
+      return UniformReflection.dummy; 
+    }, 
+    apply: function(){ 
+      return UniformReflection.dummy; 
+    }, 
+  }),
   /**
    * @method makeVar
    * @memberof UniformReflection
