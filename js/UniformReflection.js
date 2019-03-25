@@ -75,10 +75,6 @@ const UniformReflection = {
     const nUniforms = gl.getProgramParameter(glProgram, gl.ACTIVE_UNIFORMS); 
     for(let i=0; i<nUniforms; i++){ 
       const glUniform = gl.getActiveUniform(glProgram, i); 
-      // keep track of texture units used
-      if(glUniform.type === gl.SAMPLER_2D || glUniform.type === gl.SAMPLER_CUBE){ 
-        textureUnitCount += glUniform.size || 1; 
-      }
       // separate struct name (if exists) and unqualified uniform name
       const nameParts = glUniform.name.split('[')[0].split('.');
       const uniformName = nameParts[nameParts.length - 1];
@@ -87,6 +83,10 @@ const UniformReflection = {
       const location = gl.getUniformLocation(glProgram, glUniform.name);
       // use struct source instead of source for uniforms defined in structs
       (structName?structSources[structName]:source)[uniformName].commit(gl, location, textureUnitCount);
+      //  keep track of texture units used
+      if(glUniform.type === gl.SAMPLER_2D || glUniform.type === gl.SAMPLER_3D || glUniform.type === gl.SAMPLER_CUBE){ 
+        textureUnitCount += glUniform.size || 1; 
+      }
     }
   },  
   /**
