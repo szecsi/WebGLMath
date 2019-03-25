@@ -23,8 +23,10 @@ const UniformReflection = {
    * @return {Proxy} - The target object wrapped in a proxy that only prints a warning on accessing non-existent properties.
    */  
   addProperties : function(gl, glProgram, target, structTargets){
-    if(!("Uniforms" in window)){ window.Uniforms = UniformReflection.makeProxy({},"uniform struct");}
-    structTargets = structTargets || window.Uniforms;
+    if(!structTargets) { // set default, create it if necessary
+      if(!("Uniforms" in window)){ window.Uniforms = UniformReflection.makeProxy({},"uniform struct");}
+      structTargets = window.Uniforms;
+    }
     // for all uniforms used in glProgram
     const nUniforms = gl.getProgramParameter(glProgram, gl.ACTIVE_UNIFORMS);
     for(let i=0; i<nUniforms; i++){ 
@@ -63,7 +65,7 @@ const UniformReflection = {
    * @description Commits the reflection properties of a source object (or objects) matching the uniforms in a given WebGL program.
    * @param {WebGLRenderingContext} gl - The rendering context.
    * @param {WebGLProgram} glProgram - The WebGL program whose active uniforms are to be set.
-   * @param {Object} source - The object whose properties should be committed to the uniforms not defined in structs.
+   * @param {Object} source - The object whose properties should be committed to the uniforms that were not defined in structs.
    * @param {Object} [structSources = window.Uniforms] - For uniforms defined in structs, the properties of structSources[<struct name>] are committed.
    */  
   commitProperties : function(gl, glProgram, source, structSources){
@@ -142,7 +144,8 @@ const UniformReflection = {
       case gl.FLOAT_VEC4   : return this.vec4(arraySize);
       case gl.FLOAT_MAT4   : return this.mat4(arraySize);
       case gl.SAMPLER_2D   : return this.sampler2D(arraySize, samplerIndex);
-      case gl.SAMPLER_CUBE : return this.samplerCube(arraySize, samplerIndex);      
+      case gl.SAMPLER_CUBE : return this.samplerCube(arraySize, samplerIndex);
+      case gl.SAMPLER_3D   : return this.sampler3D(arraySize, samplerIndex);            
     }
   },
   /**
@@ -199,5 +202,6 @@ const UniformReflection = {
    * @return {Mat4 | Mat4Array} The new reflection object.
    */  
   sampler2D :      function(arraySize, samplerIndex){ if(arraySize === 1) { return new Sampler2D(samplerIndex); } else { return new Sampler2DArray(arraySize, samplerIndex);}},
-  samplerCube :    function(arraySize, samplerIndex){ if(arraySize === 1) { return new SamplerCube(samplerIndex); } else { return new SamplerCubeArray(arraySize, samplerIndex);}}
+  samplerCube :    function(arraySize, samplerIndex){ if(arraySize === 1) { return new SamplerCube(samplerIndex); } else { return new SamplerCubeArray(arraySize, samplerIndex);}},
+  sampler3D :      function(arraySize, samplerIndex){ if(arraySize === 1) { return new Sampler3D(samplerIndex); } else { return new Sampler3DArray(arraySize, samplerIndex);}},  
 };
