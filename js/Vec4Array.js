@@ -9,11 +9,11 @@
  * @classdesc Array of four-element vectors of 32-bit floats. May reflect an ESSL array-of-vec4s uniform variable.
  * <BR> Individual [Vec4]{@link Vec4} elements are available through the [at]{@link Vec1Array#at} method.
  * Methods are available for optimized bulk processing.
- * @param {Number} size - The number of Vec4 elements in the array.
+ * @param {Number | Array} size - The number of Vec4 elements in the array, or an array of 4n elements.
  * @constructor
  */
 const Vec4Array = function(size){
-  this.length = size;
+  this.length = size.length/4 || size;
   this.storage = new Float32Array(size * 4);
 };
 

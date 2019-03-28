@@ -9,11 +9,11 @@
  * @classdesc Array of three-element vectors of 32-bit floats. May reflect an ESSL array-of-vec3s uniform variable.
  * <BR> Individual [Vec3]{@link Vec3} elements are available through the [at]{@link Vec3Array#at} method.
  * Methods are available for optimized bulk processing.
- * @param {Number} size - The number of Vec3 elements in the array.
+ * @param {Number} size - The number of Vec3 elements in the array, or an array of 3n elements.
  * @constructor
  */
 const Vec3Array = function(size){
-  this.length = size;
+  this.length = size.length/3 || size;
   this.storage = new Float32Array(size * 3);
 };
 
