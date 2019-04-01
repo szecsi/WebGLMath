@@ -14,7 +14,7 @@
  */
 const Vec4Array = function(size){
   this.length = size.length/4 || size;
-  this.storage = new Float32Array(size * 4);
+  this.storage = new Float32Array(size.length && size || size * 4);
 };
 
 Vec4Array.prototype = Object.create(VecArray.prototype);

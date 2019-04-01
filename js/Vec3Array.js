@@ -14,7 +14,7 @@
  */
 const Vec3Array = function(size){
   this.length = size.length/3 || size;
-  this.storage = new Float32Array(size * 3);
+  this.storage = new Float32Array(size.length && size || size * 3);
 };
 
 Vec3Array.prototype = Object.create(VecArray.prototype);
