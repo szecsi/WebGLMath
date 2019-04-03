@@ -9,12 +9,12 @@
  * @classdesc Array of two-element vectors of 32-bit floats. May reflect an ESSL array-of-vec2s uniform variable.
  * <BR> Individual [Vec2]{@link Vec2} elements are available through the [at]{@link Vec2Array#at} method.
  * Methods are available for optimized bulk processing.
- * @param {Number} size - The number of Vec2 elements in the array.
+ * @param {Number | Array} size - The number of Vec2 elements in the array, or an array of 2n elements.
  * @constructor
  */
 const Vec2Array = function(size){
-  this.length = size;
-  this.storage = new Float32Array(size * 2);
+  this.length = size.length/2 || size;
+  this.storage = new Float32Array(size.length && size || size * 2);
 };
 
 Vec2Array.prototype = Object.create(VecArray.prototype);
