@@ -84,7 +84,10 @@ const UniformReflection = {
       // use struct source instead of source for uniforms defined in structs
       (structName?structSources[structName]:source)[uniformName].commit(gl, location, textureUnitCount);
       //  keep track of texture units used
-      if(glUniform.type === gl.SAMPLER_2D || glUniform.type === gl.SAMPLER_3D || glUniform.type === gl.SAMPLER_CUBE){ 
+      if(glUniform.type === gl.SAMPLER_2D ||
+       glUniform.type === gl.SAMPLER_3D ||
+        glUniform.type === gl.SAMPLER_CUBE ||
+        glUniform.type === gl.UNSIGNED_INT_SAMPLER_2D){ 
         textureUnitCount += glUniform.size || 1; 
       }
     }
@@ -143,6 +146,7 @@ const UniformReflection = {
       case gl.FLOAT_VEC3   : return this.vec3(arraySize);
       case gl.FLOAT_VEC4   : return this.vec4(arraySize);
       case gl.FLOAT_MAT4   : return this.mat4(arraySize);
+      case gl.UNSIGNED_INT_SAMPLER_2D: 
       case gl.SAMPLER_2D   : return this.sampler2D(arraySize, samplerIndex);
       case gl.SAMPLER_CUBE : return this.samplerCube(arraySize, samplerIndex);
       case gl.SAMPLER_3D   : return this.sampler3D(arraySize, samplerIndex);            
