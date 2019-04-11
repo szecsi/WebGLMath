@@ -30,8 +30,9 @@ Vec1Array.prototype.constructor = Vec1Array;
 Vec1Array.prototype.at = function(index){
   const result = Object.create(Vec1.prototype);
   result.storage = this.storage.subarray(index, index+1);
+  result.length  = result.storage.length/4;
   return result;  
-}
+};
 
 /**
  * @method subarray

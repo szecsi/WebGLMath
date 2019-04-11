@@ -44,6 +44,7 @@ Vec3Array.prototype.at = function(index){
 Vec3Array.prototype.subarray = function(begin, end){
   const result = Object.create(Vec3Array.prototype);
   result.storage = this.storage.subarray(begin*3, end*3);
+  result.length  = result.storage.length/4;  
   return result;
 };
 

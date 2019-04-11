@@ -44,6 +44,7 @@ Vec2Array.prototype.at = function(index){
 Vec2Array.prototype.subarray = function(begin, end){
   const result = Object.create(Vec2Array.prototype);
   result.storage = this.storage.subarray(begin*2, end*2);
+  result.length  = result.storage.length/4;
   return result;
 };
 

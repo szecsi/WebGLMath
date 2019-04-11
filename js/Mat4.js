@@ -2,7 +2,7 @@
  * @file WebGLMath {@link Mat4} class
  * @copyright Laszlo Szecsi 2017
  */
-"using strict";
+"use strict";
 /**
  * @class Mat4
  * @classdesc Four-by-four matrix of 32-bit floats. May reflect an ESSL mat4 uniform variable.
