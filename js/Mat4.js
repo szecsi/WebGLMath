@@ -74,22 +74,22 @@ Mat4.prototype.clone = function() {
  */
 Mat4.prototype.set = function(m, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
   /*jshint unused:false*/  
-  this.storage[ 0]  = (m && (m[ 0]-1) || (arguments[ 0]-1) || 0) + 1;
+  this.storage[ 0]  =µ(m !== 0 && m && m[0],  arguments[ 0] ,  1);
   this.storage[ 4]  =  m &&  m[ 1] || arguments[ 1] || 0;
   this.storage[ 8]  =  m &&  m[ 2] || arguments[ 2] || 0;
   this.storage[12]  =  m &&  m[ 3] || arguments[ 3] || 0;
   this.storage[ 1]  =  m &&  m[ 4] || arguments[ 4] || 0;
-  this.storage[ 5]  = (m && (m[ 5]-1) || (arguments[ 5]-1) || 0) + 1;
+  this.storage[ 5]  =µ(m !== 0 && m && m[5],  arguments[ 5] ,  1);
   this.storage[ 9]  =  m &&  m[ 6] || arguments[ 6] || 0;
   this.storage[13]  =  m &&  m[ 7] || arguments[ 7] || 0;
   this.storage[ 2]  =  m &&  m[ 8] || arguments[ 8] || 0;
   this.storage[ 6]  =  m &&  m[ 9] || arguments[ 9] || 0;
-  this.storage[10]  = (m && (m[10]-1) || (arguments[10]-1) || 0) + 1;
+  this.storage[10]  =µ(m !== 0 && m && m[10],  arguments[10] ,  1);
   this.storage[14]  =  m &&  m[11] || arguments[11] || 0;
   this.storage[ 3]  =  m &&  m[12] || arguments[12] || 0;
   this.storage[ 7]  =  m &&  m[13] || arguments[13] || 0;
   this.storage[11]  =  m &&  m[14] || arguments[14] || 0;
-  this.storage[15]  = (m && (m[15]-1) || (arguments[15]-1) || 0) + 1;
+  this.storage[15]  =µ(m !== 0 && m && m[15],  arguments[15] ,  1);
   return this;
 };
 
@@ -233,9 +233,9 @@ Mat4.prototype.mul = function(m) {
  * @return {Mat4} this
  */
 Mat4.prototype.scale = function(u, v, s) {
-  const sx = (u && (u.x - 1) || (Number(u).valueOf() - 1) || 0 ) + 1;
-  const sy = (u && (u.y - 1) || (Number(v).valueOf() - 1) || (Number(u).valueOf() - 1) || 0 ) + 1;
-  const sz = (u && (u.z - 1) || (Number(s).valueOf() - 1) || (Number(u).valueOf() - 1) || 0 ) + 1;
+  const sx = µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  const sy = µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  const sz = µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
   this.storage[ 0] *= sx;
   this.storage[ 1] *= sx;
   this.storage[ 2] *= sx;

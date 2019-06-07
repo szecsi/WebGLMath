@@ -113,13 +113,13 @@ Vec3.random = function(minVal, maxVal) {
   const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);
   result.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);
   result.storage[1] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.z || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);
   result.storage[2] = Math.random() * (maxa - mina) + mina;
   return result;
 };
@@ -134,13 +134,13 @@ Vec3.random = function(minVal, maxVal) {
  */
 Vec3.prototype.setRandom = function(minVal, maxVal) {
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   this.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   this.storage[1] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.z || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);  
   this.storage[2] = Math.random() * (maxa - mina) + mina;
   return this;  
 };
@@ -166,15 +166,15 @@ Vec3.prototype.clamp = function(minVal, maxVal) {
   if(this.storage[2] < mina){
     this.storage[2] = mina;
   }  
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);
   if(this.storage[0] > maxa){
     this.storage[0] = maxa;
   }
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);
   if(this.storage[1] > maxa){
     this.storage[1] = maxa;
   }
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);
   if(this.storage[2] > maxa){
     this.storage[2] = maxa;
   }
@@ -192,7 +192,7 @@ Vec3.prototype.clamp = function(minVal, maxVal) {
  */
 Vec3.prototype.setClamped = function(b, minVal, maxVal) {
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   if(b.storage[0] < mina){
     this.storage[0] = mina;
   } else if(b.storage[0] > maxa){
@@ -201,7 +201,7 @@ Vec3.prototype.setClamped = function(b, minVal, maxVal) {
     this.storage[0] = b.storage[0];
   }
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   if(b.storage[1] < mina){
     this.storage[1] = mina;
   } else if(b.storage[1] > maxa){
@@ -210,7 +210,7 @@ Vec3.prototype.setClamped = function(b, minVal, maxVal) {
     this.storage[1] = b.storage[1];
   }
   mina = minVal && minVal.z || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);  
   if(b.storage[2] < mina){
     this.storage[2] = mina;
   } else if(b.storage[2] > maxa){
@@ -347,9 +347,9 @@ Vec3.prototype.setDifference = function(b, c) {
  * @return {Vec3} this
  */
 Vec3.prototype.mul = function(u, v, s) {
-  this.storage[0] *= u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[1] *= u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[2] *= u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
+  this.storage[0] *= µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  this.storage[1] *= µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  this.storage[2] *= µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
   return this;  
 };
 
@@ -365,9 +365,9 @@ Vec3.prototype.mul = function(u, v, s) {
 Vec3.prototype.times = function(u, v, s) {
   const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
-  result.storage[0] = this.storage[0] * (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[1] = this.storage[1] * (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[2] = this.storage[2] * (u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
+  result.storage[0] = this.storage[0] * µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  result.storage[1] = this.storage[1] * µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  result.storage[2] = this.storage[2] * µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
   return result;
 };
 
@@ -424,9 +424,9 @@ Vec3.prototype.setProduct = function(b, c) {
  * @return {Vec3} this
  */
 Vec3.prototype.div = function(u, v, s) {
-  this.storage[0] /= u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[1] /= u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[2] /= u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
+  this.storage[0] /= µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  this.storage[1] /= µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  this.storage[2] /= µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
   return this;  
 };
 
@@ -442,9 +442,9 @@ Vec3.prototype.div = function(u, v, s) {
 Vec3.prototype.over = function(u, v, s) {
   const result = Object.create(Vec3.prototype);
   result.storage = new Float32Array(3);
-  result.storage[0] = this.storage[0] / (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[1] = this.storage[1] / (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[2] = this.storage[2] / (u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
+  result.storage[0] = this.storage[0] / µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  result.storage[1] = this.storage[1] / µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  result.storage[2] = this.storage[2] / µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
   return result;
 };
 

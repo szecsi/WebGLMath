@@ -98,10 +98,10 @@ Vec2.random = function(minVal, maxVal) {
   const result = Object.create(Vec2.prototype);
   result.storage = new Float32Array(2);
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);
   result.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);
   result.storage[1] = Math.random() * (maxa - mina) + mina;
   return result;
 };
@@ -116,10 +116,10 @@ Vec2.random = function(minVal, maxVal) {
  */
 Vec2.prototype.setRandom = function(minVal, maxVal) {
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   this.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   this.storage[1] = Math.random() * (maxa - mina) + mina;
   return this;  
 };
@@ -141,11 +141,11 @@ Vec2.prototype.clamp = function(minVal, maxVal) {
   if(this.storage[1] < mina){
     this.storage[1] = mina;
   }
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);
   if(this.storage[0] > maxa){
     this.storage[0] = maxa;
   }
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);
   if(this.storage[1] > maxa){
     this.storage[1] = maxa;
   }
@@ -163,7 +163,7 @@ Vec2.prototype.clamp = function(minVal, maxVal) {
  */
 Vec2.prototype.setClamped = function(b, minVal, maxVal) {
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   if(b.storage[0] < mina){
     this.storage[0] = mina;
   } else if(b.storage[0] > maxa){
@@ -172,7 +172,7 @@ Vec2.prototype.setClamped = function(b, minVal, maxVal) {
     this.storage[0] = b.storage[0];
   }
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   if(b.storage[1] < mina){
     this.storage[1] = mina;
   } else if(b.storage[1] > maxa){
@@ -295,8 +295,8 @@ Vec2.prototype.setDifference = function(b, c) {
  * @return {Vec2} this
  */
 Vec2.prototype.mul = function(u, v) {
-  this.storage[0] *= u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[1] *= u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
+  this.storage[0] *= µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  this.storage[1] *= µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
   return this;  
 };
 
@@ -311,8 +311,8 @@ Vec2.prototype.mul = function(u, v) {
 Vec2.prototype.times = function(u, v) {
   const result = Object.create(Vec2.prototype);
   result.storage = new Float32Array(2);
-  result.storage[0] = this.storage[0] * (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[1] = this.storage[1] * (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
+  result.storage[0] = this.storage[0] * µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  result.storage[1] = this.storage[1] * µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
   return result;
 };
 
@@ -367,8 +367,8 @@ Vec2.prototype.setProduct = function(b, c) {
  * @return {Vec2} this
  */
 Vec2.prototype.div = function(u, v) {
-  this.storage[0] /= u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[1] /= u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
+  this.storage[0] /= µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  this.storage[1] /= µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
   return this;  
 };
 
@@ -383,8 +383,8 @@ Vec2.prototype.div = function(u, v) {
 Vec2.prototype.over = function(u, v) {
   const result = Object.create(Vec2.prototype);
   result.storage = new Float32Array(2);
-  result.storage[0] = this.storage[0] / (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[1] = this.storage[1] / (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
+  result.storage[0] = this.storage[0] / µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  result.storage[1] = this.storage[1] / µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
   return result;
 };
 

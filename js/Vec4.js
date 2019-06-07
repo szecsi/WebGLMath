@@ -39,7 +39,7 @@ const Vec4 = function(u, v, s, t){
     u && u.x || Number(u).valueOf() || 0,
     u && u.y || Number(v).valueOf() || 0,
     u && u.z || Number(s).valueOf() || 0,
-    (u && (u.w-1) || (Number(t).valueOf()-1) || 0) + 1
+    µ(u !== 0 && u && u.w, Number(t).valueOf(), 1)
   ]);
 };
 
@@ -109,7 +109,7 @@ Vec4.prototype.set = function(u, v, s, t) {
   this.storage[0] = u && u.x || Number(u).valueOf() || 0;
   this.storage[1] = u && u.y || Number(v).valueOf() || 0;
   this.storage[2] = u && u.z || Number(s).valueOf() || 0;
-  this.storage[3] = (u && (u.w - 1) || (Number(t).valueOf()-1) || 0) + 1;
+  this.storage[3] = µ(u !== 0 && u && u.w, Number(t).valueOf(), 1);
   return this;  
 };
 
@@ -126,16 +126,16 @@ Vec4.random = function(minVal, maxVal) {
   const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   result.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   result.storage[1] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.z || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);  
   result.storage[2] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.w || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.w-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.w, Number(maxVal).valueOf(), 1);  
   result.storage[3] = Math.random() * (maxa - mina) + mina;
   return result;
 };
@@ -150,16 +150,16 @@ Vec4.random = function(minVal, maxVal) {
  */
 Vec4.prototype.setRandom = function(minVal, maxVal) {
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   this.storage[0] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   this.storage[1] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.z || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);  
   this.storage[2] = Math.random() * (maxa - mina) + mina;
   mina = minVal && minVal.w || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.w-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.w, Number(maxVal).valueOf(), 1);  
   this.storage[3] = Math.random() * (maxa - mina) + mina;
   return this;  
 };
@@ -189,19 +189,19 @@ Vec4.prototype.clamp = function(minVal, maxVal) {
   if(this.storage[3] < mina){
     this.storage[3] = mina;
   }  
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);
   if(this.storage[0] > maxa){
     this.storage[0] = maxa;
   }
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);
   if(this.storage[1] > maxa){
     this.storage[1] = maxa;
   }
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);
   if(this.storage[2] > maxa){
     this.storage[2] = maxa;
   }
-  maxa = maxVal && ((maxVal.w-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.w, Number(maxVal).valueOf(), 1);
   if(this.storage[3] > maxa){
     this.storage[3] = maxa;
   }
@@ -219,7 +219,7 @@ Vec4.prototype.clamp = function(minVal, maxVal) {
  */
 Vec4.prototype.setClamped = function(b, minVal, maxVal) {
   let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
-  let maxa = maxVal && ((maxVal.x-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  let maxa = µ(maxVal !== 0 && maxVal && maxVal.x, Number(maxVal).valueOf(), 1);  
   if(b.storage[0] < mina){
     this.storage[0] = mina;
   } else if(b.storage[0] > maxa){
@@ -228,7 +228,7 @@ Vec4.prototype.setClamped = function(b, minVal, maxVal) {
     this.storage[0] = b.storage[0];
   }
   mina = minVal && minVal.y || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.y-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.y, Number(maxVal).valueOf(), 1);  
   if(b.storage[1] < mina){
     this.storage[1] = mina;
   } else if(b.storage[1] > maxa){
@@ -237,7 +237,7 @@ Vec4.prototype.setClamped = function(b, minVal, maxVal) {
     this.storage[1] = b.storage[1];
   }
   mina = minVal && minVal.z || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.z-1) || (Number(maxVal).valueOf()-1) || 0) + 1;  
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.z, Number(maxVal).valueOf(), 1);  
   if(b.storage[2] < mina){
     this.storage[2] = mina;
   } else if(b.storage[2] > maxa){
@@ -246,7 +246,7 @@ Vec4.prototype.setClamped = function(b, minVal, maxVal) {
     this.storage[2] = b.storage[2];
   }
   mina = minVal && minVal.w || Number(minVal).valueOf() || 0;
-  maxa = maxVal && ((maxVal.w-1) || (Number(maxVal).valueOf()-1) || 0) + 1;
+  maxa = µ(maxVal !== 0 && maxVal && maxVal.w, Number(maxVal).valueOf(), 1);
   if(b.storage[3] < mina){
     this.storage[3] = mina;
   } else if(b.storage[3] > maxa){
@@ -399,10 +399,10 @@ Vec4.prototype.mul = function(u, v, s, t) {
   if(u instanceof Mat4) {
     this.transform(u);
   } else {
-    this.storage[0] *= u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1;
-    this.storage[1] *= u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
-    this.storage[2] *= u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
-    this.storage[3] *= u && ((u.w - 1) || (Number(t).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
+    this.storage[0] *= µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+    this.storage[1] *= µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+    this.storage[2] *= µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
+    this.storage[3] *= µ(u !== 0 && u && u.w, Number(t).valueOf(), Number(u).valueOf(), 1);
   }
   return this;  
 };
@@ -423,10 +423,10 @@ Vec4.prototype.times = function(u, v, s, t) {
   if(u instanceof Mat4) {
     result.setTransformed(this, u);
   } else {
-    result.storage[0] = this.storage[0] * (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
-    result.storage[1] = this.storage[1] * (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
-    result.storage[2] = this.storage[2] * (u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
-    result.storage[3] = this.storage[3] * (u && ((u.w - 1) || (Number(t).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
+    result.storage[0] = this.storage[0] * µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+    result.storage[1] = this.storage[1] * µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+    result.storage[2] = this.storage[2] * µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
+    result.storage[3] = this.storage[3] * µ(u !== 0 && u && u.w, Number(t).valueOf(), Number(u).valueOf(), 1);
   }
   return result;
 };
@@ -458,10 +458,10 @@ Vec4.prototype.setProduct = function(b, c) {
  * @return {Vec4} this
  */
 Vec4.prototype.div = function(u, v, s, t) {
-  this.storage[0] /= u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[1] /= u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[2] /= u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
-  this.storage[3] /= u && ((u.w - 1) || (Number(t).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1;
+  this.storage[0] /= µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  this.storage[1] /= µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  this.storage[2] /= µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
+  this.storage[3] /= µ(u !== 0 && u && u.w, Number(t).valueOf(), Number(u).valueOf(), 1);
   return this;  
 };
 
@@ -478,10 +478,10 @@ Vec4.prototype.div = function(u, v, s, t) {
 Vec4.prototype.over = function(u, v, s, t) {
   const result = Object.create(Vec4.prototype);
   result.storage = new Float32Array(4);
-  result.storage[0] = this.storage[0] / (u && ((u.x - 1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[1] = this.storage[1] / (u && ((u.y - 1) || (Number(v).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[2] = this.storage[2] / (u && ((u.z - 1) || (Number(s).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
-  result.storage[3] = this.storage[3] / (u && ((u.w - 1) || (Number(t).valueOf()-1) || (Number(u).valueOf()-1) || 0) + 1);
+  result.storage[0] = this.storage[0] / µ(u !== 0 && u && u.x, Number(u).valueOf(), 1);
+  result.storage[1] = this.storage[1] / µ(u !== 0 && u && u.y, Number(v).valueOf(), Number(u).valueOf(), 1);
+  result.storage[2] = this.storage[2] / µ(u !== 0 && u && u.z, Number(s).valueOf(), Number(u).valueOf(), 1);
+  result.storage[3] = this.storage[3] / µ(u !== 0 && u && u.w, Number(t).valueOf(), Number(u).valueOf(), 1);
   return result;
 };
 
