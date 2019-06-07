@@ -323,4 +323,4 @@ console.log(Array.prototype.slice.call(ca2.storage));
 console.log(Array.prototype.slice.call(aa2.storage));
 
 
-console.log(new Vec2(3, 4).addScaled(0.5, Vec2(2, 4)));
+console.log(new Vec2(3, 4).addScaled(0.5, new Vec2(2, 4)));

@@ -19,6 +19,7 @@
   "singleGroups": false,
   "varstmt": true,
   "globals" : {
+    "dft" : true,    
     "Mat4" : true,  
     "Vec1" : true,
     "Vec2" : true,
@@ -26,6 +27,8 @@
     "Vec4" : true,
     "Sampler2D" : true,
     "SamplerCube" : true,
+    "Sampler2DArrayTexture" : true,    
+    "Sampler3D" : true,    
     "VecArray" : true,
     "Vec1Array" : true,
     "Vec2Array" : true,
@@ -34,8 +37,10 @@
     "Mat4Array" : true,
     "Sampler2DArray" : true,
     "SamplerCubeArray" : true,
-    "UniformReflection" : true,
-    "GLUniforms" : true,    
+    "Sampler2DArrayTextureArray" : true,    
+    "Sampler3DArray" : true,    
+    "UniformProvider" : true,
+    "ProgramReflection" : true,
     "module" : true
   }
 }

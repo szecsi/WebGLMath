@@ -1,15 +1,15 @@
 /**
- * @file WebGLMath {@link Sampler3D} class
+ * @file WebGLMath {@link Sampler2DArrayTexture} class
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
 /**
- * @class Sampler3D
- * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL sampler3d uniform variable.
+ * @class Sampler2DArrayTexture
+ * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL sampler2dArray uniform variable.
  * @description Creates object.
  * @constructor
  */
-class Sampler3D{ 
+class Sampler2DArrayTexture{ 
   constructor(){
     this.glTexture = null;
     this.storage = new Int32Array(1);  
@@ -38,9 +38,9 @@ class Sampler3D{
     if(this.glTexture) {
       gl.uniform1iv(uniformLocation, this.storage);
       gl.activeTexture(gl.TEXTURE0 + textureUnit);
-      gl.bindTexture(gl.TEXTURE_3D, this.glTexture);
+      gl.bindTexture(gl.TEXTURE_2D_ARRAY, this.glTexture);
     } else {
-      throw new Error("No texture bound to uniform Sampler3D.");
+      throw new Error("No texture bound to uniform Sampler2DArrayTexture.");
     }
   }
 }
