@@ -85,7 +85,7 @@ const UniformReflection = {
       (structName?structSources[structName]:source)[uniformName].commit(gl, location, textureUnitCount);
       //  keep track of texture units used
       if(glUniform.type === gl.SAMPLER_2D ||
-       glUniform.type === gl.SAMPLER_3D ||
+        glUniform.type === gl.SAMPLER_3D ||
         glUniform.type === gl.SAMPLER_CUBE ||
         glUniform.type === gl.UNSIGNED_INT_SAMPLER_2D){ 
         textureUnitCount += glUniform.size || 1; 

@@ -28,12 +28,12 @@ class ProgramReflection {
   }
   
   definePropertiesMatchingUniforms(target){
-    target.glslStructNames.forEach( structName => {
+    for(const structName of target.glslStructNames) {
       // Skip GLSL struct provided by the target if the program does not need it.
       if(this.uniformDescriptors[structName] === undefined){
         return;
       }
-      this.uniformDescriptors[structName].forEach( uniformDesc => {
+      for(const uniformDesc of this.uniformDescriptors[structName]) {
         const reflectionVariable = ProgramReflection.makeVar(this.gl, uniformDesc.type, uniformDesc.size);
 
         if(uniformDesc.name in target){ // if reflection property already exists, check compatibility
@@ -49,8 +49,8 @@ class ProgramReflection {
           get: () => reflectionVariable,
           set: () => {throw new Error("Properties of UniformProvider components that reflect uniforms cannot be assigned new values. Use their set() method instead.");}
         } );
-      });
-    });
+      }
+    }
   }
 
   draw(...uniformProviders) { 
@@ -58,18 +58,18 @@ class ProgramReflection {
     gl.useProgram(this.glProgram);
     let textureUnitCount = 0;
 
-    uniformProviders.forEach( provider => {
-      provider.glslStructNames.forEach( structName => {
+    for(const provider of uniformProviders){
+      for(const structName of provider.glslStructNames) {
         if(this.uniformDescriptors[structName] === undefined) { return; }
-        this.uniformDescriptors[structName].forEach( uniformDesc => {
+        for(const uniformDesc of this.uniformDescriptors[structName]) {
           provider[uniformDesc.name].commit(gl, uniformDesc.location, textureUnitCount);
           //  keep track of texture units used
           if( ProgramReflection.isSampler(gl, uniformDesc.type) ){ 
             textureUnitCount += uniformDesc.size;
           }
-        });
-      });
-    });
+        }
+      }
+    }
   }
 
   /**

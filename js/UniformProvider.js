@@ -7,20 +7,22 @@ class UniformProvider {
   }
 
   addComponentsAndGatherUniforms(...components){
-    components.forEach(component => this.components.add(component) );
+    for(const component of components){
+      this.components.add(component);
+    }
     this.definePropertiesMatchingUniforms(this);
   }
 
   definePropertiesMatchingUniforms(target){
-    this.components.forEach(
-      component => component.definePropertiesMatchingUniforms(target)
-      );
+    for(const component of components){
+      this.components.definePropertiesMatchingUniforms(target);
+    }
   }
 
   draw(...uniformProviders){
-    this.components.forEach(
-      component => component.draw(this, ...uniformProviders)
-      );
+    for(const component of components){
+      component.draw(this, ...uniformProviders);
+    }
   }  
   
 }
