@@ -41,6 +41,7 @@
     "Sampler3DArray" : true,    
     "UniformProvider" : true,
     "ProgramReflection" : true,
+    "Geometry" : true,    
     "module" : true
   }
 }

@@ -31,7 +31,7 @@ class ProgramReflection {
     for(const structName of target.glslStructNames) {
       // Skip GLSL struct provided by the target if the program does not need it.
       if(this.uniformDescriptors[structName] === undefined){
-        return;
+        continue;
       }
       for(const uniformDesc of this.uniformDescriptors[structName]) {
         const reflectionVariable = ProgramReflection.makeVar(this.gl, uniformDesc.type, uniformDesc.size);
@@ -60,7 +60,7 @@ class ProgramReflection {
 
     for(const provider of uniformProviders){
       for(const structName of provider.glslStructNames) {
-        if(this.uniformDescriptors[structName] === undefined) { return; }
+        if(this.uniformDescriptors[structName] === undefined) { continue; }
         for(const uniformDesc of this.uniformDescriptors[structName]) {
           provider[uniformDesc.name].commit(gl, uniformDesc.location, textureUnitCount);
           //  keep track of texture units used

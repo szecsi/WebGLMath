@@ -14,13 +14,13 @@ class UniformProvider {
   }
 
   definePropertiesMatchingUniforms(target){
-    for(const component of components){
-      this.components.definePropertiesMatchingUniforms(target);
+    for(const component of this.components){
+      component.definePropertiesMatchingUniforms(target);
     }
   }
 
   draw(...uniformProviders){
-    for(const component of components){
+    for(const component of this.components){
       component.draw(this, ...uniformProviders);
     }
   }  
