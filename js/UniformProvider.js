@@ -15,7 +15,9 @@ class UniformProvider {
 
   definePropertiesMatchingUniforms(target){
     for(const component of this.components){
-      component.definePropertiesMatchingUniforms(target);
+      if('definePropertiesMatchingUniforms' in component){
+        component.definePropertiesMatchingUniforms(target);
+      }
     }
   }
 
