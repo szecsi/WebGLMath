@@ -75,7 +75,7 @@ class Vec2{
    * @param {Vec2 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the random range. If a scalar is given, it applies to all channels.
    * @return {Vec2} this
    */
-  static random = function(minVal, maxVal) {
+  static random(minVal, maxVal) {
     const result = Object.create(Vec2.prototype);
     result.storage = new Float32Array(2);
     let mina = minVal && minVal.x || Number(minVal).valueOf() || 0;
