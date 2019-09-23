@@ -4,8 +4,7 @@
  */
 "use strict";
 /**
- * @class Vec4
- * @classdesc Four-element vector of 32-bit floats. May reflect an ESSL vec4 uniform variable.
+ * Four-element vector of 32-bit floats. May reflect an GLSL vec4 uniform variable.
  * Low-performance convenience methods reproduce operator behaviour.
  * <table><tr><th>operator</th><th>method</th></tr>
  * <tr><td>+=</td><td>[add]{@link Vec4#add}</td></tr>
@@ -22,17 +21,18 @@
  * <BR> <code>a.set(b).add(c)</code> is about three times faster. Variable <code>a</code> needs to exist, and be a {@link Vec4}. Neither b nor c are required to be {@link Vec4}s: they can be vectors of different length, object literals, or its coordinates given as separate arguments.
  * <BR> If <code>a</code>, <code>b</code> and <code>c</code> are {@link Vec4} instances, <code>a.setSum(b, c)</code> can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c)</code>, or twenty times faster than <code>a = b.plus(c)</code>.
  * <BR> It is recommended to use optimized methods for time-critical per-frame tasks, while programmer-friendly interfaces are useful for one-time initializations, e.g. when constructing a scene.
- * @description  Without parameters, initializes the vector to (0, 0, 0, 1).
- * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
- * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
- * @param {Number} [s=0] - Ignored if u.z is defined. Otherwise, the value for coordinate z.
- * @param {Number} [t=1] - Ignored if u.w is defined. Otherwise, the value for coordinate w.
- * @constructor
  */
 class Vec4{
+  /**
+   * Creates a vecotr. Without parameters, initializes the vector to (0, 0, 0, 1).
+   * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
+   * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
+   * @param {Number} [s=0] - Ignored if u.z is defined. Otherwise, the value for coordinate z.
+   * @param {Number} [t=1] - Ignored if u.w is defined. Otherwise, the value for coordinate w.
+   */
   constructor(u, v, s, t){
     /**
-     * @name Vec4.prototype#storage
+     * @name Vec4#storage
      * @description 4-element typed array for coordinate storage.
      * @type Float32Array
      */  
@@ -46,7 +46,7 @@ class Vec4{
 
   /**
    * @method clone
-   * @memberof Vec4.prototype 
+   * @memberof Vec4 
    * @description Creates a copy.
    * @return {Vec4} A new instance with identical contents.
    */
@@ -58,7 +58,7 @@ class Vec4{
 
   /**
    * @method set
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>=</code>. Sets the coordinates from another vector, or number values. Without parameters, sets (0, 0, 0, 1).
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -103,7 +103,7 @@ class Vec4{
 
   /**
    * @method setRandom
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fill the vector with random values that to lie between two further values, elementwise.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the random range. If a scalar is given, it applies to all channels.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the random range. If a scalar is given, it applies to all channels.
@@ -127,7 +127,7 @@ class Vec4{
 
   /**
    * @method clamp
-   * @memberof Vec4.prototype
+   * @memberof Vec4
    * @description Constrains the value of this vector to lie between two further values, elementwise, overwriting the contents with the result.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -171,7 +171,7 @@ class Vec4{
 
   /**
    * @method setClamped
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Constrains a value to lie between two further values, elementwise, storing the result in this vector.
    * @param {Vec4} b - The value to constrain.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -220,7 +220,7 @@ class Vec4{
 
   /**
    * @method add
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>+=</code>. Adds another vector to this vector, overwriting the contents with the result.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -238,7 +238,7 @@ class Vec4{
 
   /**
    * @method addScaled
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates <code>+= dt *</code>. Adds another vector, scaled by `dt`, to this vector, overwriting the contents with the result.
    * @param {Number} dt - Scaling factor.
    * @param {Vec4 | Object | Number} [u=0] - Any object (property x), or a numerical value.
@@ -257,7 +257,7 @@ class Vec4{
 
   /**
    * @method plus
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>+</code>. Adds this vector and the parameter vector, and returns the result in a new instance.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -278,7 +278,7 @@ class Vec4{
 
   /**
    * @method setSum
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Adds the two argument vectors, storing the result in this vector.
    * @param {Vec4} b - Term 1.
    * @param {Vec4} c - Term 2. 
@@ -294,7 +294,7 @@ class Vec4{
 
   /**
    * @method sub
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>-=</code>. Subtracts another vector from this vector, overwriting the contents with the result.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -312,7 +312,7 @@ class Vec4{
 
   /**
    * @method minus
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>-</code>. Subtracts the parameter vector from this vector, and returns the result in a new instance.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -332,7 +332,7 @@ class Vec4{
 
   /**
    * @method setDifference
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
    * @param {Vec4} b - Minuend.
    * @param {Vec4} c - Subtrahend. 
@@ -348,7 +348,7 @@ class Vec4{
 
   /**
    * @method mul
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>*=</code>. Multiplies, this vector with another vector elementwise, matrix, or scalar, from the right, overwriting the contents with the result.
    * @param {Mat4 | Vec4 | Vec3 | Vec2 | Object | Number} [u=1] - A 4x4 matrix, or any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u is a matrix, or u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -370,7 +370,7 @@ class Vec4{
 
   /**
    * @method times
-   * @memberof Vec4.prototype
+   * @memberof Vec4
    * @description Simulates operator <code>*</code>. Multiplies, this vector with another vector elementwise, matrix, or scalar, from the right, and returns the result in a new instance.
    * @param {Mat4 | Vec4 | Vec3 | Vec2 | Object | Number} [u=1] - A 4x4 matrix, or any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u is a matrix, or u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -394,7 +394,7 @@ class Vec4{
 
   /**
    * @method setProduct
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Multiplies, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec4} b - Factor 1.
    * @param {Vec4} c - Factor 2. 
@@ -410,7 +410,7 @@ class Vec4{
 
   /**
    * @method div
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Simulates operator <code>/=</code>. Divides, elementwise, this vector with another vector, or scalar, overwriting the contents with the result.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=1] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -428,7 +428,7 @@ class Vec4{
 
   /**
    * @method over
-   * @memberof Vec4.prototype
+   * @memberof Vec4
    * @description Simulates operator <code>/</code>. Divides, elementwise, this vector with another vector, or scalar, and returns the result in a new instance.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=1] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -448,7 +448,7 @@ class Vec4{
 
   /**
    * @method setQuotient
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Divides, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec4} b - Dividend.
    * @param {Vec4} c - Divisor. 
@@ -464,7 +464,7 @@ class Vec4{
 
   /**
    * @method setScaled
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Scales the vector by a scalar.
    * @param {Vec4} a - Vector to scale.
    * @param {Number} s - Scale factor. 
@@ -480,7 +480,7 @@ class Vec4{
 
   /**
    * @method setScaledByInverse
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Fast. Scales the vector by the reciprocal of scalar.
    * @param {Vec4} a - Vector to scale.
    * @param {Number} s - Scale factor inverse.
@@ -496,7 +496,7 @@ class Vec4{
 
   /**
    * @method length2
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Computes the length squared.
    * @return {Number} x*x + y*y + z*z + w*w
    */
@@ -506,7 +506,7 @@ class Vec4{
 
   /**
    * @method length
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Computes the vector length.
    * @return {Number}
    */
@@ -516,7 +516,7 @@ class Vec4{
 
   /**
    * @method normalize
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Scales the vector by the inverse of its length, overwriting the contents with the result.
    * @return {Vec4} this
    */
@@ -531,7 +531,7 @@ class Vec4{
 
   /**
    * @method direction
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Scales the vector by the inverse of its length, and returns the result in a new instance.
    * @return {Vec4} A unit length vector with the same direction as this.
    */
@@ -548,7 +548,7 @@ class Vec4{
 
   /**
    * @method setNormalized
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
    * @param b {Vec4} - The vector to normalize.
    * @return {Vec4} this
@@ -564,7 +564,7 @@ class Vec4{
 
   /**
    * @method dot
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Computes the dot product with another vector.
    * @param {Vec4 | Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z, w are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -581,8 +581,8 @@ class Vec4{
 
   /**
    * @method transform
-   * @memberof Vec4.prototype
-   * @description Multiplies the vector (considering it a row vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec4.prototype#times} for a version creating a new vector instance.
+   * @memberof Vec4
+   * @description Multiplies the vector (considering it a row vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec4#times} for a version creating a new vector instance.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
    * @return {Vec4} this
    */
@@ -616,8 +616,8 @@ class Vec4{
 
   /**
    * @method setTransformed
-   * @memberof Vec4.prototype
-   * @description Multiplies the argument vector (considering it a row vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec4.prototype#times} for a version creating a new vector instance.
+   * @memberof Vec4
+   * @description Multiplies the argument vector (considering it a row vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec4#times} for a version creating a new vector instance.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
    * @return {Vec4} this
    */
@@ -647,7 +647,7 @@ class Vec4{
 
   /**
    * @method commit
-   * @memberof Vec4.prototype  
+   * @memberof Vec4  
    * @description Sets the value of the vector to a WebGL vec4 uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
@@ -658,7 +658,7 @@ class Vec4{
 }
 
 /**
- * @name Vec4.prototype#x
+ * @name Vec4#x
  * @description Alias for storage[0];
  * @type Number
  */
@@ -668,7 +668,7 @@ Object.defineProperty(Vec4.prototype, 'x', {
 });
 
 /**
- * @name Vec4.prototype#y
+ * @name Vec4#y
  * @description Alias for storage[1]; 
  * @type Number
  */
@@ -678,7 +678,7 @@ Object.defineProperty(Vec4.prototype, 'y', {
 });
 
 /**
- * @name Vec4.prototype#z
+ * @name Vec4#z
  * @description Alias for storage[2]; 
  * @type Number
  */
@@ -688,7 +688,7 @@ Object.defineProperty(Vec4.prototype, 'z', {
 });
 
 /**
- * @name Vec4.prototype#w
+ * @name Vec4#w
  * @description Alias for storage[3]; 
  * @type Number
  */

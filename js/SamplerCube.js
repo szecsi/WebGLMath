@@ -3,13 +3,14 @@
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
+/* exported SamplerCube */
 /**
- * @class SamplerCube
- * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL samplerCube uniform variable.
- * @description Creates object.
- * @constructor
+ * Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL samplerCube uniform variable.
  */
 class SamplerCube{
+  /**
+   * Creates object.
+   */
   constructor(){
     this.glTexture = null;
     this.storage = new Int32Array(1);

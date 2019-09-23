@@ -4,8 +4,7 @@
  */
 "use strict";
 /**
- * @class Vec3
- * @classdesc Three-element vector of 32-bit floats. May reflect an ESSL vec3 uniform variable.
+ * Three-element vector of 32-bit floats. May reflect an GLSL vec3 uniform variable.
  * Low-performance convenience methods reproduce operator behaviour.
  * <table><tr><th>operator</th><th>method</th></tr>
  * <tr><td>+=</td><td>[add]{@link Vec3#add}</td></tr>
@@ -23,16 +22,17 @@
  * <BR> <code>a.set(b).add(c)</code> is about three times faster. Variable <code>a</code> needs to exist, and be a {@link Vec3}. Neither b nor c are required to be {@link Vec3}s: they can be vectors of different length, object literals, or its coordinates given as separate arguments.
  * <BR> If <code>a</code>, <code>b</code> and <code>c</code> are {@link Vec3} instances, <code>a.setSum(b, c)</code> can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c)</code>, or twenty times faster than <code>a = b.plus(c)</code>.
  * <BR> It is recommended to use optimized methods for time-critical per-frame tasks, while programmer-friendly interfaces are useful for one-time initializations, e.g. when constructing a scene.
- * @description  Without parameters, initializes the vector to (0, 0, 0).
- * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
- * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
- * @param {Number} [s=0] - Ignored if u.z is defined. Otherwise, the value for coordinate z.
- * @constructor
  */
 class Vec3{
+  /**
+   * Creates a vector. Without parameters, initializes the vector to (0, 0, 0).
+   * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
+   * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
+   * @param {Number} [s=0] - Ignored if u.z is defined. Otherwise, the value for coordinate z.
+   */
   constructor(u, v, s){
     /**
-     * @name Vec3.prototype#storage
+     * @name Vec3#storage
      * @description 3-element typed array for coordinate storage.
      * @type Float32Array
      */  
@@ -45,7 +45,7 @@ class Vec3{
 
   /**
    * @method clone
-   * @memberof Vec3.prototype 
+   * @memberof Vec3 
    * @description Creates a copy.
    * @return {Vec3} A new instance with identical contents.
    */
@@ -57,7 +57,7 @@ class Vec3{
 
   /**
    * @method set
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>=</code>. Sets the coordinates from another vector, or number values. Without parameters, sets (0, 0, 0, 1).
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -97,7 +97,7 @@ class Vec3{
 
   /**
    * @method setRandom
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fill the vector with random values that to lie between two further values, elementwise.
    * @param {Vec3 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the random range. If a scalar is given, it applies to all channels.
    * @param {Vec3 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the random range. If a scalar is given, it applies to all channels.
@@ -118,7 +118,7 @@ class Vec3{
 
   /**
    * @method clamp
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Constrains the value of this vector to lie between two further values, elementwise, overwriting the contents with the result.
    * @param {Vec3 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
    * @param {Vec3 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -154,7 +154,7 @@ class Vec3{
 
   /**
    * @method setClamped
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Constrains a value to lie between two further values, elementwise, storing the result in this vector.
    * @param {Vec3} b - The value to constrain.
    * @param {Vec3 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -194,7 +194,7 @@ class Vec3{
 
   /**
    * @method add
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>+=</code>. Adds another vector to this vector, overwriting the contents with the result.
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -210,7 +210,7 @@ class Vec3{
 
   /**
    * @method addScaled
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates <code>+= dt *</code>. Adds another vector, scaled by `dt`, to this vector, overwriting the contents with the result.
    * @param {Number} dt - Scaling factor.
    * @param {Vec3 | Object | Number} [u=0] - Any object (property x), or a numerical value.
@@ -228,7 +228,7 @@ class Vec3{
 
   /**
    * @method plus
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>+</code>. Adds this vector and the parameter vector, and returns the result in a new instance.
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -246,7 +246,7 @@ class Vec3{
 
   /**
    * @method setSum
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Adds the two argument vectors, storing the result in this vector.
    * @param {Vec3} b - Term 1.
    * @param {Vec3} c - Term 2. 
@@ -261,7 +261,7 @@ class Vec3{
 
   /**
    * @method sub
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>-=</code>. Subtracts another vector from this vector, overwriting the contents with the result.
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -277,7 +277,7 @@ class Vec3{
 
   /**
    * @method minus
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>-</code>. Subtracts the parameter vector from this vector, and returns the result in a new instance.
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -295,7 +295,7 @@ class Vec3{
 
   /**
    * @method setDifference
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
    * @param {Vec3} b - Minuend.
    * @param {Vec3} c - Subtrahend. 
@@ -310,7 +310,7 @@ class Vec3{
 
   /**
    * @method mul
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>*=</code>. Multiplies this vector with another vector elementwise, or scalar, overwriting the contents with the result.
    * @param {Vec3 | Vec2 | Object | Number} [u=1] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -326,7 +326,7 @@ class Vec3{
 
   /**
    * @method times
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Simulates operator <code>*</code>. Multiplies this vector with another vector elementwise, or scalar, and returns the result in a new instance.
    * @param {Vec3 | Vec2 | Object | Number} [u=1] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -344,7 +344,7 @@ class Vec3{
 
   /**
    * @method xyz1times
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Simulates operator <code>*</code>. Multiplies this vector, augmented with a 1 to a homogeneous position vector, with a matrix from the right, and returns the result in a new instance.
    * @param {Mat4} m - A 4x4 transformation matrix.
    * @return {Vec3} the transformed vector
@@ -358,7 +358,7 @@ class Vec3{
 
   /**
    * @method xyz0times
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Simulates operator <code>*</code>. Multiplies this vector, augmented with a 0 to a homogeneous direction vector, with a matrix from the right, and returns the result in a new instance.
    * @param {Mat4} m - A 4x4 transformation matrix.
    * @return {Vec3} the transformed vector
@@ -372,7 +372,7 @@ class Vec3{
 
   /**
    * @method setProduct
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Multiplies, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec3} b - Factor 1.
    * @param {Vec3} c - Factor 2. 
@@ -387,7 +387,7 @@ class Vec3{
 
   /**
    * @method div
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator <code>/=</code>. Divides, elementwise, this vector with another vector, or scalar, overwriting the contents with the result.
    * @param {Vec3 | Vec2 | Object | Number} [u=1] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -403,7 +403,7 @@ class Vec3{
 
   /**
    * @method over
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Simulates operator <code>/</code>. Divides, elementwise, this vector with another vector, or scalar, and returns the result in a new instance.
    * @param {Vec3 | Vec2 | Object | Number} [u=1] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -421,7 +421,7 @@ class Vec3{
 
   /**
    * @method setQuotient
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Divides, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec3} b - Dividend.
    * @param {Vec3} c - Divisor. 
@@ -436,7 +436,7 @@ class Vec3{
 
   /**
    * @method setScaled
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Scales the vector by a scalar.
    * @param {Vec3} a - Vector to scale.
    * @param {Number} s - Scale factor. 
@@ -451,7 +451,7 @@ class Vec3{
 
   /**
    * @method setScaledByInverse
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Scales the vector by the reciprocal of scalar.
    * @param {Vec3} a - Vector to scale.
    * @param {Number} s - Scale factor inverse.
@@ -466,7 +466,7 @@ class Vec3{
 
   /**
    * @method length2
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Computes the length squared.
    * @return {Number} x*x + y*y + z*z + w*w
    */
@@ -476,7 +476,7 @@ class Vec3{
 
   /**
    * @method length
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Computes the vector length.
    * @return {Number}
    */
@@ -486,7 +486,7 @@ class Vec3{
 
   /**
    * @method normalize
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Scales the vector by the inverse of its length, overwriting the contents with the result.
    * @return {Vec3} this
    */
@@ -500,7 +500,7 @@ class Vec3{
 
   /**
    * @method direction
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Scales the vector by the inverse of its length, and returns the result in a new instance.
    * @return {Vec3} A unit length vector with the same direction as this.
    */
@@ -516,7 +516,7 @@ class Vec3{
 
   /**
    * @method setNormalized
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
    * @param b {Vec3} - The vector to normalize.
    * @return {Vec3} this
@@ -531,7 +531,7 @@ class Vec3{
 
   /**
    * @method dot
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Computes the dot product with another vector.
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -546,7 +546,7 @@ class Vec3{
 
   /**
    * @method cross
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Simulates operator %times;. Computes the cross product of the vectors, returning the result in a new instance.
    * @param {Vec3 | Vec2 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -567,7 +567,7 @@ class Vec3{
 
   /**
    * @method setVectorProduct
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Fast. Computes the vector product (cross product) of the two argument vectors, storing the result in this vector.
    * @param {Vec3} b - Left operand.
    * @param {Vec3} c - Right operand.
@@ -582,7 +582,7 @@ class Vec3{
 
   /**
    * @method xyz1mul
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Multiplies the vector (considering it a row vector, augmented by a 1 to get a homogeneous position vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec3#xyz1times} for a version creating a new vector instance.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
    * @return {Vec3} this
@@ -616,7 +616,7 @@ class Vec3{
 
   /**
    * @method setxyz1Transformed
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Multiplies the argument vector (considering it a row vector, augmented by 1 to a homogeneous position vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec3#xyz1times} for a version creating a new vector instance.
    * @param v {Vec3} The vector to be transformed.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
@@ -651,7 +651,7 @@ class Vec3{
 
   /**
    * @method xyz0mul
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Multiplies the vector (considering it a row vector, augmented by a 0 to get a homogeneous direction vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec3#xyz0times} for a version creating a new vector instance.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
    * @return {Vec3} this
@@ -677,7 +677,7 @@ class Vec3{
 
   /**
    * @method setxyz0Transformed
-   * @memberof Vec3.prototype
+   * @memberof Vec3
    * @description Multiplies the argument vector (considering it a row vector, augmented by 0 to a homogeneous direction vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See {@link Vec3#xyz0times} for a version creating a new vector instance.
    * @param v {Vec3} The vector to be transformed.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
@@ -704,7 +704,7 @@ class Vec3{
 
   /**
    * @method commit
-   * @memberof Vec3.prototype  
+   * @memberof Vec3  
    * @description Sets the value of the vector to a WebGL vec3 uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
@@ -715,7 +715,7 @@ class Vec3{
 }
 
 /**
- * @name Vec3.prototype#x
+ * @name Vec3#x
  * @description Alias for storage[0];
  * @type Number
  */
@@ -725,7 +725,7 @@ Object.defineProperty(Vec3.prototype, 'x', {
 });
 
 /**
- * @name Vec3.prototype#y
+ * @name Vec3#y
  * @description Alias for storage[1]; 
  * @type Number
  */
@@ -735,7 +735,7 @@ Object.defineProperty(Vec3.prototype, 'y', {
 });
 
 /**
- * @name Vec3.prototype#z
+ * @name Vec3#z
  * @description Alias for storage[2]; 
  * @type Number
  */

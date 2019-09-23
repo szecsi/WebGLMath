@@ -4,17 +4,18 @@
  */
 "use strict";
 /**
- * @class VecArray
- * @classdesc A base class for all vector arrays, gathering methods that share the same implementation in all array subclasses.
- * @constructor
+ * A base class for all vector arrays, gathering methods that share the same implementation in all array subclasses.
  */
 class VecArray{
+  /**
+   * Creates empty object.
+   */
   constructor(){
   }
 
   /**
    * @method set
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Sets the value of the vector array from another WebGLMath vector, vector array, matrix, or matrix array object, or an array of numbers.
    * @param {number[] | Object } data - Input data.
    */
@@ -24,7 +25,7 @@ class VecArray{
 
   /**
    * @method add
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Adds vectors from the two argument arrays, storing the result in this array.
    * @param {VecArray} b - Array of first terms. Its length must be identical to this array's length.
    * @param {VecArray} c - Array of second terms. Its length must be identical to this array's length.
@@ -39,7 +40,7 @@ class VecArray{
 
   /**
    * @method addScaled
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Adds vectors from the two argument arrays, scaling the second arguments, storing the result in this array.
    * @param {VecArray} b - Array of first terms. Its length must be identical to this array's length.
    * @param {VecArray} c - Array of second terms. Its length must be identical to this array's length.
@@ -55,7 +56,7 @@ class VecArray{
 
   /**
    * @method sub
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Subtracts vectors from the two argument arrays, storing the result in this array.
    * @param {VecArray} b - Array of minuends. Its length must be identical to this array's length.
    * @param {VecArray} c - Array of subtrahends. Its length must be identical to this array's length.
@@ -70,7 +71,7 @@ class VecArray{
 
   /**
    * @method mul
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Multipies, elementwise, vectors from the two argument arrays, storing the result in this array.
    * @param {VecArray} b - Array of factors. Its length must be identical to this array's length.
    * @param {VecArray} c - Array of factors. Its length must be identical to this array's length.
@@ -86,7 +87,7 @@ class VecArray{
 
   /**
    * @method mulWithVec1s
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Multipies, elementwise, vectors from the two argument arrays, repeating individual values of the second one to produce the same number of elements as in the output array. For scaling with a single scalar factor, see [scale]{@link VecArray#scale}.
    * @param {VecArray} b - Array of factors. Its length must be identical to this array's length.
    * @param {Vec1Array} c - Array of factors. Its length must be identical to this array's length.
@@ -105,7 +106,7 @@ class VecArray{
 
   /**
    * @method div
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Divides, elementwise, vectors from the two argument arrays, storing the result in this array.
    * @param {VecArray} b - Array of dividends.
    * @param {VecArray} c - Array of divisors.
@@ -120,7 +121,7 @@ class VecArray{
 
   /**
    * @method divWithVec1s
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Divides, elementwise, vectors from the two argument arrays, repeating individual values of the second one to produce the same number of values as in the output array.
    * @param {VecArray} b - Array of dividends. Its length must be identical to this array's length.
    * @param {Vec1Array} c - Array of divisors. Its length must be identical to this array's length.
@@ -139,7 +140,7 @@ class VecArray{
 
   /**
    * @method addAll
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Adds a vector to all argument array elements, storing the result in this array.
    * @param {VecArray} b - Array of first operands. Same length as this.
    * @param {Vec} c - Second operand.
@@ -156,7 +157,7 @@ class VecArray{
 
   /**
    * @method subAll
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Subtracts a vector from all argument array elements, storing the result in this array.
    * @param {VecArray} b - Array of first operands. Same length as this.
    * @param {Vec} c - Second operand.
@@ -173,7 +174,7 @@ class VecArray{
 
   /**
    * @method mulAll
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Multiplies (elementwise) a vector with all argument array elements, storing the result in this array.
    * @param {VecArray} b - Array of first operands. Same length as this.
    * @param {Vec} c - Second operand.
@@ -190,7 +191,7 @@ class VecArray{
 
   /**
    * @method divAll
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Divides (elementwise) all argument array elements with a vector, storing the result in this array.
    * @param {VecArray} b - Array of first operands. Same length as this.
    * @param {Vec} c - Second operand.
@@ -207,7 +208,7 @@ class VecArray{
 
   /**
    * @method scale
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Multipies vectors from an array with a scalar, storing the result in this array. For scaling with factors stored in an array, see [mulAll]{@link VecArray#mulAll}.
    * @param {VecArray} b - Array of vectors to scale. Its length must be identical to this array's length.
    * @param {VecArray} c - Scale factor.
@@ -222,7 +223,7 @@ class VecArray{
 
   /**
    * @method exp
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Exponentiates vectors from an array with a scalar, storing the result in this array. For scaling with factors stored in an array, see [mulAll]{@link VecArray#mulAll}.
    * @param {VecArray} b - Array of vectors to scale. Its length must be identical to this array's length.
    * @param {VecArray} c - Exponent.
@@ -237,7 +238,7 @@ class VecArray{
 
   /**
    * @method random
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Fills the array with random values between 0 and 1.
    * @return {VecArray} this
    */
@@ -250,7 +251,7 @@ class VecArray{
 
   /**
    * @method clamp
-   * @memberof VecArray.prototype  
+   * @memberof VecArray  
    * @description Constrains values in the array to the [0,1) interval.
    * @return {VecArray} this
    */
