@@ -3,9 +3,9 @@
 window.devtoolsFormatters = [
   {
     header: function(x) {
-      if (x.isProxy) {
+      if (x.proxyTarget) {
 //        return ["span", {"style": "background-color: #fcc"}, "Hello!"];
-        return ["object", {"object": x.isProxy}];
+        return ["object", {"object": x.proxyTarget}];
       } else {
         return null;
       }
