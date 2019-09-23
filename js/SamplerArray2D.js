@@ -1,14 +1,14 @@
 /**
- * @file WebGLMath Sampler2DArray class
+ * @file WebGLMath SamplerArray2D class
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
-/* exported Sampler2DArray */
+/* exported SamplerArray2D */
 /**
  * Array of 2d samplers. May reflect an GLSL array-of-sampler2Ds uniform variable.
- * <BR> Individual [Sampler2D]{@link Sampler2D} elements are available through the [at]{@link Sampler2DArray#at} method.
+ * <BR> Individual [Sampler2D]{@link Sampler2D} elements are available through the [at]{@link SamplerArray2D#at} method.
  */
-class Sampler2DArray{
+class SamplerArray2D{
   /**
    * Creates object.
    * @param {Number} size - The number of Sampler2D elements in the array.
@@ -26,7 +26,7 @@ class Sampler2DArray{
 
   /**
    * @method at
-   * @memberof Sampler2DArray.prototype  
+   * @memberof SamplerArray2D  
    * @description Returns a Sampler2D object that captures an element of the array. The sampler is a view on the original data, not a copy.
    * @param index {Number} - Index of the element.
    * @return {SamplerCube} view on one of the array's elements
@@ -37,7 +37,7 @@ class Sampler2DArray{
 
   /**
    * @method set
-   * @memberof Sampler2DArray.prototype  
+   * @memberof SamplerArray2D  
    * @description Assigns textures.
    * @param {Object[] | WebGLTexture[]} textureArray - An array of WebGL textures, or of objects with the `glTexture` property that stores a WebGL texture.
    */
@@ -49,7 +49,7 @@ class Sampler2DArray{
 
   /**
    * @method commit
-   * @memberof Sampler2DArray.prototype  
+   * @memberof SamplerArray2D  
    * @description Specifies, to WebGL, the texture unit indices of all samplers in the array, and binds textures of the array elements.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program

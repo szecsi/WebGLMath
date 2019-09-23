@@ -18,7 +18,7 @@ class Sampler3D{
 
   /**
    * @method set
-   * @memberof Sampler3D.prototype  
+   * @memberof Sampler3D  
    * @description Assigns a texture.
    * @param {Object | WebGLTexture} texture - A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.
    */
@@ -28,7 +28,7 @@ class Sampler3D{
 
   /**
    * @method commit
-   * @memberof Sampler3D.prototype  
+   * @memberof Sampler3D  
    * @description Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
