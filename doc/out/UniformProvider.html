@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Sampler2DArray</title>
+	<title>Documentation Class: UniformProvider</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,16 +72,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Sampler2DArray</h1>
+	<h1 class="page-title">Class: UniformProvider</h1>
 <section>
 
 <header>
     
         <h2>
-        Sampler2DArray
+        UniformProvider
         </h2>
         
-            <div class="class-description">Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an GLSL sampler2dArray uniform variable.</div>
+            <div class="class-description">A Component base class using the Composite pattern.[ProgramReflection]{ProgramReflection.html} can be used to add properties to UniformProvider-subclass-instances, reflecting uniform inputs of shader programs.</div>
         
     
 </header>
@@ -93,7 +93,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Sampler2DArray"><span class="type-signature"></span>new Sampler2DArray()</h4>
+    <h4 class="name" id="UniformProvider"><span class="type-signature"></span>new UniformProvider(glslStructNames)</h4>
     
     
 </dt>
@@ -101,7 +101,7 @@
 
     
     <div class="description">
-        Creates object.
+        Should be called by subclass constructors. Creates a UniformProvider without any subcomponents.
     </div>
     
 
@@ -110,6 +110,68 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>glslStructNames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The names of the uniform structs in the shaders that should be reflected in ---and their values provided by--- this object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -189,7 +251,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation, textureUnit)</h4>
+    <h4 class="name" id="addComponentsAndGatherUniforms"><span class="type-signature"></span>addComponentsAndGatherUniforms(components)</h4>
     
     
 </dt>
@@ -197,7 +259,7 @@
 
     
     <div class="description">
-        Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
+        Adds subcomponents and calls [addComponentsAndGatherUniforms]{addComponentsAndGatherUniforms}. [ProgramReflection]{ProgramReflection.html} instances at the leaves of the component hierarchy can then create properties matching the programs' uniforms in this object.
     </div>
     
 
@@ -220,6 +282,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -232,13 +296,13 @@
 
         <tr>
             
-                <td class="name"><code>gl</code></td>
+                <td class="name"><code>components</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">WebGLRenderingContext</span>
+<span class="param-type"><a href="UniformProvider.html">UniformProvider</a></span>
 
 
 
@@ -246,58 +310,20 @@
             </td>
 
             
-
-            
-
-            <td class="description last">rendering context</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uniformLocation</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">WebGLUniformLocation</span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">location of the uniform variable in the currently used WebGL program</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>textureUnit</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">Number</span>
 
-
-
-            
-            </td>
-
+                
+                    &lt;repeatable><br>
+                
+                </td>
             
 
             
 
-            <td class="description last">The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.</td>
+            <td class="description last">Subcomponents to add.</td>
         </tr>
 
     
@@ -365,7 +391,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set(texture)</h4>
+    <h4 class="name" id="definePropertiesMatchingUniforms"><span class="type-signature"></span>definePropertiesMatchingUniforms(target)</h4>
     
     
 </dt>
@@ -373,7 +399,7 @@
 
     
     <div class="description">
-        Assigns a texture.
+        Recursively calls definePropertiesMatchingUniforms on subcomponents. [ProgramReflection]{ProgramReflection.html} instances at the leaves of the component hierarchy can then create properties matching the programs' uniforms in the target object.
     </div>
     
 
@@ -408,16 +434,13 @@
 
         <tr>
             
-                <td class="name"><code>texture</code></td>
+                <td class="name"><code>target</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">WebGLTexture</span>
+<span class="param-type"><a href="UniformProvider.html">UniformProvider</a></span>
 
 
 
@@ -428,13 +451,91 @@
 
             
 
-            <td class="description last">A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.</td>
+            <td class="description last">The target object.</td>
         </tr>
 
     
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="draw"><span class="type-signature"></span>draw()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Recursively calls draw on subcomponents, inserting all providers along the call path into the parameter list.[ProgramReflection]{ProgramReflection.html} instances at the leaves of the component hierarchy can then set uniform values from all providers in the parent chain.Other drawable objects (notably geometries) at the leaves of the node hierarchy can draw contents.
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     

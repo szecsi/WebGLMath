@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Vec4Array.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Vec4Array.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @class Vec4Array
+ * @classdesc Array of four-element vectors of 32-bit floats. May reflect an ESSL array of vec4s uniform variable.
+ * &lt;BR> Individual [Vec4]{@link Vec4} elements are available through the index operator [].
+ * Methods are available for optimized bulk processing. These are prefixed with &lt;code>$&lt;/code> for consistency with similar methods of {@link Vec4}, which also expect strictly formed arguments but offer high performance.
+ * @param {Number} size - The number of Vec4 elements in the array.
+ * @constructor
+ */
+var Vec4Array = function(size){
+  this.length = size;
+  this.storage = new Float32Array(size * 4);
+  for(var i=0; i&lt;size; i++){
+    var proxy = Object.create(Vec4.prototype);
+    proxy.storage = this.storage.subarray(i*4, (i+1)*4);
+    Object.defineProperty(this, i, {value: proxy} );
+  }
+};
+
+/**
+ * @method $add
+ * @memberof Vec4Array.prototype  
+ * @description Adds vectors from the two argument arrays, storing the result in this array.
+ * @param {Vec4Array} b - Array of first terms. Its length must be identical to this array's length.
+ * @param {Vec4Array} c - Array of second terms. Its length must be identical to this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$add = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; i++) {
+ 	this.storage[i] = b.storage[i] + c.storage[i];
+  }
+  return this;  
+};
+
+/**
+ * @method $addRepeat
+ * @memberof Vec4Array.prototype  
+ * @description Adds vectors from the two argument arrays, repeating the second one as neccessary, storing the result in this array.
+ * @param {Vec4Array} b - Array of first terms. Its length must be identical to this array's length.
+ * @param {Vec4Array | Vec4} c - Array of second terms, or a single term. Its length must be a divisor of this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$addRepeat = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; ) {
+  	for(var j=0; j&lt;c.storage.length; i++, j++) {
+ 	  this.storage[i] = b.storage[i] + c.storage[j];
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $sub
+ * @memberof Vec4Array.prototype  
+ * @description Substracts vectors from the two argument arrays, storing the result in this array.
+ * @param {Vec4Array} b - Array of minuends. Its length must be identical to this array's length.
+ * @param {Vec4Array} c - Array of subtrahends. Its length must be identical to this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$sub = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; i++) {
+ 	this.storage[i] = b.storage[i] - c.storage[i];
+  }
+  return this;  
+};
+
+/**
+ * @method $subRepeat
+ * @memberof Vec4Array.prototype  
+ * @description Substracts vectors from the two argument arrays, repeating the second one as neccessary, storing the result in this array.
+ * @param {Vec4Array} b - Array of minuends. Its length must be identical to this array's length.
+ * @param {Vec4Array | Vec4} c - Array of subtrahends, or a single term. Its length must be a divisor of this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$subRepeat = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; ) {
+  	for(var j=0; j&lt;c.storage.length; i++, j++) {
+ 	  this.storage[i] = b.storage[i] - c.storage[j];
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $mul
+ * @memberof Vec4Array.prototype  
+ * @description Multipies, elementwise, vectors from the two argument arrays, storing the result in this array.
+ * @param {Vec4Array} b - Array of factors. Its length must be identical to this array's length.
+ * @param {Vec4Array} c - Array of factors. Its length must be identical to this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$mul = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; i++) {
+ 	this.storage[i] = b.storage[i] * c.storage[i];
+  }
+  return this;  
+};
+
+/**
+ * @method $mulRepeat
+ * @memberof Vec4Array.prototype  
+ * @description Multipies, elementwise, vectors from the two argument arrays, repeating the second one as neccessary, storing the result in this array.
+ * @param {Vec4Array} b - Array of factors. Its length must be identical to this array's length.
+ * @param {Vec4Array | Vec4} c - Array of factors, or a single factor. Its length must be a divisor of this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$mulRepeat = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; ) {
+  	for(var j=0; j&lt;c.storage.length; i++, j++) {
+ 	  this.storage[i] = b.storage[i] * c.storage[j];
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $mulStretch
+ * @memberof Vec4Array.prototype  
+ * @description Multipies, elementwise, vectors from the two argument arrays, repeating individual values of the second one to produce the same number of elements as in the output array. For scaling with a single scalar factor, see [scale]{@link Vec4Array#scale}.
+ * @param {Vec4Array} b - Array of factors. Its length must be identical to this array's length.
+ * @param {Vec2Array | Vec1Array} c - Array of factors. Its length must be identical to this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$mulStretch = function(b, c) {
+  var stretchFactor = this.storage.length / c.storage.length; 
+  var i=0;
+  for(var j=0; j&lt;c.storage.length; j++) {	
+    for(var k=0; k&lt;stretchFactor; k++, i++ ) {
+ 	  this.storage[i] = b.storage[i] * c.storage[j];
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $div
+ * @memberof Vec4Array.prototype  
+ * @description Divides, elementwise, vectors from the two argument arrays, storing the result in this array.
+ * @param {Vec4Array} b - Array of dividends.
+ * @param {Vec4Array} c - Array of divisors.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$div = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; i++) {
+ 	this.storage[i] = b.storage[i] / c.storage[i];
+  }
+  return this;  
+};
+
+/**
+ * @method $divRepeat
+ * @memberof Vec4Array.prototype
+ * @description Divides, elementwise, vectors from the two argument arrays, repeating the second one as neccessary, storing the result in this array.
+ * @param {Vec4Array} b - Array of dividends. Its length must be identical to this array's length.
+ * @param {Vec4Array | Vec4} c - Array of divisors, or a single factor. Its length must be a divisor of this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$divRepeat = function(b, c) {
+  for(var i=0; i&lt;this.storage.length; ) {
+  	for(var j=0; j&lt;c.storage.length; i++, j++) {
+ 	  this.storage[i] = b.storage[i] / c.storage[j];
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $divStretch
+ * @memberof Vec4Array.prototype  
+ * @description Divides, elementwise, vectors from the two argument arrays, repeating individual values of the second one to produce the same number of values as in the output array.
+ * @param {Vec4Array} b - Array of dividends. Its length must be identical to this array's length.
+ * @param {Vec1Array} c - Array of divisors. Its length must be identical to this array's length.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$divStretch = function(b, c) {
+  var stretchFactor = this.storage.length / c.storage.length; 
+  var i=0;
+  for(var j=0; j&lt;c.storage.length; j++) {	
+    for(var k=0; k&lt;stretchFactor; k++, i++ ) {
+ 	  this.storage[i] = b.storage[i] / c.storage[j];
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $scale
+ * @memberof Vec4Array.prototype  
+ * @description Multipies vectors from an array with a scalar, storing the result in this array. For scaling with factors stored in an array, see [mulStretch]{@link Vec4Array#mulStretch}.
+ * @param {Vec4Array} b - Array of vectors to scale. Its length must be identical to this array's length.
+ * @param {Vec4Array} c - Scale factor.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$scale = function(b, s) {
+  for(var i=0; i&lt;this.storage.length; i++) {
+    this.storage[i] = b.storage[i] * s;
+  }
+  return this;  
+};
+
+/**
+ * @method $random
+ * @memberof Vec4Array.prototype  
+ * @description Fills the array with random values between 0 and 1.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$random = function() {
+  for(var i=0; i&lt;this.storage.length; i++) {
+    this.storage[i] = Math.random();
+  }
+  return this;  
+};
+
+/**
+ * @method $random
+ * @memberof Vec4Array.prototype  
+ * @description Constrains values in the array to the [0,1) interval.
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$clamp = function() {
+  for(var i=0; i&lt;this.storage.length; i++) {
+    if(this.storage[i] &lt; 0) {
+      this.storage[i] = 0;
+    }
+    if(this.storage[i] > 1) {
+      this.storage[i] = 1;
+    }
+  }
+  return this;  
+};
+
+/**
+ * @method $random
+ * @memberof Vec4Array.prototype  
+ * @description Fills this vector with the unit length versions of vectors in the argument vector.
+ * @param {Vec4Array} b - Array of vectors to normalize. Its length must be identical to this array's length. 
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$normalize = function(b) {
+  for(var i=0; i&lt;this.storage.length; i+=4) {
+  	var l2 =
+  	  b.storage[i  ] * b.storage[i  ] +
+  	  b.storage[i+1] * b.storage[i+1] +
+  	  b.storage[i+2] * b.storage[i+2] +
+  	  b.storage[i+3] * b.storage[i+3] ;
+  	  var linv = 1 / sqrt(l2);
+    this.storage[i  ] = b.storage[i  ] * linv;
+    this.storage[i+1] = b.storage[i+1] * linv;
+    this.storage[i+2] = b.storage[i+2] * linv;
+    this.storage[i+3] = b.storage[i+3] * linv;
+  }
+};
+
+/**
+ * @method $transform
+ * @memberof Vec4Array.prototype
+ * @description Fills this vector with vectors from the argument vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
+ * @param {Vec4Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
+ * @return {Vec4Array} this
+ */
+Vec4.prototype.$transform = function(v, m) {
+  for(var i=0; i&lt;this.storage.length; i+=4) {
+    this.storage[i+0] =
+       v.storage[i+0] * m.storage[ 0] +
+       v.storage[i+1] * m.storage[ 1] +
+       v.storage[i+2] * m.storage[ 2] +
+       v.storage[i+3] * m.storage[ 3] ;
+    this.storage[i+1] =
+       v.storage[i+0] * m.storage[ 4] +
+       v.storage[i+1] * m.storage[ 5] +
+       v.storage[i+2] * m.storage[ 6] +
+       v.storage[i+3] * m.storage[ 7] ;
+    this.storage[i+2] =
+       v.storage[i+0] * m.storage[ 8] +
+       v.storage[i+1] * m.storage[ 9] +
+       v.storage[i+2] * m.storage[10] +
+       v.storage[i+3] * m.storage[11] ;
+    this.storage[i+3] =
+       v.storage[i+0] * m.storage[12] +
+       v.storage[i+1] * m.storage[13] +
+       v.storage[i+2] * m.storage[14] +
+       v.storage[i+3] * m.storage[15] ;
+  }
+  return this;  
+};
+
+/**
+ * @method commit
+ * @memberof Vec4Array.prototype  
+ * @description Sets the value of the vector array to a WebGL vec4 array uniform variable.
+ * @param gl {WebGLRenderingContext}
+ * @param uniformLocation {WebGLUniformLocation}
+ */
+Vec4Array.prototype.commit = function(gl, uniformLocation){
+  gl.uniform4fv(uniformLocation, this.storage);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Feb 13 2017 15:14:18 GMT+0100 (Central Europe Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
