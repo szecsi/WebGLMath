@@ -47,7 +47,7 @@ class ProgramReflection {
         }
         Object.defineProperty(target, uniformDesc.name, {
           get: () => reflectionVariable,
-          set: () => {throw new Error("Properties of UniformProvider components that reflect uniforms cannot be assigned new values. Use their set() method instead.");}
+          set: arg => reflectionVariable.set(arg)
         } );
       }
     }
