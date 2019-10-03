@@ -25,6 +25,34 @@ class UniformProvider {
     for(const component of this.components){
       component.draw(this, ...uniformProviders);
     }
+  }
+
+  using(overrider){
+      return {
+        target : this,
+        draw : function(...uniformProviders){
+          const overrides = {};
+          overrides[overrider.constructor.name] = overrider;
+          this.target.drawWithOverrides(overrides, ...uniformProviders);
+        },
+        drawWithOverrides : function(overrides, ...uniformProviders){
+          overrides[overrider.constructor.name] = overrider;
+          this.target.drawWithOverrides(overrides, ...uniformProviders);
+        }        
+      };
+  }
+
+  drawWithOverrides(overrides, ...uniformProviders){
+    for(let component of this.components){
+      if(component.constructor.name in overrides){
+        component = overrides[component.constructor.name];
+      }
+      if('drawWithOverrides' in component) {
+        component.drawWithOverrides(overrides, this, ...uniformProviders);
+      } else {
+        component.draw(this, ...uniformProviders);
+      }
+    }
   }  
   
 }
