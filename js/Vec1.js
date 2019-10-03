@@ -3,16 +3,15 @@
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
-/**
- * @class Vec1
- * @classdesc A 32-bit float wrapped as a single-element vector. May reflect an ESSL float uniform variable.
- * @description Without parameters, initializes the vector to 0.
- * @constructor
- */
+/** A 32-bit float wrapped as a single-element vector. May reflect an GLSL float uniform variable. */
 class Vec1{
+  /**
+   * Creates a vector. Without parameters, initializes the vector to 0.
+   * @param {Vec1 | Number} u - Initial value.
+   */  
   constructor(u){
     /**
-     * @name Vec1.prototype#storage
+     * @name Vec1#storage
      * @description 1-element typed array for coordinate storage.
      * @type Float32Array
      */  
@@ -23,7 +22,7 @@ class Vec1{
 
   /**
    * @method clone
-   * @memberof Vec1.prototype 
+   * @memberof Vec1 
    * @description Creates a copy.
    * @return {Vec1} A new instance with identical contents.
    */
@@ -35,7 +34,7 @@ class Vec1{
 
   /**
    * @method set
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>=</code>. Sets the coordinates from another vector, or number values. Without parameters, sets (0, 0, 0, 1).
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
    * @return {Vec1} this
@@ -65,7 +64,7 @@ class Vec1{
 
   /**
    * @method setRandom
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fill the vector with random values that to lie between two further values, elementwise.
    * @param {Vec1 | Object | Number} [minVal=0] - Specifies the lower end of the random range. If a scalar is given, it applies to all channels.
    * @param {Vec1 | Object | Number} [maxVal=1] - Specifies the upper end of the random range. If a scalar is given, it applies to all channels.
@@ -80,7 +79,7 @@ class Vec1{
 
   /**
    * @method clamp
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Constrains the value of this vector to lie between two further values, elementwise, overwriting the contents with the result.
    * @param {Vec1 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
    * @param {Vec1 | Object | Number} [maxVal=1] - Specifies the upper end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -100,7 +99,7 @@ class Vec1{
 
   /**
    * @method setClamped
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Constrains a value to lie between two further values, elementwise, storing the result in this vector.
    * @param {Vec1} b - The value to constrain.
    * @param {Vec1 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -122,7 +121,7 @@ class Vec1{
 
   /**
    * @method add
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>+=</code>. Adds another vector to this vector, overwriting the contents with the result.
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
    * @return {Vec1} this
@@ -134,7 +133,7 @@ class Vec1{
 
   /**
    * @method addScaled
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates <code>+= dt *</code>. Adds another vector, scaled by `dt`, to this vector, overwriting the contents with the result.
    * @param {Number} dt - Scaling factor. 
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
@@ -147,7 +146,7 @@ class Vec1{
 
   /**
    * @method plus
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>+</code>. Adds this vector and the parameter vector, and returns the result in a new instance.
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
    * @return {Vec1} the sum of the two vectors
@@ -161,7 +160,7 @@ class Vec1{
 
   /**
    * @method setSum
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Adds the two argument vectors, storing the result in this vector.
    * @param {Vec1} b - Term 1.
    * @param {Vec1} c - Term 2. 
@@ -174,7 +173,7 @@ class Vec1{
 
   /**
    * @method sub
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>-=</code>. Subtracts another vector from this vector, overwriting the contents with the result.
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
    * @return {Vec1} this
@@ -186,7 +185,7 @@ class Vec1{
 
   /**
    * @method minus
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>-</code>. Subtracts the parameter vector from this vector, and returns the result in a new instance.
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
    * @return {Vec1} the difference of the two vectors
@@ -200,7 +199,7 @@ class Vec1{
 
   /**
    * @method setDifference
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
    * @param {Vec1} b - Minuend.
    * @param {Vec1} c - Subtrahend. 
@@ -213,7 +212,7 @@ class Vec1{
 
   /**
    * @method mul
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>*=</code>. Multiplies this vector with another vector elementwise, or scalar, overwriting the contents with the result.
    * @param {Vec1 | Object | Number} [u=1] - Any object (property x), or a numerical value.
    * @return {Vec1} this
@@ -225,7 +224,7 @@ class Vec1{
 
   /**
    * @method times
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Simulates operator <code>*</code>. Multiplies this vector with another vector elementwise, or scalar, and returns the result in a new instance.
    * @param {Vec1 | Object | Number} [u=1] - Any object (property x), or a numerical value.
    * @return {Vec1} the elementwise product of the two vectors
@@ -239,7 +238,7 @@ class Vec1{
 
   /**
    * @method setProduct
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Multiplies, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec1} b - Factor 1.
    * @param {Vec1} c - Factor 2. 
@@ -252,7 +251,7 @@ class Vec1{
 
   /**
    * @method div
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Simulates operator <code>/=</code>. Divides, elementwise, this vector with another vector, or scalar, overwriting the contents with the result.
    * @param {Vec1 | Object | Number} [u=1] - Any object (property x), or a numerical value.
    * @return {Vec1} this
@@ -264,7 +263,7 @@ class Vec1{
 
   /**
    * @method over
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Simulates operator <code>/</code>. Divides, elementwise, this vector with another vector, or scalar, and returns the result in a new instance.
    * @param {Vec1 | Object | Number} [u=1] - Any object (property x), or a numerical value.
    * @return {Vec1} the elementwise product of the two vectors
@@ -278,7 +277,7 @@ class Vec1{
 
   /**
    * @method setQuotient
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Divides, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec1} b - Dividend.
    * @param {Vec1} c - Divisor. 
@@ -291,7 +290,7 @@ class Vec1{
 
   /**
    * @method setScaled
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Scales the vector by a scalar.
    * @param {Vec1} a - Vector to scale.
    * @param {Number} s - Scale factor. 
@@ -304,7 +303,7 @@ class Vec1{
 
   /**
    * @method setScaledByInverse
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Fast. Scales the vector by the reciprocal of scalar.
    * @param {Vec1} a - Vector to scale.
    * @param {Number} s - Scale factor inverse.
@@ -317,7 +316,7 @@ class Vec1{
 
   /**
    * @method dot
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Computes the dot product with another vector.
    * @param {Vec1 | Object | Number} [u=0] - Any object (property x), or a numerical value.
    * @return {Number}
@@ -328,7 +327,7 @@ class Vec1{
 
   /**
    * @method setDotProductOfVec2s
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Computes the dot product of two two-element vectors, and stores the result.
    * @param {Vec3} b - Operand 1.
    * @param {Vec3} c - Operand 2.
@@ -341,7 +340,7 @@ class Vec1{
 
   /**
    * @method setDotProductOfVec3s
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Computes the dot product of two three-element vectors, and stores the result.
    * @param {Vec3} b - Operand 1.
    * @param {Vec3} c - Operand 2.
@@ -354,7 +353,7 @@ class Vec1{
 
   /**
    * @method setDotProductOfVec4s
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Computes the dot product of two three-element vectors, and stores the result.
    * @param {Vec3} b - Operand 1.
    * @param {Vec3} c - Operand 2.
@@ -367,7 +366,7 @@ class Vec1{
 
   /**
    * @method setLengthOfVec2
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Computes the length of a two-element vector, and stores the result.
    * @param {Vec2} b - The vector whose length must be stored.
    * @return this
@@ -379,7 +378,7 @@ class Vec1{
 
   /**
    * @method setLengthOfVec3
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Computes the length of a three-element vector, and stores the result.
    * @param {Vec3} b - The vector whose length must be stored.
    * @return this
@@ -391,7 +390,7 @@ class Vec1{
 
   /**
    * @method setLengthOfVec4
-   * @memberof Vec1.prototype
+   * @memberof Vec1
    * @description Computes the length of a four-element vector, and stores the result.
    * @param {Vec4} b - The vector whose length must be stored.
    * @return this
@@ -403,7 +402,7 @@ class Vec1{
 
   /**
    * @method commit
-   * @memberof Vec1.prototype  
+   * @memberof Vec1  
    * @description Sets the value of the vector to a WebGL float uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
@@ -414,7 +413,7 @@ class Vec1{
 }
 
 /**
- * @name Vec1.prototype#x
+ * @name Vec1#x
  * @description Alias for storage[0];
  * @type Number
  */

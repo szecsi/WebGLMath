@@ -4,8 +4,7 @@
  */
 "use strict";
 /**
- * @class Vec2
- * @classdesc Two-element vector of 32-bit floats. May reflect an ESSL vec2 uniform variable.
+ * Two-element vector of 32-bit floats. May reflect an GLSL vec2 uniform variable.
  * Low-performance convenience methods reproduce operator behaviour.
  * <table><tr><th>operator</th><th>method</th></tr>
  * <tr><td>+=</td><td>[add]{@link Vec2#add}</td></tr>
@@ -22,15 +21,16 @@
  * <BR> <code>a.set(b).add(c)</code> is about three times faster. Variable <code>a</code> needs to exist, and be a {@link Vec2}. Neither b nor c are required to be {@link Vec2}s: they can be vectors of different length, object literals, or its coordinates given as separate arguments.
  * <BR> If <code>a</code>, <code>b</code> and <code>c</code> are {@link Vec2} instances, <code>a.setSum(b, c)</code> can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c)</code>, or twenty times faster than <code>a = b.plus(c)</code>.
  * <BR> It is recommended to use optimized methods for time-critical per-frame tasks, while programmer-friendly interfaces are useful for one-time initializations, e.g. when constructing a scene.
- * @description  Without parameters, initializes the vector to (0, 0).
- * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
- * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
- * @constructor
  */
 class Vec2{
+  /**
+   * Creates a vector. Without parameters, initializes the vector to (0, 0).
+   * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
+   * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
+   */
   constructor(u, v){
     /**
-     * @name Vec2.prototype#storage
+     * @name Vec2#storage
      * @description 2-element typed array for coordinate storage.
      * @type Float32Array
      */  
@@ -42,7 +42,7 @@ class Vec2{
 
   /**
    * @method clone
-   * @memberof Vec2.prototype 
+   * @memberof Vec2 
    * @description Creates a copy.
    * @return {Vec2} A new instance with identical contents.
    */
@@ -54,7 +54,7 @@ class Vec2{
 
   /**
    * @method set
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>=</code>. Sets the coordinates from another vector, or number values. Without parameters, sets (0, 0, 0, 1).
    * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -89,7 +89,7 @@ class Vec2{
 
   /**
    * @method setRandom
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fill the vector with random values that to lie between two further values, elementwise.
    * @param {Vec2 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the random range. If a scalar is given, it applies to all channels.
    * @param {Vec2 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the random range. If a scalar is given, it applies to all channels.
@@ -107,7 +107,7 @@ class Vec2{
 
   /**
    * @method clamp
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Constrains the value of this vector to lie between two further values, elementwise, overwriting the contents with the result.
    * @param {Vec2 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
    * @param {Vec2 | Vec2 | Object | Number} [maxVal=1] - Specifies the upper end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -135,7 +135,7 @@ class Vec2{
 
   /**
    * @method setClamped
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Constrains a value to lie between two further values, elementwise, storing the result in this vector.
    * @param {Vec2} b - The value to constrain.
    * @param {Vec2 | Vec2 | Object | Number} [minVal=0] - Specifies the lower end of the range into which to constrain the elements. If a scalar is given, it applies to all channels.
@@ -166,7 +166,7 @@ class Vec2{
 
   /**
    * @method add
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>+=</code>. Adds another vector to this vector, overwriting the contents with the result.
    * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -180,7 +180,7 @@ class Vec2{
 
   /**
    * @method addScaled
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates <code>+= dt *</code>. Adds another vector, scaled by `dt`, to this vector, overwriting the contents with the result.
    * @param {Number} dt - Scaling factor.
    * @param {Vec2 | Object | Number} [u=0] - Any object (property x), or a numerical value.
@@ -195,7 +195,7 @@ class Vec2{
 
   /**
    * @method plus
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>+</code>. Adds this vector and the parameter vector, and returns the result in a new instance.
    * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -211,7 +211,7 @@ class Vec2{
 
   /**
    * @method setSum
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Adds the two argument vectors, storing the result in this vector.
    * @param {Vec2} b - Term 1.
    * @param {Vec2} c - Term 2. 
@@ -225,7 +225,7 @@ class Vec2{
 
   /**
    * @method sub
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>-=</code>. Subtracts another vector from this vector, overwriting the contents with the result.
    * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -239,7 +239,7 @@ class Vec2{
 
   /**
    * @method minus
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>-</code>. Subtracts the parameter vector from this vector, and returns the result in a new instance.
    * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -255,7 +255,7 @@ class Vec2{
 
   /**
    * @method setDifference
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Subtracts the second argument vector from the first one, storing the result in this vector.
    * @param {Vec2} b - Minuend.
    * @param {Vec2} c - Subtrahend. 
@@ -269,7 +269,7 @@ class Vec2{
 
   /**
    * @method mul
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>*=</code>. Multiplies this vector with another vector elementwise, or scalar, overwriting the contents with the result.
    * @param {Vec2 | Vec2 | Object | Number} [u=1] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -283,7 +283,7 @@ class Vec2{
 
   /**
    * @method times
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Simulates operator <code>*</code>. Multiplies this vector with another vector elementwise, or scalar, and returns the result in a new instance.
    * @param {Vec2 | Vec2 | Object | Number} [u=1] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -299,7 +299,7 @@ class Vec2{
 
   /**
    * @method xy01times
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Simulates operator <code>*</code>. Multiplies this vector, augmented with 0, 1, to a homogeneous position vector, with a matrix from the right, and returns the result in a new instance.
    * @param {Mat4} m - A 4x4 transformation matrix.
    * @return {Vec2} the transformed vector
@@ -313,7 +313,7 @@ class Vec2{
 
   /**
    * @method xy00times
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Simulates operator <code>*</code>. Multiplies, this vector, augmented with two zeros, to a homogeneous direction vector, with a matrix from the right, and returns the result in a new instance.
    * @param {Mat4} m - A 4x4 transformation matrix.
    * @return {Vec2} the transformed vector
@@ -327,7 +327,7 @@ class Vec2{
 
   /**
    * @method setProduct
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Multiplies, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec2} b - Factor 1.
    * @param {Vec2} c - Factor 2. 
@@ -341,7 +341,7 @@ class Vec2{
 
   /**
    * @method div
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Simulates operator <code>/=</code>. Divides, elementwise, this vector with another vector, or scalar, overwriting the contents with the result.
    * @param {Vec2 | Vec2 | Object | Number} [u=1] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -355,7 +355,7 @@ class Vec2{
 
   /**
    * @method over
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Simulates operator <code>/</code>. Divides, elementwise, this vector with another vector, or scalar, and returns the result in a new instance.
    * @param {Vec2 | Vec2 | Object | Number} [u=1] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for coordinate y. Defaults to the value of parameter u, if it is a number.
@@ -371,7 +371,7 @@ class Vec2{
 
   /**
    * @method setQuotient
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Divides, elementwise, the two argument vectors, storing the result in this vector.
    * @param {Vec2} b - Dividend.
    * @param {Vec2} c - Divisor. 
@@ -385,7 +385,7 @@ class Vec2{
 
   /**
    * @method setScaled
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Scales the vector by a scalar.
    * @param {Vec2} a - Vector to scale.
    * @param {Number} s - Scale factor. 
@@ -399,7 +399,7 @@ class Vec2{
 
   /**
    * @method setScaledByInverse
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Fast. Scales the vector by the reciprocal of scalar.
    * @param {Vec2} a - Vector to scale.
    * @param {Number} s - Scale factor inverse.
@@ -413,7 +413,7 @@ class Vec2{
 
   /**
    * @method length2
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Computes the length squared.
    * @return {Number} x*x + y*y + z*z + w*w
    */
@@ -423,7 +423,7 @@ class Vec2{
 
   /**
    * @method length
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Computes the vector length.
    * @return {Number}
    */
@@ -433,7 +433,7 @@ class Vec2{
 
   /**
    * @method normalize
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Scales the vector by the inverse of its length, overwriting the contents with the result.
    * @return {Vec2} this
    */
@@ -446,7 +446,7 @@ class Vec2{
 
   /**
    * @method direction
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Returns the vector scaled by the inverse of its length in a new instance.
    * @return {Vec2} A unit length vector with the same direction as this.
    */
@@ -461,7 +461,7 @@ class Vec2{
 
   /**
    * @method setNormalized
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Scales the argmument vector by the inverse of its length, storing the result in this vector.
    * @param {Vec2} b - The vector to normalize.
    * @return {Vec2} this
@@ -475,7 +475,7 @@ class Vec2{
 
   /**
    * @method dot
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Computes the dot product with another vector.
    * @param {Vec2 | Vec2 | Object | Number} [u=0] - Any object (properties x, y are interpreted as coordinates, if given), or a numerical value for coordinate x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for coordinate y.
@@ -488,7 +488,7 @@ class Vec2{
 
   /**
    * @method xy01mul
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Multiplies the vector (considering it a row vector, augmented by 0, 1 to get a homogeneous position vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See [xy01times]{@link Vec2#xy01times} for a version creating a new vector instance.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
    * @return {Vec2} this
@@ -513,7 +513,7 @@ class Vec2{
 
   /**
    * @method setxy01Transformed
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Multiplies the argument vector (considering it a row vector, augmented by 0, 1 to a homogeneous position vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See [xy01times]{@link Vec2#xy01times} for a version creating a new vector instance.
    * @param v {Vec2} The vector to be transformed. 
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
@@ -539,7 +539,7 @@ class Vec2{
 
   /**
    * @method xy00mul
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Multiplies the vector (considering it a row vector, augmented by a 0 to get a homogeneous direction vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See [xy00times]{@link Vec2#xy00times} for a version creating a new vector instance.
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
    * @return {Vec2} this
@@ -558,7 +558,7 @@ class Vec2{
 
   /**
    * @method setxy00Transformed
-   * @memberof Vec2.prototype
+   * @memberof Vec2
    * @description Multiplies the argument vector (considering it a row vector, augmented by 0 to a homogeneous direction vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See [xy00times]{@link Vec2#xy00times} for a version creating a new vector instance.
    * @param v {Vec2} The vector to be transformed.  
    * @param m {Mat4} The 4x4 linear homogeneous transformation matrix using column-major representation.
@@ -578,7 +578,7 @@ class Vec2{
 
   /**
    * @method commit
-   * @memberof Vec2.prototype  
+   * @memberof Vec2  
    * @description Sets the value of the vector to a WebGL vec2 uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
@@ -589,7 +589,7 @@ class Vec2{
 }
 
 /**
- * @name Vec2.prototype#x
+ * @name Vec2#x
  * @description Alias for storage[0];
  * @type Number
  */
@@ -599,7 +599,7 @@ Object.defineProperty(Vec2.prototype, 'x', {
 });
 
 /**
- * @name Vec2.prototype#y
+ * @name Vec2#y
  * @description Alias for storage[1]; 
  * @type Number
  */

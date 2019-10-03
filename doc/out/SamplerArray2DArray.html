@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Sampler2DArray</title>
+	<title>Documentation Class: SamplerArray2DArray</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,16 +72,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Sampler2DArray</h1>
+	<h1 class="page-title">Class: SamplerArray2DArray</h1>
 <section>
 
 <header>
     
         <h2>
-        Sampler2DArray
+        SamplerArray2DArray
         </h2>
-        
-            <div class="class-description">Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an GLSL sampler2dArray uniform variable.</div>
         
     
 </header>
@@ -93,7 +91,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Sampler2DArray"><span class="type-signature"></span>new Sampler2DArray()</h4>
+    <h4 class="name" id="SamplerArray2DArray"><span class="type-signature"></span>new SamplerArray2DArray(size)</h4>
     
     
 </dt>
@@ -103,6 +101,637 @@
     <div class="description">
         Creates object.
     </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>size</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of Sampler2DArray elements in the array.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".at"><span class="type-signature">&lt;static> </span>at(index)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns a Sampler2D object that captures an element of the array. The sampler is a view on the original data, not a copy.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index of the element.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    view on one of the array's elements
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="SamplerCube.html">SamplerCube</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation, baseTextureUnit)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Specifies, to WebGL, the texture unit indices of all samplers in the array, and binds textures of the array elements.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>gl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WebGLRenderingContext</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rendering context</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>uniformLocation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WebGLUniformLocation</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">location of the uniform variable in the currently used WebGL program</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>baseTextureUnit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The texture unit index of the first element. Other elements are assigned to texture units contiguously.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set(textureArray)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Assigns textures.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>textureArray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+|
+
+<span class="param-type">Array.&lt;WebGLTexture></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of WebGL textures, or of objects with the `glTexture` property that stores a WebGL texture.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+	<h1 class="page-title">Class: SamplerArray2DArray</h1>
+<section>
+
+<header>
+    
+        <h2>
+        SamplerArray2DArray
+        </h2>
+        
+            <div class="class-description">Array of Texture Array samplers. May reflect a GLSL array-of-sampler2DArrays uniform variable.<BR> Individual <a href="Sampler2DArray.html">Sampler2DArray</a> elements are available through the index operator [].</div>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="SamplerArray2DArray"><span class="type-signature"></span>new SamplerArray2DArray()</h4>
+    
+    
+</dt>
+<dd>
+
     
 
     
@@ -189,7 +818,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation, textureUnit)</h4>
+    <h4 class="name" id=".at"><span class="type-signature">&lt;static> </span>at(index)</h4>
     
     
 </dt>
@@ -197,7 +826,159 @@
 
     
     <div class="description">
-        Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
+        Returns a Sampler2D object that captures an element of the array. The sampler is a view on the original data, not a copy.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index of the element.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    view on one of the array's elements
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="SamplerCube.html">SamplerCube</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation, baseTextureUnit)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Specifies, to WebGL, the texture unit indices of all samplers in the array, and binds textures of the array elements.
     </div>
     
 
@@ -280,7 +1061,7 @@
 
         <tr>
             
-                <td class="name"><code>textureUnit</code></td>
+                <td class="name"><code>baseTextureUnit</code></td>
             
 
             <td class="type">
@@ -297,7 +1078,7 @@
 
             
 
-            <td class="description last">The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.</td>
+            <td class="description last">The texture unit index of the first element. Other elements are assigned to texture units contiguously.</td>
         </tr>
 
     
@@ -365,7 +1146,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set(texture)</h4>
+    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set(textureArray)</h4>
     
     
 </dt>
@@ -373,7 +1154,7 @@
 
     
     <div class="description">
-        Assigns a texture.
+        Assigns textures.
     </div>
     
 
@@ -408,16 +1189,16 @@
 
         <tr>
             
-                <td class="name"><code>texture</code></td>
+                <td class="name"><code>textureArray</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Array.&lt;Object></span>
 |
 
-<span class="param-type">WebGLTexture</span>
+<span class="param-type">Array.&lt;WebGLTexture></span>
 
 
 
@@ -428,7 +1209,7 @@
 
             
 
-            <td class="description last">A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.</td>
+            <td class="description last">An array of WebGL textures, or of objects with the `glTexture` property that stores a WebGL texture.</td>
         </tr>
 
     

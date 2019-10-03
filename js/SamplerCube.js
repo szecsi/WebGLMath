@@ -3,13 +3,14 @@
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
+/* exported SamplerCube */
 /**
- * @class SamplerCube
- * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL samplerCube uniform variable.
- * @description Creates object.
- * @constructor
+ * Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL samplerCube uniform variable.
  */
 class SamplerCube{
+  /**
+   * Creates object.
+   */
   constructor(){
     this.glTexture = null;
     this.storage = new Int32Array(1);
@@ -17,7 +18,7 @@ class SamplerCube{
 
   /**
    * @method set
-   * @memberof SamplerCube.prototype  
+   * @memberof SamplerCube  
    * @description Assigns a texture.
    * @param {Object | WebGLTexture} texture - A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.
    */
@@ -27,7 +28,7 @@ class SamplerCube{
 
   /**
    * @method commit
-   * @memberof SamplerCube.prototype  
+   * @memberof SamplerCube  
    * @description Sets the value of the texture unit index to the WebGL samplerCube uniform variable, and binds the texture to the corresponding texture unit.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program

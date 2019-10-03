@@ -1,64 +1,47 @@
 /**
- * @file WebGLMath Sampler2DArray class
+ * @file WebGLMath {@link Sampler2DArray} class
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
+/* exported Sampler2DArray */
 /**
- * @class Sampler2DArray
- * @classdesc Array of 2d samplers. May reflect an ESSL array-of-sampler2Ds uniform variable.
- * <BR> Individual [Sampler2D]{@link Sampler2D} elements are available through the index operator [].
- * @param {Number} size - The number of Sampler2D elements in the array.
- * @constructor
+ * Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an GLSL sampler2dArray uniform variable.
  */
-class Sampler2DArray{
-  constructor(size, baseTextureUnit){
-    this.length = size;
-    this.storage = new Int32Array(size);
-    for(let i=0; i<size; i++){
-      const element = Object.create(Sampler2D.prototype);
-      element.glTexture = null;
-      element.storage = this.storage.subarray(i, (i+1));
-      Object.defineProperty(this, i, {value: element} );
-    }
-  }
-
+class Sampler2DArray{ 
   /**
-   * @method at
-   * @memberof Sampler2DArray.prototype  
-   * @description Returns a Sampler2D object that captures an element of the array. The sampler is a view on the original data, not a copy.
-   * @param index {Number} - Index of the element.
-   * @return {SamplerCube} view on one of the array's elements
+   * Creates object.
    */
-  at(index){
-    return this[index];
+  constructor(){
+    this.glTexture = null;
+    this.storage = new Int32Array(1);  
   }
 
   /**
    * @method set
-   * @memberof Sampler2DArray.prototype  
-   * @description Assigns textures.
-   * @param {Object[] | WebGLTexture[]} textureArray - An array of WebGL textures, or of objects with the `glTexture` property that stores a WebGL texture.
+   * @memberof Sampler2DArray  
+   * @description Assigns a texture.
+   * @param {Object | WebGLTexture} texture - A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.
    */
-  set(textureArray){
-    for(let i=0; i<this.size; i++){
-      this[i].set(textureArray[ Math.min(i, textureArray.length) ]);
-    }
+  set(texture){
+    this.glTexture = texture && texture.glTexture || texture || null;
   }
 
   /**
    * @method commit
-   * @memberof Sampler2DArray.prototype  
-   * @description Specifies, to WebGL, the texture unit indices of all samplers in the array, and binds textures of the array elements.
+   * @memberof Sampler2DArray  
+   * @description Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
-   * @param {Number} baseTextureUnit - The texture unit index of the first element. Other elements are assigned to texture units contiguously.
-   */
-  commit(gl, uniformLocation, baseTextureUnit){
-    for(let i=0; i<this.length; i++) {
-      this.storage[i] = baseTextureUnit + i;
-      gl.activeTexture(gl.TEXTURE0 + baseTextureUnit + i);
-      gl.bindTexture(gl.TEXTURE_2D, this[i].glTexture);
+   * @param {Number} textureUnit - The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.
+  */
+  commit(gl, uniformLocation, textureUnit){
+    this.storage[0] = textureUnit;
+    if(this.glTexture) {
+      gl.uniform1iv(uniformLocation, this.storage);
+      gl.activeTexture(gl.TEXTURE0 + textureUnit);
+      gl.bindTexture(gl.TEXTURE_2D_ARRAY, this.glTexture);
+    } else {
+      throw new Error("No texture bound to uniform Sampler2DArray.");
     }
-    gl.uniform1iv(uniformLocation, this.storage);
   }
 }

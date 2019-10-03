@@ -4,15 +4,16 @@
  */
 "use strict";
 /**
- * @class Vec4Array
- * @extends VecArray
- * @classdesc Array of four-element vectors of 32-bit floats. May reflect an ESSL array-of-vec4s uniform variable.
+ * Array of four-element vectors of 32-bit floats. May reflect an GLSL array-of-vec4s uniform variable.
  * <BR> Individual [Vec4]{@link Vec4} elements are available through the [at]{@link Vec1Array#at} method.
  * Methods are available for optimized bulk processing.
- * @param {Number | Array} size - The number of Vec4 elements in the array, or an array of 4n elements.
- * @constructor
+ * @extends VecArray
  */
 class Vec4Array extends VecArray {
+  /**
+   * Creates an array of vectors.
+   * @param {Number | Array} size - The number of Vec4 elements in the array, or an array of 4n elements.
+   */
   constructor(size){
     super();
     this.length = size.length/4 || size;
@@ -21,7 +22,7 @@ class Vec4Array extends VecArray {
 
   /**
    * @method at
-   * @memberof Vec4Array.prototype  
+   * @memberof Vec4Array  
    * @description Returns a new Vec4 object that captures an element of the array. The new vector is a view on the original data, not a copy.
    * @param index {Number} - Index of the element.
    * @return {Vec4} new view on one of the array's elements
@@ -35,7 +36,7 @@ class Vec4Array extends VecArray {
 
   /**
    * @method subarray
-   * @memberof Vec4Array.prototype  
+   * @memberof Vec4Array  
    * @description Returns a new Vec4Array object that captures a subrange of the array. The new array is a view on the original data, not a copy.
    * @param {Number} [begin=0] - Element to begin at. The offset is inclusive. The whole array will be cloned if this value is not specified.
    * @param {Number} [end=length] - Element to end at. The offset is exclusive. If not specified, all elements from the one specified by begin to the end of the array are included in the new view.
@@ -50,7 +51,7 @@ class Vec4Array extends VecArray {
 
   /**
    * @method normalize
-   * @memberof Vec4Array.prototype  
+   * @memberof Vec4Array  
    * @description Fills this vector with the unit length versions of vectors in the argument vector.
    * @param {Vec4Array} b - Array of vectors to normalize. Its length must be identical to this array's length. 
    * @return {Vec4Array} this
@@ -72,7 +73,7 @@ class Vec4Array extends VecArray {
 
   /**
    * @method transform
-   * @memberof Vec4Array.prototype
+   * @memberof Vec4Array
    * @description Fills this array with vectors from the argument array, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
    * @param {Vec4Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
    * @return {Vec4Array} this
@@ -105,7 +106,7 @@ class Vec4Array extends VecArray {
 
   /**
    * @method commit
-   * @memberof Vec4Array.prototype  
+   * @memberof Vec4Array  
    * @description Sets the value of the vector array to a WebGL vec4 array uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program

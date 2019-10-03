@@ -3,13 +3,14 @@
  * @copyright Laszlo Szecsi 2017
  */
 "use strict";
+/* exported Sampler3D */
 /**
- * @class Sampler3D
- * @classdesc Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL sampler3d uniform variable.
- * @description Creates object.
- * @constructor
+ * Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an ESSL sampler3d uniform variable.
  */
 class Sampler3D{ 
+  /**
+   * Creates object.
+   */
   constructor(){
     this.glTexture = null;
     this.storage = new Int32Array(1);  
@@ -17,7 +18,7 @@ class Sampler3D{
 
   /**
    * @method set
-   * @memberof Sampler3D.prototype  
+   * @memberof Sampler3D  
    * @description Assigns a texture.
    * @param {Object | WebGLTexture} texture - A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.
    */
@@ -27,7 +28,7 @@ class Sampler3D{
 
   /**
    * @method commit
-   * @memberof Sampler3D.prototype  
+   * @memberof Sampler3D  
    * @description Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program

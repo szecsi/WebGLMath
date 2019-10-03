@@ -4,15 +4,16 @@
  */
 "use strict";
 /**
- * @class Vec1Array
- * @extends VecArray
- * @classdesc Array of 32-bit floats. May reflect an ESSL array-of-floats uniform variable.
+ * Array of 32-bit floats. May reflect an GLSL array-of-floats uniform variable.
  * <BR> Individual [Vec1]{@link Vec1} elements are available through the [at]{@link Vec1Array#at} method.
  * Methods are available for optimized bulk processing.
- * @param {Number | Array} size - The number of Vec1 elements in the array, or an array of n elements.
- * @constructor
+ * @extends VecArray
  */
 class Vec1Array extends VecArray {
+  /**
+   * Creates an array of vectors.
+   * @param {Number | Array} size - The number of Vec1 elements in the array, or an array of n elements. 
+   */
   constructor(size){
     super();
     this.length = size.length || size;
@@ -21,7 +22,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method at
-   * @memberof Vec1Array.prototype  
+   * @memberof Vec1Array  
    * @description Returns a new Vec1 object that captures an element of the array. The new vector is a view on the original data, not a copy.
    * @param index {Number} - Index of the element.
    * @return {Vec1} new view on one of the array's elements
@@ -35,7 +36,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method subarray
-   * @memberof Vec1Array.prototype  
+   * @memberof Vec1Array  
    * @description Returns a new Vec1Array object that captures a subrange of the array. The new array is a view on the original data, not a copy.
    * @param {Number} [begin=0] - Element to begin at. The offset is inclusive. The whole array will be cloned if this value is not specified.
    * @param {Number} [end=length] - Element to end at. The offset is exclusive. If not specified, all elements from the one specified by begin to the end of the array are included in the new view.
@@ -49,7 +50,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method dotVec2s
-   * @memberof Vec1Array.prototype
+   * @memberof Vec1Array
    * @description Computes the dot products of two two-element vectors in arrays, and stores the result.
    * @param {Vec2Array} b - Array of first operands.
    * @param {Vec2Array} c - Array of second operands.
@@ -65,7 +66,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method dotVec3s
-   * @memberof Vec1Array.prototype
+   * @memberof Vec1Array
    * @description Computes the dot products of two three-element vectors in arrays, and stores the result.
    * @param {Vec3Array} b - Array of first operands.
    * @param {Vec3Array} c - Array of second operands.
@@ -81,7 +82,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method dotVec4s
-   * @memberof Vec1Array.prototype
+   * @memberof Vec1Array
    * @description Computes the dot products of two four-element vectors in arrays, and stores the result.
    * @param {Vec4Array} b - Array of first operands.
    * @param {Vec4Array} c - Array of second operands.
@@ -97,7 +98,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method dotAllVec2s
-   * @memberof Vec1Array.prototype  
+   * @memberof Vec1Array  
    * @description Computes the dot product of two-element vectors from the two argument arrays, in every possible combination, storing the result in this array.
    * First all elements of `b` are paired with the first element in `c`, then with the second element in `c`, and so on.
    * 'a.length == b.length * c.length' is assumed. 'b' or 'c' can be vectors instead of arrays,
@@ -120,7 +121,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method dotAllVec3s
-   * @memberof Vec1Array.prototype  
+   * @memberof Vec1Array  
    * @description Computes the dot product of three-element vectors from the two argument arrays, in every possible combination, storing the result in this array.
    * First all elements of `b` are paired with the first element in `c`, then with the second element in `c`, and so on.
    * 'a.length == b.length * c.length' is assumed. 'b' or 'c' can be vectors instead of arrays,
@@ -143,7 +144,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method dotAllVec4s
-   * @memberof Vec1Array.prototype  
+   * @memberof Vec1Array  
    * @description Computes the dot product of three-element vectors from the two argument arrays, in every possible combination, storing the result in this array.
    * First all elements of `b` are paired with the first element in `c`, then with the second element in `c`, and so on.
    * 'a.length == b.length * c.length' is assumed. 'b' or 'c' can be vectors instead of arrays,
@@ -211,7 +212,7 @@ class Vec1Array extends VecArray {
 
   /**
    * @method commit
-   * @memberof Vec1Array.prototype  
+   * @memberof Vec1Array  
    * @description Sets the value of the vector array to a WebGL vec1 array uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Sampler2DArray</title>
+	<title>Documentation Global</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,16 +72,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Sampler2DArray</h1>
+	<h1 class="page-title">Global</h1>
 <section>
 
 <header>
     
         <h2>
-        Sampler2DArray
-        </h2>
         
-            <div class="class-description">Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an GLSL sampler2dArray uniform variable.</div>
+        </h2>
         
     
 </header>
@@ -91,25 +89,79 @@
     <div class="container-overview">
     
         
-<hr>
-<dt>
-    <h4 class="name" id="Sampler2DArray"><span class="type-signature"></span>new Sampler2DArray()</h4>
+
+        
+<dl class="details">
     
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id="missingPropertyDummy">
+    <h4 id="missingPropertyDummy"><span class="type-signature">&lt;constant> </span>missingPropertyDummy<span class="type-signature"></span></h4>
+
     
 </dt>
 <dd>
-
     
     <div class="description">
-        Creates object.
+        A Proxy object that absorbs any chain of method calls and property accesses without effect.
     </div>
     
 
-    
-
-    
-
-    
     
 
     
@@ -153,33 +205,9 @@
 
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 </dd>
 
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
+        </dl>
     
 
     
@@ -189,7 +217,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation, textureUnit)</h4>
+    <h4 class="name" id="dft"><span class="type-signature"></span>dft(a)</h4>
     
     
 </dt>
@@ -197,7 +225,7 @@
 
     
     <div class="description">
-        Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
+        Returns the first parameter that is truthy or 0. Used to get the first valid value from a chain of possible defaults.
     </div>
     
 
@@ -220,6 +248,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -232,13 +262,13 @@
 
         <tr>
             
-                <td class="name"><code>gl</code></td>
+                <td class="name"><code>a</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">WebGLRenderingContext</span>
+<span class="param-type">*</span>
 
 
 
@@ -246,58 +276,20 @@
             </td>
 
             
-
-            
-
-            <td class="description last">rendering context</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uniformLocation</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">WebGLUniformLocation</span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">location of the uniform variable in the currently used WebGL program</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>textureUnit</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">Number</span>
 
-
-
-            
-            </td>
-
+                
+                    &lt;repeatable><br>
+                
+                </td>
             
 
             
 
-            <td class="description last">The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.</td>
+            <td class="description last">A list of possible values.</td>
         </tr>
 
     
@@ -357,6 +349,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The first of the parameters that is truthy or 0, or undefined if there are no such parameters.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -365,7 +381,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set(texture)</h4>
+    <h4 class="name" id="onlyWarnOnMissingPropertyAccess"><span class="type-signature"></span>onlyWarnOnMissingPropertyAccess(a)</h4>
     
     
 </dt>
@@ -373,7 +389,7 @@
 
     
     <div class="description">
-        Assigns a texture.
+        Hides an object behind a proxy that only gives a warning if a non-existant property is accessed, not an error. This is useful for <a href="UniformProvider.html">UniformProvider</a> subclasses with dynamically added properties. If a property is removed or optimized out from GLSL code during a testing change, code setting it still works.
     </div>
     
 
@@ -396,6 +412,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -408,16 +426,13 @@
 
         <tr>
             
-                <td class="name"><code>texture</code></td>
+                <td class="name"><code>a</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">WebGLTexture</span>
+<span class="param-type">*</span>
 
 
 
@@ -425,10 +440,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
 
             
 
-            <td class="description last">A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.</td>
+            <td class="description last">A list of possible values.</td>
         </tr>
 
     
@@ -488,6 +513,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The first of the parameters that is truthy or 0, or undefined if there are no such parameters.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>

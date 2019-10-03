@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Sampler2DArray</title>
+	<title>Documentation Class: ProgramReflection</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,16 +72,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Sampler2DArray</h1>
+	<h1 class="page-title">Class: ProgramReflection</h1>
 <section>
 
 <header>
     
         <h2>
-        Sampler2DArray
+        ProgramReflection
         </h2>
         
-            <div class="class-description">Stores a WebGL texture unit index, and a WebGL texture to be bound to it. May reflect an GLSL sampler2dArray uniform variable.</div>
+            <div class="class-description">Manages data obtained from a WebGL program's using the shader reflection API.It is also able to create properties in target objects, with the type of the properties matching the uniforms.Furthermore, it can set the values of the uniforms from a set of objects with corresponding properties.</div>
         
     
 </header>
@@ -93,7 +93,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Sampler2DArray"><span class="type-signature"></span>new Sampler2DArray()</h4>
+    <h4 class="name" id="ProgramReflection"><span class="type-signature"></span>new ProgramReflection(gl, glProgram)</h4>
     
     
 </dt>
@@ -101,7 +101,7 @@
 
     
     <div class="description">
-        Creates object.
+        Extracts descriptions of uniform inputs from a WebGL program. The inputs should be organized in uniform structs,the names of which indicate where the member fields should be set from.
     </div>
     
 
@@ -110,6 +110,80 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>gl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WebGL2RenderingContext</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The WebGL context.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>glProgram</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WebGLProgram</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The WebGL program.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -189,7 +263,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation, textureUnit)</h4>
+    <h4 class="name" id=".isSampler"><span class="type-signature">&lt;static> </span>isSampler(gl, type)</h4>
     
     
 </dt>
@@ -197,7 +271,7 @@
 
     
     <div class="description">
-        Sets the value of the texture unit index to the WebGL sampler2d uniform variable, and binds the texture to the corresponding texture unit.
+        Returns true if type is a numerical WebGL type ID of a sampler uniform.
     </div>
     
 
@@ -238,7 +312,7 @@
             <td class="type">
             
                 
-<span class="param-type">WebGLRenderingContext</span>
+<span class="param-type">WebGL2RenderingContext</span>
 
 
 
@@ -249,38 +323,14 @@
 
             
 
-            <td class="description last">rendering context</td>
+            <td class="description last">The rendering context.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>uniformLocation</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">WebGLUniformLocation</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">location of the uniform variable in the currently used WebGL program</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>textureUnit</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
@@ -297,7 +347,7 @@
 
             
 
-            <td class="description last">The texture unit index. This should be different for every texture used in the same program, and less than the maximum texture unit count, which is at least 8 in WebGL.</td>
+            <td class="description last">The numeric type of the uniform, i.e. a value of a type identifier property in the rendering context.</td>
         </tr>
 
     
@@ -365,7 +415,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set(texture)</h4>
+    <h4 class="name" id=".makeVar"><span class="type-signature">&lt;static> </span>makeVar(gl, type, arraySize)</h4>
     
     
 </dt>
@@ -373,7 +423,7 @@
 
     
     <div class="description">
-        Assigns a texture.
+        Returns a new reflection variable based on a numerical WebGL type ID.
     </div>
     
 
@@ -408,16 +458,13 @@
 
         <tr>
             
-                <td class="name"><code>texture</code></td>
+                <td class="name"><code>gl</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">WebGLTexture</span>
+<span class="param-type">WebGL2RenderingContext</span>
 
 
 
@@ -428,7 +475,398 @@
 
             
 
-            <td class="description last">A WebGL texture, or any object with the `glTexture` property that stores a WebGL texture.</td>
+            <td class="description last">The rendering context.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The numeric type of the uniform, i.e. a value of a type identifier property in the rendering context.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>arraySize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of elements in the uniform, if it is an array. Otherwise, it must be 1.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The new reflection object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Vec1.html">Vec1</a></span>
+|
+
+<span class="param-type"><a href="Vec1Array.html">Vec1Array</a></span>
+|
+
+<span class="param-type"><a href="Vec2.html">Vec2</a></span>
+|
+
+<span class="param-type"><a href="Vec2Array.html">Vec2Array</a></span>
+|
+
+<span class="param-type"><a href="Vec3.html">Vec3</a></span>
+|
+
+<span class="param-type"><a href="Vec3Array.html">Vec3Array</a></span>
+|
+
+<span class="param-type"><a href="Vec4.html">Vec4</a></span>
+|
+
+<span class="param-type"><a href="Vec4Array.html">Vec4Array</a></span>
+|
+
+<span class="param-type"><a href="Mat4.html">Mat4</a></span>
+|
+
+<span class="param-type"><a href="Mat4Array.html">Mat4Array</a></span>
+|
+
+<span class="param-type"><a href="Sampler2D.html">Sampler2D</a></span>
+|
+
+<span class="param-type"><a href="Sampler2DArray.html">Sampler2DArray</a></span>
+|
+
+<span class="param-type"><a href="SamplerCube.html">SamplerCube</a></span>
+|
+
+<span class="param-type">SamplerCubeArray</span>
+|
+
+<span class="param-type"><a href="Sampler3D.html">Sampler3D</a></span>
+|
+
+<span class="param-type">Sampler3DArray</span>
+|
+
+<span class="param-type">Sampler2DArrayTexture</span>
+|
+
+<span class="param-type">Sampler2DArrayTextureArray</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="definePropertiesMatchingUniforms"><span class="type-signature"></span>definePropertiesMatchingUniforms(target)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Creates properties into a target object, or verifies their types if they already exist. The properties have types matching the uniform inputs used in the program. Only those uniforms are reflected what are declared in a struct, whose name is in target.glslStructNames.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="UniformProvider.html">UniformProvider</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object that should gain new properties. It must have the glslStructNames property, which must be an array of string names for the uniform structs to be reflected.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="draw"><span class="type-signature"></span>draw(uniformProviders)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets values of all uniforms from the properties of the given objects.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>uniformProviders</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="UniformProvider.html">UniformProvider</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Objects with properties matching the names and the types of the uniforms to be set. Their glslStructNames property must list uniform struct names they are responsible for setting.</td>
         </tr>
 
     

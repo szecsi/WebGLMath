@@ -4,33 +4,34 @@
  */
 "use strict";
 /**
- * @class Mat4
- * @classdesc Four-by-four matrix of 32-bit floats. May reflect an ESSL mat4 uniform variable.
+ * Four-by-four matrix of 32-bit floats. May reflect an GLSL mat4 uniform variable.
  * <BR> Uses column-major internal representation for WebGL compatibility but offers a row-major external interface through constructor parametrization and element indexes.
  * Transformation methods [translate]{@link Mat4#translate} and [rotate]{@link Mat4#rotate} assume row vectors and multiplication with the matrix from the right.
- * @description  Without parameters, initializes the vector to (0, 0, 0, 1).
- * @param {Mat4 | Array | number} [m=identity] - Matrix to copy elements from, or array of elements in row-major format, or matrix element in row 0, column 0.
- * @param {number} [m01=0] - Matrix element in the row 0, column 1.
- * @param {number} [m02=0] - Matrix element in the row 0, column 2.
- * @param {number} [m03=0] - Matrix element in the row 0, column 3.
- * @param {number} [m10=0] - Matrix element in the row 1, column 0. 
- * @param {number} [m11=1] - Matrix element in the row 1, column 1.
- * @param {number} [m12=0] - Matrix element in the row 1, column 2.
- * @param {number} [m13=0] - Matrix element in the row 1, column 3.
- * @param {number} [m20=0] - Matrix element in the row 2, column 0. 
- * @param {number} [m21=0] - Matrix element in the row 2, column 1.
- * @param {number} [m22=1] - Matrix element in the row 2, column 2.
- * @param {number} [m23=0] - Matrix element in the row 2, column 3.
- * @param {number} [m30=0] - Matrix element in the row 3, column 0. 
- * @param {number} [m31=0] - Matrix element in the row 3, column 1.
- * @param {number} [m32=0] - Matrix element in the row 3, column 2.
- * @param {number} [m33=1] - Matrix element in the row 3, column 3.
- * @constructor
  */
 class Mat4 { 
+  /**
+   * Creates a matrix.
+   * @description  Without parameters, initializes the vector to (0, 0, 0, 1).
+   * @param {Mat4 | Array | number} [m=identity] - Matrix to copy elements from, or array of elements in row-major format, or matrix element in row 0, column 0.
+   * @param {number} [m01=0] - Matrix element in the row 0, column 1.
+   * @param {number} [m02=0] - Matrix element in the row 0, column 2.
+   * @param {number} [m03=0] - Matrix element in the row 0, column 3.
+   * @param {number} [m10=0] - Matrix element in the row 1, column 0. 
+   * @param {number} [m11=1] - Matrix element in the row 1, column 1.
+   * @param {number} [m12=0] - Matrix element in the row 1, column 2.
+   * @param {number} [m13=0] - Matrix element in the row 1, column 3.
+   * @param {number} [m20=0] - Matrix element in the row 2, column 0. 
+   * @param {number} [m21=0] - Matrix element in the row 2, column 1.
+   * @param {number} [m22=1] - Matrix element in the row 2, column 2.
+   * @param {number} [m23=0] - Matrix element in the row 2, column 3.
+   * @param {number} [m30=0] - Matrix element in the row 3, column 0. 
+   * @param {number} [m31=0] - Matrix element in the row 3, column 1.
+   * @param {number} [m32=0] - Matrix element in the row 3, column 2.
+   * @param {number} [m33=1] - Matrix element in the row 3, column 3.
+   */
   constructor(m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m15){
     /**
-     * @name Mat4.prototype#storage
+     * @name Mat4#storage
      * @description 16-element typed array for matrix storage.
      * @type Float32Array
      */
@@ -41,7 +42,7 @@ class Mat4 {
 
   /**
    * @method clone
-   * @memberof Mat.prototype 
+   * @memberof Mat4 
    * @description Creates a copy.
    * @return {Mat4} A new instance with identical contents.
    */
@@ -53,7 +54,7 @@ class Mat4 {
 
   /**
    * @method set
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Sets the matrix elements from another matrix or array, given in row-major format. Without parameters, sets the indentity matrix.
    * @param {Mat4 | Array | number} [m=identity] - Matrix to copy elements from, or array of elements in row-major format, or matrix element in row 0, column 0.
    * @param {number} [m01=0] - Matrix element in the row 0, column 1.
@@ -96,7 +97,7 @@ class Mat4 {
 
   /**
    * @method premul
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Multiplies the matrix with another matrix from the left, overwriting this matrix with the result.
    * @param {Mat4} m - Matrix to multiply with.
    * @return {Mat4} this
@@ -155,7 +156,7 @@ class Mat4 {
 
   /**
    * @method mul
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Multiplies the matrix with another matrix from the right, overwriting this matrix with the result.
    * @param {Mat4} m - Matrix to multiply with.
    * @return {Mat4} this
@@ -214,7 +215,7 @@ class Mat4 {
 
   /**
    * @method scale
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Multiplies the matrix with a scaling transformation matrix from the right, overwriting this matrix with the result.
    * @param {Vec3 | Object | Number} [u=1] - Any object (properties x, y, z are interpreted as scaling factors along the respective axes, if given), or a numerical value for scaling factor along x.
    * @param {Number} [v=1] - Ignored if u.y is defined. Otherwise, the value for the scaling factor along y. Defaults to the value of parameter u, if it is a number.
@@ -242,7 +243,7 @@ class Mat4 {
 
   /**
    * @method rotate
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Multiplies the matrix with a scaling transformation matrix from the right, overwriting this matrix with the result. Rotates around z if no axis is given.
    * @param {Number} angle - Rotation angle in radians. A right-handed coordinate system is assumed, meaning positive rotation around axis z rotates counterclockwise in the plane where x points right and y points up.
    * @param {Vec3 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as rotation axis elements, if given), or a numerical value for rotation axis element x.
@@ -304,7 +305,7 @@ class Mat4 {
 
   /**
    * @method translate
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Multiplies the matrix with a transation transformation matrix from the right, overwriting this matrix with the result.
    * @param {Vec3 | Object | Number} [u=0] - Any object (properties x, y, z are interpreted as trnalstion vector elmeents, if given), or a numerical value for translation along x.
    * @param {Number} [v=0] - Ignored if u.y is defined. Otherwise, the value for translation along y. Defaults to the value of parameter u, if it is a number.
@@ -332,7 +333,7 @@ class Mat4 {
 
   /**
    * @method transpose
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Transposes the matrix in place, overwriting this matrix with the result.
    * @return {Mat4} this
    */
@@ -360,7 +361,7 @@ class Mat4 {
 
   /**
    * @method invert
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Inverts the matrix in place, overwriting this matrix with the result.
    * @return {Mat4} this
    */
@@ -420,7 +421,7 @@ class Mat4 {
 
   /**
    * @method commit
-   * @memberof Mat4.prototype  
+   * @memberof Mat4  
    * @description Sets the value of the matrix to a WebGL mat4 uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
@@ -431,7 +432,7 @@ class Mat4 {
 
   /**
    * @method print
-   * @memberof Mat4.prototype
+   * @memberof Mat4
    * @description Pretty prints the matrix contents on the console.
    */
   print(){

@@ -4,15 +4,16 @@
  */
 "use strict";
 /**
- * @class Vec2Array
- * @extends VecArray 
- * @classdesc Array of two-element vectors of 32-bit floats. May reflect an ESSL array-of-vec2s uniform variable.
+ * Array of two-element vectors of 32-bit floats. May reflect an GLSL array-of-vec2s uniform variable.
  * <BR> Individual [Vec2]{@link Vec2} elements are available through the [at]{@link Vec2Array#at} method.
  * Methods are available for optimized bulk processing.
- * @param {Number | Array} size - The number of Vec2 elements in the array, or an array of 2n elements.
- * @constructor
+ * @extends VecArray
  */
 class Vec2Array extends VecArray{
+  /**
+   * Creates an array of vectors.
+   * @param {Number | Array} size - The number of Vec2 elements in the array, or an array of 2n elements.
+   */  
   constructor(size){
     super();
     this.length = size.length/2 || size;
@@ -21,7 +22,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method at
-   * @memberof Vec2Array.prototype  
+   * @memberof Vec2Array  
    * @description Returns a new Vec2 object that captures an element of the array. The new vector is a view on the original data, not a copy.
    * @param index {Number} - Index of the element.
    * @return {Vec2} new view on one of the array's elements
@@ -34,7 +35,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method subarray
-   * @memberof Vec2Array.prototype  
+   * @memberof Vec2Array  
    * @description Returns a new Vec2Array object that captures a subrange of the array. The new array is a view on the original data, not a copy.
    * @param {Number} [begin=0] - Element to begin at. The offset is inclusive. The whole array will be cloned if this value is not specified.
    * @param {Number} [end=length] - Element to end at. The offset is exclusive. If not specified, all elements from the one specified by begin to the end of the array are included in the new view.
@@ -49,7 +50,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method normalize
-   * @memberof Vec2Array.prototype  
+   * @memberof Vec2Array  
    * @description Fills this vector with the unit length versions of vectors in the argument vector.
    * @param {Vec2Array} b - Array of vectors to normalize. Its length must be identical to this array's length. 
    * @return {Vec2Array} this
@@ -67,7 +68,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method xy01mul
-   * @memberof Vec2Array.prototype
+   * @memberof Vec2Array
    * @description Fills this array with vectors from the argument array, augmented by a 1 to get a homogeneous position vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
    * @param {Vec2Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
    * @return {Vec2Array} this
@@ -88,7 +89,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method xy00mul
-   * @memberof Vec2Array.prototype
+   * @memberof Vec2Array
    * @description Fills this array with vectors from the argument array, augmented by a 0 to get a homogeneous direction vector, transformed by the argument 4x4 matrix. The vectors are cosidered row vectors, multiplied from the right with a matrix laid out in column-major order.
    * @param {Vec2Array} v - Array of vectors to transform. Its length must be identical to this array's length. 
    * @return {Vec2Array} this
@@ -107,7 +108,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method cossin
-   * @memberof Vec2Array.prototype
+   * @memberof Vec2Array
    * @description Fills this array with (cos alpha, sin alpha) vectors, where alpha comes from the argument array.
    * @param {Vec1Array} alphas - Array of angles.
    * @return {Vec2Array} this
@@ -122,7 +123,7 @@ class Vec2Array extends VecArray{
 
   /**
    * @method commit
-   * @memberof Vec2Array.prototype  
+   * @memberof Vec2Array  
    * @description Sets the value of the vector array to a WebGL vec2 array uniform variable.
    * @param {WebGLRenderingContext} gl - rendering context
    * @param {WebGLUniformLocation} uniformLocation - location of the uniform variable in the currently used WebGL program
