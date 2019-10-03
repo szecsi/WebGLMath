@@ -34,7 +34,7 @@ class ProgramReflection {
         continue;
       }
       for(const uniformDesc of this.uniformDescriptors[structName]) {
-        const reflectionVariable = ProgramReflection.makeVar(this.gl, uniformDesc.type, uniformDesc.size);
+        let reflectionVariable = ProgramReflection.makeVar(this.gl, uniformDesc.type, uniformDesc.size);
 
         if(uniformDesc.name in target){ // if reflection property already exists, check compatibility
           const existingVariable = target[uniformDesc.name];
@@ -47,7 +47,13 @@ class ProgramReflection {
         }
         Object.defineProperty(target, uniformDesc.name, {
           get: () => reflectionVariable,
-          set: arg => reflectionVariable.set(arg)
+          set: arg => {
+            if(reflectionVariable.constructor.name !== "Number") {
+              reflectionVariable.set(arg); 
+            } else {
+              reflectionVariable = new Number(arg);
+            }
+          }
         } );
       }
     }
@@ -62,7 +68,11 @@ class ProgramReflection {
       for(const structName of provider.glslStructNames) {
         if(this.uniformDescriptors[structName] === undefined) { continue; }
         for(const uniformDesc of this.uniformDescriptors[structName]) {
-          provider[uniformDesc.name].commit(gl, uniformDesc.location, textureUnitCount);
+          if(provider[uniformDesc.name].constructor.name !== "Number"){
+            provider[uniformDesc.name].commit(gl, uniformDesc.location, textureUnitCount);
+          } else {
+            gl.uniform1f(uniformDesc.location, provider[uniformDesc.name]);
+          }
           //  keep track of texture units used
           if( ProgramReflection.isSampler(gl, uniformDesc.type) ){ 
             textureUnitCount += uniformDesc.size;
@@ -85,7 +95,7 @@ class ProgramReflection {
   static makeVar(gl, type, arraySize) {
     if(arraySize === 1) {
       switch(type) {
-        case gl.FLOAT        : return new Vec1();
+        case gl.FLOAT        : return new Number();
         case gl.FLOAT_VEC2   : return new Vec2();
         case gl.FLOAT_VEC3   : return new Vec3();
         case gl.FLOAT_VEC4   : return new Vec4();

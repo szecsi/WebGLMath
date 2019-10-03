@@ -27,12 +27,14 @@ class UniformProvider {
     }
   }
 
-  using(overrider){
+  using(...overriders){
       return {
         target : this,
         draw : function(...uniformProviders){
           const overrides = {};
-          overrides[overrider.constructor.name] = overrider;
+          for(const overrider of overriders) {
+            overrides[overrider.constructor.name] = overrider;
+          }
           this.target.drawWithOverrides(overrides, ...uniformProviders);
         },
         drawWithOverrides : function(overrides, ...uniformProviders){
