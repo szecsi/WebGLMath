@@ -33,7 +33,14 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Mat4.html">Mat4</a></li><li><a href="Mat4Array.html">Mat4Array</a></li><li><a href="Sampler2D.html">Sampler2D</a></li><li><a href="Sampler2DArray.html">Sampler2DArray</a></li><li><a href="SamplerCube.html">SamplerCube</a></li><li><a href="SamplerCubeArray.html">SamplerCubeArray</a></li><li><a href="UniformReflectionFactories.html">UniformReflectionFactories</a></li><li><a href="Vec1.html">Vec1</a></li><li><a href="Vec1Array.html">Vec1Array</a></li><li><a href="Vec2.html">Vec2</a></li><li><a href="Vec2Array.html">Vec2Array</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="Vec3Array.html">Vec3Array</a></li><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li><li><a href="VecArray.html">VecArray</a></li>
+					<li><a href="Mat4.html">Mat4</a></li><li><a href="Mat4Array.html">Mat4Array</a></li><li><a href="ProgramReflection.html">ProgramReflection</a></li><li><a href="Sampler2D.html">Sampler2D</a></li><li><a href="Sampler2DArray.html">Sampler2DArray</a></li><li><a href="Sampler3D.html">Sampler3D</a></li><li><a href="SamplerArray2D.html">SamplerArray2D</a></li><li><a href="SamplerArray2DArray.html">SamplerArray2DArray</a></li><li><a href="SamplerArray3D.html">SamplerArray3D</a></li><li><a href="SamplerArrayCube.html">SamplerArrayCube</a></li><li><a href="SamplerCube.html">SamplerCube</a></li><li><a href="UniformProvider.html">UniformProvider</a></li><li><a href="Vec1.html">Vec1</a></li><li><a href="Vec1Array.html">Vec1Array</a></li><li><a href="Vec2.html">Vec2</a></li><li><a href="Vec2Array.html">Vec2Array</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="Vec3Array.html">Vec3Array</a></li><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li><li><a href="VecArray.html">VecArray</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#dft">dft</a></li><li><a href="global.html#missingPropertyDummy">missingPropertyDummy</a></li><li><a href="global.html#onlyWarnOnMissingPropertyAccess">onlyWarnOnMissingPropertyAccess</a></li>
 				</ul>
 			</li>
 			
@@ -86,45 +93,70 @@
 
 
     <section class="readme-section">
-        <article><h1>WebGLMath</h1><h3>A Vector math library for WebGL programming. Primarily intended for graphics education, with a focused set of features. Coded by Laszlo Szecsi for courses at the Aquincum Institute of Technology and the Budapest University of Technology and Economics.</h3><h2>Features</h2><ul>
+        <article><h1>WebGLMath</h1>
+<h3>A Vector math library for WebGL programming. Primarily intended for graphics education, with a focused set of features. Coded by Laszlo Szecsi for courses at the Aquincum Institute of Technology and the Budapest University of Technology and Economics.</h3>
+<h2>Features</h2>
+<ul>
 <li>Scalar, 2D, 3D, and 4D vector, and matrix types, with corresponding array types.</li>
-<li>Support for implementing reflection of ESSL variables, including arrays, and non-vector types Sampler2D and SamplerCube.</li>
+<li>Support for implementing reflection of GLSL variables, including arrays, and non-vector types including Sampler2D and SamplerCube.</li>
 <li>Offers programmer-friendly interface for expressive non-performance-critical code (e.g. scene setup).</li>
-<li>Also offers highly optimized methods for for performance-critical-code (e.g. per frame animation).</li>
+<li>Also offers highly optimized methods for performance-critical-code (e.g. per frame animation).</li>
 <li>Array methods for optimized bulk processing of data.</li>
+<li>Base classes for a component hierarchy for objects providing values to be set to shader uniform inputs.</li>
 </ul>
-<h3>Browser install</h3><p>Currently, there is no minified version. Include all files in html using script tags. This is intentional to make source code instantly referenceable and debuggable for educational purposes and testing.</p>
-<h3>Usage</h3><pre class="prettyprint source"><code>a = b + c</code></pre><p>can be computed as </p>
-<pre class="prettyprint source lang-javascript"><code>var a = b.plus(c);</code></pre><p>when <code>a</code> does not yet exist, and performance does not matter. It is not required that <code>c</code> is the same vector type as <code>b</code>: it can be a vector of different length, an object literal, or the coordinates can be given as separate arguments.</p>
-<pre class="prettyprint source lang-javascript"><code>a.set(b).add(c);</code></pre><p>is about three times faster. Variable <code>a</code> needs to exist, and be a vector object. Neither <code>b</code> nor <code>c</code> are required to be objects of the same vector type: they can be vectors of different length, object literals, or the coordinates can be given as separate arguments.</p>
+<h3>Browser install</h3>
+<p>Currently, there is no minified version. Include all files in html using script tags. This is intentional to make source code instantly referenceable and debuggable for educational purposes and testing.</p>
+<h3>Usage</h3>
+<h4>Vector operations</h4>
+<pre class="prettyprint source"><code>a = b + c
+</code></pre>
+<p>can be computed as</p>
+<pre class="prettyprint source lang-javascript"><code>const a = b.plus(c);
+</code></pre>
+<p>when <code>a</code> does not yet exist, and performance does not matter. It is not required that <code>c</code> is the same vector type as <code>b</code>: it can be a vector of different length, an object literal, or the coordinates can be given as separate arguments.</p>
+<pre class="prettyprint source lang-javascript"><code>a.set(b).add(c);
+</code></pre>
+<p>is about three times faster. Variable <code>a</code> needs to exist, and be a vector object. Neither <code>b</code> nor <code>c</code> are required to be objects of the same vector type: they can be vectors of different length, object literals, or the coordinates can be given as separate arguments.</p>
 <p>If <code>a</code>, <code>b</code> and <code>c</code> are vector instances of similar length,</p>
-<pre class="prettyprint source lang-javascript"><code>a.setSum(b, c);</code></pre><p>can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c);</code>, or twenty times faster than <code>a = b.plus(c);</code>.</p>
+<pre class="prettyprint source lang-javascript"><code>a.setSum(b, c);
+</code></pre>
+<p>can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c);</code>, or twenty times faster than <code>a = b.plus(c);</code>.</p>
 <p>It is recommended to use optimized methods for time-critical per-frame tasks, while programmer-friendly interfaces are useful for one-time initializations, e.g. when constructing a scene.</p>
 <p>Vectors are considered row vectors. Transforming a vector is performed by multiplying the vector with a matrix from the right.</p>
-<pre class="prettyprint source lang-javascript"><code>var v = new Vec4(1, 2, 3, 1);
-var m = new Mat4().rotate(Math.PI/2, {z:1});
+<pre class="prettyprint source lang-javascript"><code>let v = new Vec4(1, 2, 3, 1);
+const m = new Mat4().rotate(Math.PI/2, {z:1});
 v.mul(m); // v &lt;= (-2, 1, 3, 1);
-console.table(v);</code></pre><p>Only 4x4 matrices, i.e. <a href="Mat4.html">Mat4</a>s, are supported. When transforming <a href="Vec2.html">Vec2</a>s and <a href="Vec3.html">Vec3</a>s, there are two options. When using methods <a href="Vec2#xy01mul">Vec2.prototype.xy01mul</a> or <a href="Vec3.html#xyz1mul">Vec3.prototype.xyz1mul</a>, the vector is augmented to a homogeneous four-element position by appending a zero and a one, or a one, respectively. The extra coordinates from the result are discarded.</p>
-<pre class="prettyprint source lang-javascript"><code>var v = new Vec2(1, 2);
-var m = new Mat4().translate(3, 4);
+console.table(v);
+</code></pre>
+<h4>Matrix operations</h4>
+<p>Only 4x4 matrices, i.e. <a href="Mat4.html">Mat4</a>s, are supported. When transforming <a href="Vec2.html">Vec2</a>s and <a href="Vec3.html">Vec3</a>s, there are two options. When using methods <a href="Vec2#xy01mul">Vec2#xy01mul</a> or <a href="Vec3.html#xyz1mul">Vec3#xyz1mul</a>, the vector is augmented to a homogeneous four-element position by appending a zero and a one, or a one, respectively. The extra coordinates from the result are discarded.</p>
+<pre class="prettyprint source lang-javascript"><code>let v = new Vec2(1, 2);
+const m = new Mat4().translate(3, 4);
 v.xy01mul(m); // v &lt;= (4, 6), the translated vector
-console.table(v);</code></pre><p>When using methods <a href="Vec2.html#xy00mul">Vec2.prototype.xy00mul</a> or <a href="Vec3.html#xyz0mul">Vec3.prototype.xyz0mul</a>, the vector is augmented to a homogeneous four-element direction vector by appending zeros. The extra coordinates from the result are discarded.</p>
-<pre class="prettyprint source lang-javascript"><code>var v = new Vec3(0, 1, 0);
-var m = new Mat4().translate(3, 4).rotate(Math.PI/2, {z:1});
+console.table(v);
+</code></pre>
+<p>When using methods <a href="Vec2.html#xy00mul">Vec2#xy00mul</a> or <a href="Vec3.html#xyz0mul">Vec3#xyz0mul</a>, the vector is augmented to a homogeneous four-element direction vector by appending zeros. The extra coordinates from the result are discarded.</p>
+<pre class="prettyprint source lang-javascript"><code>let v = new Vec3(0, 1, 0);
+const m = new Mat4().translate(3, 4).rotate(Math.PI/2, {z:1});
 v.xyz0mul(m); // v &lt;= (-1, 0, 0), as the direction is invariant to translation
-console.table(v);</code></pre><p>The coordinate system is assumed to be right-handed, i.e. rotations around the <code>z</code> axis rotate counterclockwise in the <code>xy</code> plane, if <code>x</code> points to the right and <code>y</code> upwards.</p>
-<p>Matrices are represented in the column-major format internally to conform to the WebGL uniform variable layout. However, constructors, <code>set</code> methods take array input in the row-major layout to allow explicit matrix specification. Indexing matrix variables is also consistent with this row-major layout.</p>
-<pre class="prettyprint source lang-javascript"><code>var m = new Mat4([
+console.table(v);
+</code></pre>
+<p>The coordinate system is assumed to be right-handed, i.e. rotations around the <code>z</code> axis rotate counterclockwise in the <code>xy</code> plane, if <code>x</code> points to the right and <code>y</code> upwards.</p>
+<p>Matrices are represented in the column-major format internally to conform to the WebGL uniform variable layout. However, constructors and <code>set</code> methods take array input in the row-major layout to allow explicit matrix specification. Indexing matrix variables is also consistent with this row-major layout.</p>
+<pre class="prettyprint source lang-javascript"><code>let m = new Mat4([
   1, 0, 0, 0,
   0, 1, 0, 0,
   0, 0, 1, 0,
   2, 3, 5, 1,
 ]); // a translation matrix
-var m2 = new Mat4().translate(-2, -3, -5); //identity multiplied by translation in the opposite direction
+const m2 = new Mat4().translate(-2, -3, -5); //identity multiplied by translation in the opposite direction
 m.mul(m2); // m &lt;= identity
-var randomVector = Vec4.random(); // create a random vector to test that any vector is transformed to itself
-var errorVector = randomVector.minus( randomVector.times(m) ); // errorVector &lt;= (0, 0, 0, 0)
-console.table(errorVector);</code></pre></article>
+const randomVector = Vec4.random(); // create a random vector to test that any vector is transformed to itself
+const errorVector = randomVector.minus( randomVector.times(m) ); // errorVector &lt;= (0, 0, 0, 0)
+console.table(errorVector);
+</code></pre>
+<h4>Arrays</h4>
+<p>Classes <a href="Vec1Array.html">Vec1Array</a>, <a href="Vec2Array.html">Vec2Array</a>, <a href="Vec3Array.html">Vec3Array</a>, <a href="Vec4Array.html">Vec4Array</a>, and <a href="Mat4Array.html">Mat4Array</a> are provided for two purposes. First, they can be used to reflect uniform array inputs of shaders. Second, they provide efficient computation methods for bulk processing of data.</p></article>
     </section>
 
 
@@ -435,7 +467,482 @@ console.table(errorVector);</code></pre></article>
     <div class="container-overview">
     
         
-            <div class="description">WebGLMath Sampler2DArray class</div>
+            <div class="description">WebGLMath <a href="Sampler2DArray.html">Sampler2DArray</a> class</div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
+	<dd class="tag-copyright">
+		<ul class="dummy">
+			<li>Laszlo Szecsi 2017</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+	<h1 class="page-title">Index</h1>
+<section>
+
+<header>
+    
+        <h2>
+        Sampler3D.js
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">WebGLMath <a href="Sampler3D.html">Sampler3D</a> class</div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
+	<dd class="tag-copyright">
+		<ul class="dummy">
+			<li>Laszlo Szecsi 2017</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+	<h1 class="page-title">Index</h1>
+<section>
+
+<header>
+    
+        <h2>
+        SamplerArray2D.js
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">WebGLMath SamplerArray2D class</div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
+	<dd class="tag-copyright">
+		<ul class="dummy">
+			<li>Laszlo Szecsi 2017</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+	<h1 class="page-title">Index</h1>
+<section>
+
+<header>
+    
+        <h2>
+        SamplerArray2DArray.js
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">WebGLMath SamplerArray2DArray class</div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
+	<dd class="tag-copyright">
+		<ul class="dummy">
+			<li>Laszlo Szecsi 2017</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+	<h1 class="page-title">Index</h1>
+<section>
+
+<header>
+    
+        <h2>
+        SamplerArray3D.js
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">WebGLMath SamplerArray3D class</div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
+	<dd class="tag-copyright">
+		<ul class="dummy">
+			<li>Laszlo Szecsi 2017</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+	<h1 class="page-title">Index</h1>
+<section>
+
+<header>
+    
+        <h2>
+        SamplerArrayCube.js
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">WebGLMath SamplerArrayCube class</div>
         
 
         
@@ -531,196 +1038,6 @@ console.table(errorVector);</code></pre></article>
     
         
             <div class="description">WebGLMath <a href="SamplerCube.html">SamplerCube</a> class</div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
-	<dd class="tag-copyright">
-		<ul class="dummy">
-			<li>Laszlo Szecsi 2017</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-	<h1 class="page-title">Index</h1>
-<section>
-
-<header>
-    
-        <h2>
-        SamplerCubeArray.js
-        </h2>
-        
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">WebGLMath SamplerCubeArray class</div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-	<dt class="tag-copyright method-doc-label method-doc-details-label">Copyright:</dt>
-	<dd class="tag-copyright">
-		<ul class="dummy">
-			<li>Laszlo Szecsi 2017</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-	<h1 class="page-title">Index</h1>
-<section>
-
-<header>
-    
-        <h2>
-        UniformReflectionFactories.js
-        </h2>
-        
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">WebGLMath UniformReflectionFactories object</div>
         
 
         
@@ -1688,9 +2005,9 @@ console.table(errorVector);</code></pre></article>
 
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2018-01-24T10:36:39+01:00
+		on 2019-09-23T23:02:50+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

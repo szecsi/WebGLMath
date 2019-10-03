@@ -20,8 +20,7 @@ const dft = (...a) => {
 };
 
 /**
- * @global missingPropertyDummy
- * @description A Proxy object that absorbs any chain of method calls and property accesses without effect.
+ * A Proxy object that absorbs any chain of method calls and property accesses without effect.
  */
 const missingPropertyDummy = new Proxy(() => false, { 
   get: function(){ 

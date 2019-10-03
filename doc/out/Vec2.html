@@ -33,7 +33,14 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Mat4.html">Mat4</a></li><li><a href="Mat4Array.html">Mat4Array</a></li><li><a href="Sampler2D.html">Sampler2D</a></li><li><a href="Sampler2DArray.html">Sampler2DArray</a></li><li><a href="SamplerCube.html">SamplerCube</a></li><li><a href="SamplerCubeArray.html">SamplerCubeArray</a></li><li><a href="UniformReflectionFactories.html">UniformReflectionFactories</a></li><li><a href="Vec1.html">Vec1</a></li><li><a href="Vec1Array.html">Vec1Array</a></li><li><a href="Vec2.html">Vec2</a></li><li><a href="Vec2Array.html">Vec2Array</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="Vec3Array.html">Vec3Array</a></li><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li><li><a href="VecArray.html">VecArray</a></li>
+					<li><a href="Mat4.html">Mat4</a></li><li><a href="Mat4Array.html">Mat4Array</a></li><li><a href="ProgramReflection.html">ProgramReflection</a></li><li><a href="Sampler2D.html">Sampler2D</a></li><li><a href="Sampler2DArray.html">Sampler2DArray</a></li><li><a href="Sampler3D.html">Sampler3D</a></li><li><a href="SamplerArray2D.html">SamplerArray2D</a></li><li><a href="SamplerArray2DArray.html">SamplerArray2DArray</a></li><li><a href="SamplerArray3D.html">SamplerArray3D</a></li><li><a href="SamplerArrayCube.html">SamplerArrayCube</a></li><li><a href="SamplerCube.html">SamplerCube</a></li><li><a href="UniformProvider.html">UniformProvider</a></li><li><a href="Vec1.html">Vec1</a></li><li><a href="Vec1Array.html">Vec1Array</a></li><li><a href="Vec2.html">Vec2</a></li><li><a href="Vec2Array.html">Vec2Array</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="Vec3Array.html">Vec3Array</a></li><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li><li><a href="VecArray.html">VecArray</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#dft">dft</a></li><li><a href="global.html#missingPropertyDummy">missingPropertyDummy</a></li><li><a href="global.html#onlyWarnOnMissingPropertyAccess">onlyWarnOnMissingPropertyAccess</a></li>
 				</ul>
 			</li>
 			
@@ -74,7 +81,7 @@
         Vec2
         </h2>
         
-            <div class="class-description">Two-element vector of 32-bit floats. May reflect an ESSL vec2 uniform variable.Low-performance convenience methods reproduce operator behaviour.<table><tr><th>operator</th><th>method</th></tr><tr><td>+=</td><td><a href="Vec2.html#add">add</a></td></tr><tr><td>-=</td><td><a href="Vec2.html#sub">sub</a></td></tr><tr><td>*=</td><td><a href="Vec2.html#mul">mul</a></td></tr><tr><td>/=</td><td><a href="Vec2.html#div">div</a></td></tr> <tr><td>+</td><td><a href="Vec2.html#plus">plus</a></td></tr><tr><td>-</td><td><a href="Vec2.html#minus">minus</a></td></tr><tr><td>*</td><td><a href="Vec2.html#times">times</a></td></tr><tr><td>/</td><td><a href="Vec2.html#over">over</a></td></tr><tr><td>&middot;</td><td><a href="Vec2.html#dot">dot</a></td></tr> </table><BR> <code>a = b + c</code> can be computed as <code>var a = b.plus(c)</code>, when <code>a</code> does not yet exist, and performance does not matter. It is not required that <code>c</code> is a <a href="Vec2.html">Vec2</a>: it can be a vector of different length, an object literal, or its coordinates given as separate arguments.<BR> <code>a.set(b).add(c)</code> is about three times faster. Variable <code>a</code> needs to exist, and be a <a href="Vec2.html">Vec2</a>. Neither b nor c are required to be <a href="Vec2.html">Vec2</a>s: they can be vectors of different length, object literals, or its coordinates given as separate arguments.<BR> If <code>a</code>, <code>b</code> and <code>c</code> are <a href="Vec2.html">Vec2</a> instances, <code>a.setSum(b, c)</code> can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c)</code>, or twenty times faster than <code>a = b.plus(c)</code>.<BR> It is recommended to use optimized methods for time-critical per-frame tasks, while programmer-friendly interfaces are useful for one-time initializations, e.g. when constructing a scene.</div>
+            <div class="class-description">Two-element vector of 32-bit floats. May reflect an GLSL vec2 uniform variable.Low-performance convenience methods reproduce operator behaviour.<table><tr><th>operator</th><th>method</th></tr><tr><td>+=</td><td>add</td></tr><tr><td>-=</td><td>sub</td></tr><tr><td>*=</td><td>mul</td></tr><tr><td>/=</td><td>div</td></tr> <tr><td>+</td><td>plus</td></tr><tr><td>-</td><td>minus</td></tr><tr><td>*</td><td>times</td></tr><tr><td>/</td><td>over</td></tr><tr><td>&middot;</td><td>dot</td></tr> </table><BR> <code>a = b + c</code> can be computed as <code>var a = b.plus(c)</code>, when <code>a</code> does not yet exist, and performance does not matter. It is not required that <code>c</code> is a <a href="Vec2.html">Vec2</a>: it can be a vector of different length, an object literal, or its coordinates given as separate arguments.<BR> <code>a.set(b).add(c)</code> is about three times faster. Variable <code>a</code> needs to exist, and be a <a href="Vec2.html">Vec2</a>. Neither b nor c are required to be <a href="Vec2.html">Vec2</a>s: they can be vectors of different length, object literals, or its coordinates given as separate arguments.<BR> If <code>a</code>, <code>b</code> and <code>c</code> are <a href="Vec2.html">Vec2</a> instances, <code>a.setSum(b, c)</code> can be used for optimum performance. It is seven times faster than <code>a.set(b).add(c)</code>, or twenty times faster than <code>a = b.plus(c)</code>.<BR> It is recommended to use optimized methods for time-critical per-frame tasks, while programmer-friendly interfaces are useful for one-time initializations, e.g. when constructing a scene.</div>
         
     
 </header>
@@ -94,7 +101,7 @@
 
     
     <div class="description">
-        Without parameters, initializes the vector to (0, 0).
+        Creates a vector. Without parameters, initializes the vector to (0, 0).
     </div>
     
 
@@ -518,7 +525,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="add"><span class="type-signature"></span>add( [u] [, v])</h4>
+    <h4 class="name" id=".add"><span class="type-signature">&lt;static> </span>add( [u] [, v])</h4>
     
     
 </dt>
@@ -739,7 +746,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="addScaled"><span class="type-signature"></span>addScaled(dt [, u] [, v])</h4>
+    <h4 class="name" id=".addScaled"><span class="type-signature">&lt;static> </span>addScaled(dt [, u] [, v])</h4>
     
     
 </dt>
@@ -993,7 +1000,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="clamp"><span class="type-signature"></span>clamp( [minVal] [, maxVal])</h4>
+    <h4 class="name" id=".clamp"><span class="type-signature">&lt;static> </span>clamp( [minVal] [, maxVal])</h4>
     
     
 </dt>
@@ -1223,7 +1230,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="clone"><span class="type-signature"></span>clone()</h4>
+    <h4 class="name" id=".clone"><span class="type-signature">&lt;static> </span>clone()</h4>
     
     
 </dt>
@@ -1325,7 +1332,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="commit"><span class="type-signature"></span>commit(gl, uniformLocation)</h4>
+    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation)</h4>
     
     
 </dt>
@@ -1477,7 +1484,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="direction"><span class="type-signature"></span>direction()</h4>
+    <h4 class="name" id=".direction"><span class="type-signature">&lt;static> </span>direction()</h4>
     
     
 </dt>
@@ -1579,7 +1586,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="div"><span class="type-signature"></span>div( [u] [, v])</h4>
+    <h4 class="name" id=".div"><span class="type-signature">&lt;static> </span>div( [u] [, v])</h4>
     
     
 </dt>
@@ -1800,7 +1807,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="dot"><span class="type-signature"></span>dot( [u] [, v])</h4>
+    <h4 class="name" id=".dot"><span class="type-signature">&lt;static> </span>dot( [u] [, v])</h4>
     
     
 </dt>
@@ -2017,7 +2024,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="length"><span class="type-signature"></span>length()</h4>
+    <h4 class="name" id=".length"><span class="type-signature">&lt;static> </span>length()</h4>
     
     
 </dt>
@@ -2115,7 +2122,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="length2"><span class="type-signature"></span>length2()</h4>
+    <h4 class="name" id=".length2"><span class="type-signature">&lt;static> </span>length2()</h4>
     
     
 </dt>
@@ -2217,7 +2224,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="minus"><span class="type-signature"></span>minus( [u] [, v])</h4>
+    <h4 class="name" id=".minus"><span class="type-signature">&lt;static> </span>minus( [u] [, v])</h4>
     
     
 </dt>
@@ -2438,7 +2445,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="mul"><span class="type-signature"></span>mul( [u] [, v])</h4>
+    <h4 class="name" id=".mul"><span class="type-signature">&lt;static> </span>mul( [u] [, v])</h4>
     
     
 </dt>
@@ -2659,7 +2666,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="normalize"><span class="type-signature"></span>normalize()</h4>
+    <h4 class="name" id=".normalize"><span class="type-signature">&lt;static> </span>normalize()</h4>
     
     
 </dt>
@@ -2761,7 +2768,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="over"><span class="type-signature"></span>over( [u] [, v])</h4>
+    <h4 class="name" id=".over"><span class="type-signature">&lt;static> </span>over( [u] [, v])</h4>
     
     
 </dt>
@@ -2982,7 +2989,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="plus"><span class="type-signature"></span>plus( [u] [, v])</h4>
+    <h4 class="name" id=".plus"><span class="type-signature">&lt;static> </span>plus( [u] [, v])</h4>
     
     
 </dt>
@@ -3203,7 +3210,237 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="set"><span class="type-signature"></span>set( [u] [, v])</h4>
+    <h4 class="name" id=".random"><span class="type-signature">&lt;static> </span>random( [minVal] [, maxVal])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Return a new <a href="Vec2.html">Vec2</a> with random values that to lie between two values, elementwise.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>minVal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vec2.html">Vec2</a></span>
+|
+
+<span class="param-type"><a href="Vec2.html">Vec2</a></span>
+|
+
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Specifies the lower end of the random range. If a scalar is given, it applies to all channels.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxVal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vec2.html">Vec2</a></span>
+|
+
+<span class="param-type"><a href="Vec2.html">Vec2</a></span>
+|
+
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">Specifies the upper end of the random range. If a scalar is given, it applies to all channels.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    this
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Vec2.html">Vec2</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set( [u] [, v])</h4>
     
     
 </dt>
@@ -3424,7 +3661,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setClamped"><span class="type-signature"></span>setClamped(b [, minVal] [, maxVal])</h4>
+    <h4 class="name" id=".setClamped"><span class="type-signature">&lt;static> </span>setClamped(b [, minVal] [, maxVal])</h4>
     
     
 </dt>
@@ -3690,7 +3927,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setDifference"><span class="type-signature"></span>setDifference(b, c)</h4>
+    <h4 class="name" id=".setDifference"><span class="type-signature">&lt;static> </span>setDifference(b, c)</h4>
     
     
 </dt>
@@ -3866,7 +4103,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setNormalized"><span class="type-signature"></span>setNormalized(b)</h4>
+    <h4 class="name" id=".setNormalized"><span class="type-signature">&lt;static> </span>setNormalized(b)</h4>
     
     
 </dt>
@@ -4018,7 +4255,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setProduct"><span class="type-signature"></span>setProduct(b, c)</h4>
+    <h4 class="name" id=".setProduct"><span class="type-signature">&lt;static> </span>setProduct(b, c)</h4>
     
     
 </dt>
@@ -4194,7 +4431,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setQuotient"><span class="type-signature"></span>setQuotient(b, c)</h4>
+    <h4 class="name" id=".setQuotient"><span class="type-signature">&lt;static> </span>setQuotient(b, c)</h4>
     
     
 </dt>
@@ -4370,7 +4607,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setRandom"><span class="type-signature"></span>setRandom( [minVal] [, maxVal])</h4>
+    <h4 class="name" id=".setRandom"><span class="type-signature">&lt;static> </span>setRandom( [minVal] [, maxVal])</h4>
     
     
 </dt>
@@ -4600,7 +4837,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setScaled"><span class="type-signature"></span>setScaled(a, s)</h4>
+    <h4 class="name" id=".setScaled"><span class="type-signature">&lt;static> </span>setScaled(a, s)</h4>
     
     
 </dt>
@@ -4776,7 +5013,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setScaledByInverse"><span class="type-signature"></span>setScaledByInverse(a, s)</h4>
+    <h4 class="name" id=".setScaledByInverse"><span class="type-signature">&lt;static> </span>setScaledByInverse(a, s)</h4>
     
     
 </dt>
@@ -4952,7 +5189,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setSum"><span class="type-signature"></span>setSum(b, c)</h4>
+    <h4 class="name" id=".setSum"><span class="type-signature">&lt;static> </span>setSum(b, c)</h4>
     
     
 </dt>
@@ -5128,7 +5365,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setxy00Transformed"><span class="type-signature"></span>setxy00Transformed(v, m)</h4>
+    <h4 class="name" id=".setxy00Transformed"><span class="type-signature">&lt;static> </span>setxy00Transformed(v, m)</h4>
     
     
 </dt>
@@ -5136,7 +5373,7 @@
 
     
     <div class="description">
-        Multiplies the argument vector (considering it a row vector, augmented by 0 to a homogeneous direction vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See <a href="Vec2.html#xy00times">xy00times</a> for a version creating a new vector instance.
+        Multiplies the argument vector (considering it a row vector, augmented by 0 to a homogeneous direction vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See xy00times for a version creating a new vector instance.
     </div>
     
 
@@ -5304,7 +5541,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setxy01Transformed"><span class="type-signature"></span>setxy01Transformed(v, m)</h4>
+    <h4 class="name" id=".setxy01Transformed"><span class="type-signature">&lt;static> </span>setxy01Transformed(v, m)</h4>
     
     
 </dt>
@@ -5312,7 +5549,7 @@
 
     
     <div class="description">
-        Multiplies the argument vector (considering it a row vector, augmented by 0, 1 to a homogeneous position vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See <a href="Vec2.html#xy01times">xy01times</a> for a version creating a new vector instance.
+        Multiplies the argument vector (considering it a row vector, augmented by 0, 1 to a homogeneous position vector) with the argument matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See xy01times for a version creating a new vector instance.
     </div>
     
 
@@ -5480,7 +5717,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="sub"><span class="type-signature"></span>sub( [u] [, v])</h4>
+    <h4 class="name" id=".sub"><span class="type-signature">&lt;static> </span>sub( [u] [, v])</h4>
     
     
 </dt>
@@ -5701,7 +5938,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="times"><span class="type-signature"></span>times( [u] [, v])</h4>
+    <h4 class="name" id=".times"><span class="type-signature">&lt;static> </span>times( [u] [, v])</h4>
     
     
 </dt>
@@ -5922,7 +6159,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="xy00mul"><span class="type-signature"></span>xy00mul(m)</h4>
+    <h4 class="name" id=".xy00mul"><span class="type-signature">&lt;static> </span>xy00mul(m)</h4>
     
     
 </dt>
@@ -5930,7 +6167,7 @@
 
     
     <div class="description">
-        Multiplies the vector (considering it a row vector, augmented by a 0 to get a homogeneous direction vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See <a href="Vec2.html#xy00times">xy00times</a> for a version creating a new vector instance.
+        Multiplies the vector (considering it a row vector, augmented by a 0 to get a homogeneous direction vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See xy00times for a version creating a new vector instance.
     </div>
     
 
@@ -6074,7 +6311,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="xy00times"><span class="type-signature"></span>xy00times(m)</h4>
+    <h4 class="name" id=".xy00times"><span class="type-signature">&lt;static> </span>xy00times(m)</h4>
     
     
 </dt>
@@ -6226,7 +6463,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="xy01mul"><span class="type-signature"></span>xy01mul(m)</h4>
+    <h4 class="name" id=".xy01mul"><span class="type-signature">&lt;static> </span>xy01mul(m)</h4>
     
     
 </dt>
@@ -6234,7 +6471,7 @@
 
     
     <div class="description">
-        Multiplies the vector (considering it a row vector, augmented by 0, 1 to get a homogeneous position vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See <a href="Vec2.html#xy01times">xy01times</a> for a version creating a new vector instance.
+        Multiplies the vector (considering it a row vector, augmented by 0, 1 to get a homogeneous position vector) with a matrix, from the right. The contents of this are overwritten with the transformed vector with the result. See xy01times for a version creating a new vector instance.
     </div>
     
 
@@ -6378,7 +6615,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="xy01times"><span class="type-signature"></span>xy01times(m)</h4>
+    <h4 class="name" id=".xy01times"><span class="type-signature">&lt;static> </span>xy01times(m)</h4>
     
     
 </dt>
@@ -6526,236 +6763,6 @@
     
 </dd>
 
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".random"><span class="type-signature">&lt;static> </span>random( [minVal] [, maxVal])</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Return a new <a href="Vec2.html">Vec2</a> with random values that to lie between two values, elementwise.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>minVal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vec2.html">Vec2</a></span>
-|
-
-<span class="param-type"><a href="Vec2.html">Vec2</a></span>
-|
-
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last">Specifies the lower end of the random range. If a scalar is given, it applies to all channels.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>maxVal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vec2.html">Vec2</a></span>
-|
-
-<span class="param-type"><a href="Vec2.html">Vec2</a></span>
-|
-
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    1
-                
-                </td>
-            
-
-            <td class="description last">Specifies the upper end of the random range. If a scalar is given, it applies to all channels.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    this
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Vec2.html">Vec2</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
         </dl>
     
 
@@ -6804,9 +6811,9 @@
 
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2018-01-24T10:36:39+01:00
+		on 2019-09-23T23:02:50+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

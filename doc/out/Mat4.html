@@ -33,7 +33,14 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Mat4.html">Mat4</a></li><li><a href="Mat4Array.html">Mat4Array</a></li><li><a href="Sampler2D.html">Sampler2D</a></li><li><a href="Sampler2DArray.html">Sampler2DArray</a></li><li><a href="SamplerCube.html">SamplerCube</a></li><li><a href="SamplerCubeArray.html">SamplerCubeArray</a></li><li><a href="UniformReflectionFactories.html">UniformReflectionFactories</a></li><li><a href="Vec1.html">Vec1</a></li><li><a href="Vec1Array.html">Vec1Array</a></li><li><a href="Vec2.html">Vec2</a></li><li><a href="Vec2Array.html">Vec2Array</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="Vec3Array.html">Vec3Array</a></li><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li><li><a href="VecArray.html">VecArray</a></li>
+					<li><a href="Mat4.html">Mat4</a></li><li><a href="Mat4Array.html">Mat4Array</a></li><li><a href="ProgramReflection.html">ProgramReflection</a></li><li><a href="Sampler2D.html">Sampler2D</a></li><li><a href="Sampler2DArray.html">Sampler2DArray</a></li><li><a href="Sampler3D.html">Sampler3D</a></li><li><a href="SamplerArray2D.html">SamplerArray2D</a></li><li><a href="SamplerArray2DArray.html">SamplerArray2DArray</a></li><li><a href="SamplerArray3D.html">SamplerArray3D</a></li><li><a href="SamplerArrayCube.html">SamplerArrayCube</a></li><li><a href="SamplerCube.html">SamplerCube</a></li><li><a href="UniformProvider.html">UniformProvider</a></li><li><a href="Vec1.html">Vec1</a></li><li><a href="Vec1Array.html">Vec1Array</a></li><li><a href="Vec2.html">Vec2</a></li><li><a href="Vec2Array.html">Vec2Array</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="Vec3Array.html">Vec3Array</a></li><li><a href="Vec4.html">Vec4</a></li><li><a href="Vec4Array.html">Vec4Array</a></li><li><a href="VecArray.html">VecArray</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#dft">dft</a></li><li><a href="global.html#missingPropertyDummy">missingPropertyDummy</a></li><li><a href="global.html#onlyWarnOnMissingPropertyAccess">onlyWarnOnMissingPropertyAccess</a></li>
 				</ul>
 			</li>
 			
@@ -74,7 +81,7 @@
         Mat4
         </h2>
         
-            <div class="class-description">Four-by-four matrix of 32-bit floats. May reflect an ESSL mat4 uniform variable.<BR> Uses column-major internal representation for WebGL compatibility but offers a row-major external interface through constructor parametrization and element indexes.Transformation methods <a href="Mat4.html#translate">translate</a> and <a href="Mat4.html#rotate">rotate</a> assume row vectors and multiplication with the matrix from the right.</div>
+            <div class="class-description">Four-by-four matrix of 32-bit floats. May reflect an GLSL mat4 uniform variable.<BR> Uses column-major internal representation for WebGL compatibility but offers a row-major external interface through constructor parametrization and element indexes.Transformation methods translate and rotate assume row vectors and multiplication with the matrix from the right.</div>
         
     
 </header>
@@ -855,77 +862,6 @@
         <dl>
             
 <hr>
-<dt class="name" id="p">
-    <h4 id="p"><span class="type-signature"></span>p<span class="type-signature"> :undefined</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        When this property is accessed, it pretty prints the matrix contents on the console. Intended for quick debugging.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">undefined</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
 <dt class="name" id="storage">
     <h4 id="storage"><span class="type-signature"></span>storage<span class="type-signature"> :Float32Array</span></h4>
 
@@ -1004,7 +940,109 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="commit"><span class="type-signature"></span>commit(gl, uniformLocation)</h4>
+    <h4 class="name" id=".clone"><span class="type-signature">&lt;static> </span>clone()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Creates a copy.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A new instance with identical contents.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Mat4.html">Mat4</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".commit"><span class="type-signature">&lt;static> </span>commit(gl, uniformLocation)</h4>
     
     
 </dt>
@@ -1156,7 +1194,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="invert"><span class="type-signature"></span>invert()</h4>
+    <h4 class="name" id=".invert"><span class="type-signature">&lt;static> </span>invert()</h4>
     
     
 </dt>
@@ -1258,7 +1296,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="mul"><span class="type-signature"></span>mul(m)</h4>
+    <h4 class="name" id=".mul"><span class="type-signature">&lt;static> </span>mul(m)</h4>
     
     
 </dt>
@@ -1410,7 +1448,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="premul"><span class="type-signature"></span>premul(m)</h4>
+    <h4 class="name" id=".premul"><span class="type-signature">&lt;static> </span>premul(m)</h4>
     
     
 </dt>
@@ -1562,7 +1600,85 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="rotate"><span class="type-signature"></span>rotate(angle [, u] [, v] [, s])</h4>
+    <h4 class="name" id=".print"><span class="type-signature">&lt;static> </span>print()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Pretty prints the matrix contents on the console.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".rotate"><span class="type-signature">&lt;static> </span>rotate(angle [, u] [, v] [, s])</h4>
     
     
 </dt>
@@ -1856,7 +1972,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="scale"><span class="type-signature"></span>scale( [u] [, v] [, s])</h4>
+    <h4 class="name" id=".scale"><span class="type-signature">&lt;static> </span>scale( [u] [, v] [, s])</h4>
     
     
 </dt>
@@ -2114,7 +2230,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="set"><span class="type-signature"></span>set( [m] [, m01] [, m02] [, m03] [, m10] [, m11] [, m12] [, m13] [, m20] [, m21] [, m22] [, m23] [, m30] [, m31] [, m32] [, m33])</h4>
+    <h4 class="name" id=".set"><span class="type-signature">&lt;static> </span>set( [m] [, m01] [, m02] [, m03] [, m10] [, m11] [, m12] [, m13] [, m20] [, m21] [, m22] [, m23] [, m30] [, m31] [, m32] [, m33])</h4>
     
     
 </dt>
@@ -2892,7 +3008,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="translate"><span class="type-signature"></span>translate( [u] [, v] [, s])</h4>
+    <h4 class="name" id=".translate"><span class="type-signature">&lt;static> </span>translate( [u] [, v] [, s])</h4>
     
     
 </dt>
@@ -3150,7 +3266,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="transpose"><span class="type-signature"></span>transpose()</h4>
+    <h4 class="name" id=".transpose"><span class="type-signature">&lt;static> </span>transpose()</h4>
     
     
 </dt>
@@ -3296,9 +3412,9 @@
 
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2018-01-24T10:36:39+01:00
+		on 2019-09-23T23:02:50+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
