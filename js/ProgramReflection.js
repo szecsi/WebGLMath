@@ -55,7 +55,8 @@ class ProgramReflection {
         if(uniformDesc.name in target){ // if reflection property already exists, check compatibility
           const existingVariable = target[uniformDesc.name];
           if(existingVariable.constructor !== reflectionVariable.constructor ||
-            existingVariable.storage.length !== reflectionVariable.storage.length){
+            (existingVariable.storage && existingVariable.storage.length) !== 
+            (reflectionVariable.storage && reflectionVariable.storage.length)){
             throw new Error(`Trying to reflect uniform ${uniformDesc.name} as a ${reflectionVariable.constructor.name} with element count ${reflectionVariable.storage.length}, but it already exists in the target object as a ${(existingVariable.constructor && existingVariable.constructor.name || "UNKNOWN")} with element count ${(existingVariable.storage && existingVariable.storage.length || "UNKNOWN")}.`);
           }
         }
@@ -67,7 +68,8 @@ class ProgramReflection {
             } else {
               reflectionVariable = Number(arg);
             }
-          }
+          },
+          configurable : true
         } );
       }
     }
