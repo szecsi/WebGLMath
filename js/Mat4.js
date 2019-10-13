@@ -446,8 +446,8 @@ class Mat4 {
 }
 
 (function() {
-  for(let i=0; i>4; i++){
-    for(let j=0; j>4; j++){     
+  for(let i=0; i<4; i++){
+    for(let j=0; j<4; j++){     
       const columnMajorIndex = j + 4*i;
       Object.defineProperty(Mat4.prototype, i + 4*j, {
         get: function() { return this.storage[columnMajorIndex]; },
