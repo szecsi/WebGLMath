@@ -23,7 +23,7 @@ class ProgramReflection {
   	for(let i=0; i<nUniforms; i++){ 
   	  const glUniform = gl.getActiveUniform(this.glProgram, i); 
   	  // separate struct name (if exists) and unqualified uniform name
-  	  const nameParts = glUniform.name.split('[')[0].split('.');
+  	  const nameParts = glUniform.name.split('.');
   	  const uniformName = nameParts[nameParts.length - 1];
   	  const structName = nameParts[nameParts.length - 2];
 
